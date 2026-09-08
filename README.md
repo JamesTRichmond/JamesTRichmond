@@ -1,6 +1,6 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:1f6feb&height=180&section=header&text=James%20Richmond&fontColor=e6edf3&fontSize=42&animation=fadeIn" width="100%" alt="James Richmond" />
 
-i build ai systems for fun :: fmr af 2w2 :: fmr ap social science teacher :: managing sales territory as research for software development.
+building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: manging sales territory for software r & d
 
 ![Python](https://img.shields.io/badge/Python-0d1117?style=for-the-badge&logo=python&logoColor=3fb950)
 ![TypeScript](https://img.shields.io/badge/TypeScript-0d1117?style=for-the-badge&logo=typescript&logoColor=58a6ff)
