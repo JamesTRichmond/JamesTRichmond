@@ -39,3 +39,9 @@ Sign it: [open an issue](https://github.com/JamesTRichmond/JamesTRichmond/issues
 <!--END_SECTION:guestbook-->
 
 <!-- Don't Try. — Bukowski -->
+
+## 3D Contribution Graph
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/profile-3d-contrib/profile-night-view.svg" alt="3D contribution graph" />
+</p>
