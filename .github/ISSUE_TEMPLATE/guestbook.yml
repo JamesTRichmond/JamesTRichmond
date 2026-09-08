@@ -1,0 +1,12 @@
+name: Sign the guestbook
+description: Leave your mark on the profile
+title: "Guestbook signature"
+labels: ["guestbook"]
+body:
+  - type: input
+    id: note
+    attributes:
+      label: Say something (optional)
+      placeholder: One line. Letters and numbers only — everything else gets stripped.
+    validations:
+      required: false
