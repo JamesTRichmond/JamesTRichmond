@@ -36,6 +36,7 @@ building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: manging s
 Sign it: [open an issue](https://github.com/JamesTRichmond/JamesTRichmond/issues/new?template=guestbook.yml)
 
 <!--START_SECTION:guestbook-->
+- **[@JamesTRichmond](https://github.com/JamesTRichmond)** — Real end to end test after the Issues permission fix. · 2026-09-08
 <!--END_SECTION:guestbook-->
 
 <!-- Don't Try. — Bukowski -->
