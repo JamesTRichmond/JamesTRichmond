@@ -7,3 +7,8 @@ building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: manging s
 ![AI Agents](https://img.shields.io/static/v1?label=AI&message=Agents&color=3fb950&style=for-the-badge)
 ![Cybersecurity](https://img.shields.io/static/v1?label=Security&message=Cybersecurity&color=d29922&style=for-the-badge)
 ![USAF Veteran](https://img.shields.io/static/v1?label=USAF&message=Veteran&color=58a6ff&style=for-the-badge)
+
+## Latest Activity
+
+<!--START_SECTION:activity-->
+<!--END_SECTION:activity-->
