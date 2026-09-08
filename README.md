@@ -30,3 +30,10 @@ building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: manging s
 <p align="center">
   <img src="https://jamestrichmond-trophy.vercel.app/?username=JamesTRichmond&theme=discord&no-frame=true&no-bg=true&column=7&margin-w=4" alt="trophies" />
 </p>
+
+## Guestbook
+
+Sign it: [open an issue](https://github.com/JamesTRichmond/JamesTRichmond/issues/new?template=guestbook.yml)
+
+<!--START_SECTION:guestbook-->
+<!--END_SECTION:guestbook-->
