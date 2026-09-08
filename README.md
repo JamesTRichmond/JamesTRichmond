@@ -17,3 +17,16 @@ building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: manging s
 - Pushed 0 commits to [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 - Opened PR #37 in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 <!--END_SECTION:activity-->
+
+## GitHub Stats
+
+<p align="center">
+  <img src="https://jamestrichmond-readme-stats.vercel.app/api?username=JamesTRichmond&show_icons=true&theme=github_dark&hide_border=true" alt="James's GitHub stats" width="48%" />
+  <img src="https://jamestrichmond-readme-stats.vercel.app/api/top-langs/?username=JamesTRichmond&layout=compact&theme=github_dark&hide_border=true" alt="Top languages" width="40%" />
+</p>
+
+## Trophy Wall
+
+<p align="center">
+  <img src="https://jamestrichmond-trophy.vercel.app/?username=JamesTRichmond&theme=discord&no-frame=true&no-bg=true&column=7&margin-w=4" alt="trophies" />
+</p>
