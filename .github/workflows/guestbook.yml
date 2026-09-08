@@ -1,0 +1,48 @@
+name: Guestbook
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  sign:
+    if: contains(github.event.issue.labels.*.name, 'guestbook')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Append signature
+        env:                                    # R6: env, never inline interpolation
+          SIGNER: ${{ github.event.issue.user.login }}
+          BODY:   ${{ github.event.issue.body }}
+        run: python scripts/sign_guestbook.py
+
+      - name: Commit
+        env:
+          SIGNER: ${{ github.event.issue.user.login }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No change."
+          else
+            git commit -m "chore: guestbook signature from @${SIGNER}"
+            git push
+          fi
+
+      - name: Thank and close
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUM: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$NUM" --body "Signed — you're on the wall. Thanks for stopping by."
+          gh issue close "$NUM"
