@@ -1,6 +1,6 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:1f6feb&height=180&section=header&text=James%20Richmond&fontColor=e6edf3&fontSize=42&animation=fadeIn" width="100%" alt="James Richmond" />
 
-I build AI systems for fun. Previously: usaf 2w2, eight years teaching ap social sciences, and currently managing a sales territory as a research project to apply lessons learned to future projects.
+i build ai systems for fun :: former af 2w2, eight years teaching ap social sciences, and currently managing a sales territory as research for software development.
 
 ![Python](https://img.shields.io/badge/Python-0d1117?style=for-the-badge&logo=python&logoColor=3fb950)
 ![TypeScript](https://img.shields.io/badge/TypeScript-0d1117?style=for-the-badge&logo=typescript&logoColor=58a6ff)
