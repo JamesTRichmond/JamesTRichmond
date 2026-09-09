@@ -19,11 +19,11 @@ machine that decides what he does with his day. No dependencies.
 ## Latest Activity
 
 <!--START_SECTION:activity-->
+- Pushed to [JamesTRichmond/LordAinz](https://github.com/JamesTRichmond/LordAinz)
+- Pushed to [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
+- Created branch in [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
 - Pushed to [JamesTRichmond/JamesTRichmond](https://github.com/JamesTRichmond/JamesTRichmond)
 - Labeled an issue in [JamesTRichmond/JamesTRichmond](https://github.com/JamesTRichmond/JamesTRichmond)
-- Opened an issue in [JamesTRichmond/JamesTRichmond](https://github.com/JamesTRichmond/JamesTRichmond)
-- Closed an issue in [JamesTRichmond/JamesTRichmond](https://github.com/JamesTRichmond/JamesTRichmond)
-- Starred [JamesTRichmond/JamesTRichmond](https://github.com/JamesTRichmond/JamesTRichmond)
 <!--END_SECTION:activity-->
 
 ## GitHub Stats
