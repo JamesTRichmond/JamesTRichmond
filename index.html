@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" data-flavor="milk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>James Richmond — builds AI systems</title>
+<meta name="description" content="James Richmond. I build AI systems. Previously: USAF nuclear weapons tech, eight years teaching, and a sales territory that taught me more about software than most standups.">
+
+<meta property="og:title" content="James Richmond — builds AI systems">
+<meta property="og:description" content="AI systems, cybersecurity, and one robot who lives on this page.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jamestrichmond.com/">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23472e1c'/><rect x='24' y='30' width='52' height='40' rx='10' fill='%23f2cf4a'/><rect x='34' y='44' width='32' height='11' rx='5.5' fill='%2340f58a'/><rect x='46' y='14' width='8' height='16' rx='4' fill='%23f2cf4a'/><circle cx='50' cy='12' r='7' fill='%23b06cf5'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+
+<script>
+/* Set the saved flavor before first paint so there is no flash of the wrong chocolate. */
+{
+  // Milk is the house flavor and stays the default regardless of the system
+  // setting; the switcher pins anything else.
+  const flavor = localStorage.getItem("flavor") || "milk";
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+
+<body>
+<!-- Don't Try. — Bukowski -->
+
+<div class="hypershapes" aria-hidden="true" data-hypershapes></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="mark" href="#main">
+    <span class="mark-glyph" aria-hidden="true"></span>
+    <span class="mark-text">James Richmond</span>
+  </a>
+
+  <nav class="topnav" aria-label="Primary">
+    <a href="#habitat">Habitat</a>
+    <a href="#signal">Signal</a>
+    <a href="#activity">Activity</a>
+    <a href="https://github.com/JamesTRichmond" rel="me">GitHub</a>
+  </nav>
+
+  <fieldset class="flavors" data-flavors>
+    <legend class="sr-only">Chocolate flavor</legend>
+    <label class="flavor" title="Dark chocolate">
+      <input type="radio" name="flavor" value="dark">
+      <span class="swatch swatch-dark" aria-hidden="true"></span>
+      <span class="sr-only">Dark chocolate</span>
+    </label>
+    <label class="flavor" title="Milk chocolate">
+      <input type="radio" name="flavor" value="milk">
+      <span class="swatch swatch-milk" aria-hidden="true"></span>
+      <span class="sr-only">Milk chocolate</span>
+    </label>
+    <label class="flavor" title="White chocolate">
+      <input type="radio" name="flavor" value="white">
+      <span class="swatch swatch-white" aria-hidden="true"></span>
+      <span class="sr-only">White chocolate</span>
+    </label>
+  </fieldset>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <p class="eyebrow">Middlebury, Vermont</p>
+    <h1 class="hero-title">I build<br>AI&nbsp;systems.</h1>
+    <p class="hero-line">
+      Previously: USAF nuclear weapons tech, eight years teaching, and a sales
+      territory that taught me more about software than most standups.
+    </p>
+
+    <ul class="chips" aria-label="Stack">
+      <li>Python</li>
+      <li>TypeScript</li>
+      <li>AI Agents</li>
+      <li>Cybersecurity</li>
+      <li class="chip-accent">USAF Veteran</li>
+    </ul>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://github.com/JamesTRichmond">See the code</a>
+      <a class="btn" href="#habitat">Meet the robot</a>
+    </div>
+  </section>
+
+  <!-- ─────────── HABITAT ─────────── -->
+  <section id="habitat" class="section habitat">
+    <div class="section-head">
+      <h2>Habitat</h2>
+      <p class="section-sub">
+        There is a robot living on this page. He has opinions about what to do with his day.
+      </p>
+    </div>
+
+    <div class="stage-wrap">
+      <div class="stage" data-stage tabindex="0" role="application"
+           aria-label="Robot habitat. Use arrow keys to walk, space to jump, or pick an activity below.">
+        <svg class="stage-svg" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="iri" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" class="iri-a"></stop>
+              <stop offset="1" class="iri-b"></stop>
+            </linearGradient>
+            <linearGradient id="visorGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="var(--fluoro)" stop-opacity=".65"></stop>
+              <stop offset=".5" stop-color="var(--fluoro)"></stop>
+              <stop offset="1" stop-color="var(--fluoro)" stop-opacity=".65"></stop>
+            </linearGradient>
+            <radialGradient id="coreGrad">
+              <stop offset="0" stop-color="var(--iri-p)"></stop>
+              <stop offset="1" stop-color="var(--iri-p)" stop-opacity="0"></stop>
+            </radialGradient>
+          </defs>
+          <g data-scene-layer></g>
+          <g data-fx-layer></g>
+          <g data-pet-layer></g>
+          <g data-fg-layer></g>
+        </svg>
+
+        <p class="stage-status" data-stage-status aria-live="polite"></p>
+      </div>
+
+      <div class="stage-controls">
+        <div class="acts" role="group" aria-label="Tell the robot what to do">
+          <button type="button" class="act" data-act="idle">Idle</button>
+          <button type="button" class="act" data-act="sleep">Sleep</button>
+          <button type="button" class="act" data-act="cook">Cook</button>
+          <button type="button" class="act" data-act="ride">Ride</button>
+          <button type="button" class="act" data-act="climb">Climb</button>
+          <button type="button" class="act" data-act="service">Oil change</button>
+        </div>
+        <p class="hint">
+          <kbd>←</kbd><kbd>→</kbd> walk &nbsp;·&nbsp; <kbd>space</kbd> jump &nbsp;·&nbsp;
+          drag him around &nbsp;·&nbsp; click to say hi. Leave him alone and he'll find something to do.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── SIGNAL ─────────── -->
+  <section id="signal" class="section">
+    <div class="section-head">
+      <h2>Signal</h2>
+      <p class="section-sub">Self-hosted, because the public instances kept going down.</p>
+    </div>
+
+    <div class="cards">
+      <img class="card-img" loading="lazy" width="495" height="195"
+        src="https://jamestrichmond-readme-stats.vercel.app/api?username=JamesTRichmond&show_icons=true&hide_border=true&bg_color=00000000&title_color=F2CF4A&text_color=D9C6B4&icon_color=40F58A"
+        alt="GitHub statistics for JamesTRichmond">
+      <img class="card-img" loading="lazy" width="350" height="195"
+        src="https://jamestrichmond-readme-stats.vercel.app/api/top-langs/?username=JamesTRichmond&layout=compact&hide_border=true&bg_color=00000000&title_color=F2CF4A&text_color=D9C6B4"
+        alt="Most used programming languages">
+    </div>
+
+    <img class="trophies" loading="lazy"
+      src="https://jamestrichmond-trophy.vercel.app/?username=JamesTRichmond&theme=discord&no-frame=true&no-bg=true&column=7&margin-w=4"
+      alt="GitHub profile trophies">
+  </section>
+
+  <!-- ─────────── ACTIVITY ─────────── -->
+  <section id="activity" class="section">
+    <div class="section-head">
+      <h2>Latest activity</h2>
+      <p class="section-sub">Pulled live from the GitHub API when you loaded this page.</p>
+    </div>
+    <ol class="feed" data-feed>
+      <li class="feed-empty">Loading…</li>
+    </ol>
+  </section>
+
+  <!-- ─────────── GUESTBOOK ─────────── -->
+  <section class="section guest">
+    <div class="section-head">
+      <h2>Guestbook</h2>
+      <p class="section-sub">
+        Open an issue on the profile repo and a bot writes you onto the wall, sanitizes your
+        note, thanks you, and closes the issue. No humans involved.
+      </p>
+    </div>
+    <a class="btn btn-primary"
+       href="https://github.com/JamesTRichmond/JamesTRichmond/issues/new?template=guestbook.yml">
+      Sign the guestbook
+    </a>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-line">
+    Built with too much care for a page about myself.
+    The robot is <a href="https://github.com/JamesTRichmond/JamesTRichmond">open source</a>.
+  </p>
+  <p class="foot-meta">
+    <a href="https://github.com/JamesTRichmond">GitHub</a>
+    <a href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a>
+    <a href="mailto:jamestrichmond@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script type="module" src="assets/js/site.js"></script>
+</body>
+</html>
