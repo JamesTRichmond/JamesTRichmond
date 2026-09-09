@@ -70,8 +70,10 @@ function describe(ev) {
   const verb = VERBS[ev.type] || ev.type.replace(/Event$/, "").toLowerCase();
   let detail = ev.repo?.name ?? "";
   if (ev.type === "PushEvent") {
-    const n = ev.payload?.commits?.length ?? 0;
-    detail = `${n} commit${n === 1 ? "" : "s"} to ${detail}`;
+    // The public events feed often omits the commit payload entirely, so
+    // claiming a count means claiming "0". Name the repo and leave it there.
+    const n = ev.payload?.size ?? ev.payload?.commits?.length;
+    detail = n ? `${n} commit${n === 1 ? "" : "s"} to ${detail}` : `to ${detail}`;
   } else if (ev.type === "PullRequestEvent") {
     detail = `${ev.payload?.action ?? ""} #${ev.payload?.number ?? ""} in ${detail}`;
   } else if (ev.type === "IssuesEvent") {
@@ -106,7 +108,14 @@ async function initFeed() {
     }
   }
 
-  const rows = events.slice(0, 8).map(describe);
+  // A burst of pushes to one repo is one thing that happened, not eight.
+  const rows = [];
+  for (const row of events.map(describe)) {
+    const last = rows.at(-1);
+    if (last && last.verb === row.verb && last.repo === row.repo) continue;
+    rows.push(row);
+    if (rows.length === 8) break;
+  }
   if (!rows.length) {
     list.innerHTML = `<li class="feed-empty">Quiet week.</li>`;
     return;
