@@ -67,14 +67,26 @@
 
 <main id="main">
 
-  <section class="subject-hero">
-    <p class="subject-eyebrow">USAF · 2W2X1 · Nuclear Weapons</p>
-    <h1 class="subject-title">A missile field the size of Vermont.</h1>
-    <p class="subject-lede">
-      I was a nuclear weapons journeyman in the munitions squadron at F.E. Warren
-      Air Force Base, Wyoming. Then I moved to Vermont, which is — to within
-      sixteen square miles — the same size as the ground I used to work.
-    </p>
+  <section class="subject-hero has-portrait">
+    <div>
+      <p class="subject-eyebrow">USAF · 2W2X1 · Nuclear Weapons</p>
+      <h1 class="subject-title">A missile field the size of Vermont.</h1>
+      <p class="subject-lede">
+        I was a nuclear weapons journeyman in the munitions squadron at F.E. Warren
+        Air Force Base, Wyoming. Then I moved to Vermont, which is — to within
+        sixteen square miles — the same size as the ground I used to work.
+      </p>
+    </div>
+
+    <!-- Drop a photo at assets/img/usaf.jpg and it appears. If the file is not
+         there the whole figure removes itself, so the layout never shows a
+         broken image icon or a hole where a picture was supposed to be. -->
+    <figure class="portrait">
+      <img src="../assets/img/usaf.jpg" alt="James Richmond in uniform, USAF"
+           width="320" height="400" loading="eager"
+           onerror="this.closest('figure').remove()">
+      <figcaption>Wyoming. A while ago.</figcaption>
+    </figure>
   </section>
 
   <ul class="facts">

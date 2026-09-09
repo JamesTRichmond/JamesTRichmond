@@ -1,0 +1,43 @@
+name: robot
+
+# GitHub will not run JavaScript in a README, so the robot appears there as an
+# image instead. Six loops of him are committed under assets/robot/; this only
+# rewrites which one the README points at, so the daily diff is one line rather
+# than a hundred kilobytes of new binary.
+
+on:
+  schedule:
+    # 11:41 UTC, an odd minute on purpose — scheduled jobs on the hour queue
+    # behind everyone else's and can be delayed by a long way.
+    - cron: "41 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: robot
+  cancel-in-progress: false
+
+jobs:
+  rotate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pick today's loop
+        run: python3 scripts/rotate_robot.py
+
+      - name: Commit if it changed
+        run: |
+          if [ -z "$(git status --porcelain README.md)" ]; then
+            echo "No change."
+            exit 0
+          fi
+          # Commit as the bot, so the contribution graph stays an honest record
+          # of what a person actually did.
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: the robot is doing something else today"
+          git push
