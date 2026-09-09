@@ -32,8 +32,12 @@ def describe(ev):
     t = ev["type"]
     p = ev.get("payload", {})
     if t == "PushEvent":
-        n = len(p.get("commits", []))
-        return f"Pushed {n} commit{'s' if n != 1 else ''} to [{repo}]({link})"
+        # The public events feed frequently omits the commit payload, and
+        # reporting the length of a missing list means reporting "0 commits".
+        n = p.get("size") or len(p.get("commits", []))
+        if n:
+            return f"Pushed {n} commit{'s' if n != 1 else ''} to [{repo}]({link})"
+        return f"Pushed to [{repo}]({link})"
     if t == "CreateEvent":
         return f"Created {p.get('ref_type', 'a ref')} in [{repo}]({link})"
     if t == "PullRequestEvent":
