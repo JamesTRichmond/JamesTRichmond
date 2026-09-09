@@ -73,7 +73,8 @@
 
 <main id="main">
 
-  <section class="hero">
+  <section class="hero has-portrait">
+    <div class="hero-copy">
     <p class="eyebrow">Middlebury, Vermont</p>
     <h1 class="hero-title">I build<br>AI&nbsp;systems.</h1>
     <p class="hero-line">
@@ -93,6 +94,22 @@
       <a class="btn btn-primary" href="https://github.com/JamesTRichmond">See the code</a>
       <a class="btn" href="#habitat">Meet the robot</a>
     </div>
+    </div>
+
+    <!-- The engraving from the profile picture, with its own pixels pushed
+         around: smoke off the crag, a breeze through the beard and the drape,
+         and the hammer charging. Falls back to the still plate if WebGL is
+         unavailable, which is the whole point of animating the real image
+         rather than generating a new one. -->
+    <figure class="portrait-thor">
+      <canvas data-thor width="440" height="440"
+              aria-label="Thor, engraved. The smoke rises, his beard moves, and the hammer charges."
+              role="img"></canvas>
+      <figcaption>
+        A 19th-century wood engraving. Nothing here was redrawn or generated —
+        only its own pixels were moved.
+      </figcaption>
+    </figure>
   </section>
 
   <!-- ─────────── HABITAT ─────────── -->

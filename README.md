@@ -1,6 +1,12 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:2b1d12,100:8a5a2b&height=190&section=header&text=James%20Richmond&fontColor=f2cf4a&fontSize=44&animation=fadeIn&desc=builds%20AI%20systems&descAlignY=63&descSize=17&descColor=e6d5c2" width="100%" alt="James Richmond" />
+<a href="https://jamestrichmond.com/"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/thor/thor.gif" width="320" align="right" alt="Thor, engraved in the 19th century, with the smoke rising off the crag, his beard moving in the wind, and his hammer charging" /></a>
+
+# James Richmond
 
 building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: managing sales territory for software r &amp; d
+
+*My profile picture, animated — the smoke billows, his beard moves, the hammer charges. GitHub flattens avatars to a single frame, so it lives here instead. Nothing was redrawn; only the engraving's own pixels move. [The live version is on my site.](https://jamestrichmond.com/)*
+
+<br clear="right" />
 
 **Every badge below goes somewhere.**
 

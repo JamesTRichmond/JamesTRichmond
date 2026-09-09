@@ -115,9 +115,59 @@ async function initFeed() {
 
 /* ── Boot ──────────────────────────────────────────────────────────────── */
 
+/* The animated portrait. Loaded on its own, after the page is up: it is about
+   720 KB of plate and masks, and nothing else on the page should wait on it.
+   If WebGL2 is missing or the assets fail, the figure removes itself and the
+   hero falls back to a single column — :has() in the stylesheet handles that
+   without a second layout rule. */
+async function initPortrait() {
+  const canvas = document.querySelector("[data-thor]");
+  if (!canvas) return;
+  try {
+    const load = (src) => new Promise((res, rej) => {
+      const i = new Image();
+      i.onload = () => res(i);
+      i.onerror = () => rej(new Error(src));
+      i.src = src;
+    });
+    const [{ createThor }, plate, masks] = await Promise.all([
+      import("../thor/thor.js"),
+      load("assets/thor/plate.webp"),
+      load("assets/thor/masks.webp"),
+    ]);
+
+    // Render at device resolution: a circle of hatching at 1x on a retina
+    // screen turns into moiré.
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    const css = canvas.getBoundingClientRect().width || 320;
+    canvas.width = canvas.height = Math.round(css * dpr);
+
+    const thor = createThor(canvas, {
+      src: plate, mask: masks,
+      crop: [178, 8, 1318, 1148],   // the full figure, in the plate's own 1329x1600
+      loop: 8, cycles: 2,
+    });
+
+    // Costs nothing while scrolled away or in a background tab.
+    let onScreen = true;
+    new IntersectionObserver(([e]) => {
+      onScreen = e.isIntersecting;
+      onScreen && !document.hidden ? thor.start() : thor.stop();
+    }, { rootMargin: "150px" }).observe(canvas);
+    document.addEventListener("visibilitychange", () => {
+      document.hidden || !onScreen ? thor.stop() : thor.start();
+    });
+    thor.start();
+  } catch (err) {
+    console.warn("portrait did not load:", err);
+    canvas.closest("figure")?.remove();
+  }
+}
+
 function boot() {
   initFlavors();
   initFeed();
+  initPortrait();
 
   const shapes = mountHypershapes(document.querySelector("[data-hypershapes]"));
   shapes.prime();

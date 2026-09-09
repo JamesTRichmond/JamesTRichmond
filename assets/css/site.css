@@ -272,6 +272,47 @@
     max-inline-size: 46rem;
   }
 
+  /* Two columns only when the portrait is actually there. :has() means a
+     browser that never mounted the canvas gets the original single column
+     rather than an empty track. */
+  .hero.has-portrait:has(.portrait-thor) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    align-items: center;
+    max-inline-size: 68rem;
+  }
+
+  .portrait-thor { margin: 0; }
+  .portrait-thor canvas {
+    display: block;
+    inline-size: clamp(11rem, 26vw, 20rem);
+    block-size: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--bg-deep);
+    /* A ring in the accent, so it reads as a portrait and not a hole in the
+       page — and a soft outer glow that ties it to the shape field. */
+    box-shadow: 0 0 0 1px var(--line),
+                0 0 0 5px color-mix(in oklab, var(--accent) 22%, transparent),
+                0 0 42px oklch(from var(--iri-p) l c h / 0.28);
+  }
+  .portrait-thor figcaption {
+    margin-block-start: 0.75rem;
+    max-inline-size: 20rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    line-height: 1.5;
+    color: var(--ink-dim);
+    text-align: center;
+  }
+
+  @media (width < 54rem) {
+    .hero.has-portrait:has(.portrait-thor) { grid-template-columns: minmax(0, 1fr); }
+    .portrait-thor { order: -1; justify-self: center; }
+    .portrait-thor canvas { inline-size: min(58vw, 14rem); }
+  }
+
   .section {
     inline-size: var(--shell);
     margin-inline: auto;

@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  html,body{margin:0;background:#0d1117;display:grid;place-items:center;min-height:100vh}
+  canvas{width:520px;height:520px;border-radius:50%;display:block}
+</style>
+<canvas id="c"></canvas>
+<script type="module">
+import { createThor } from "./thor.js";
+// Rendered at whatever size is asked for, so a capture can run at 2x and be
+// downsampled — which is most of what keeps the hatching crisp.
+const Q = new URLSearchParams(location.search);
+const SIZE = +(Q.get("size") || 520);
+const cv = document.querySelector("#c");
+cv.width = cv.height = SIZE;
+cv.style.width = cv.style.height = Math.min(SIZE, 520) + "px";
+const load = (s) => new Promise((res, rej) => {
+  const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = s;
+});
+const [src, mask] = await Promise.all([load("plate.webp"), load("masks.webp")]);
+const t = createThor(document.querySelector("#c"), {
+  src, mask,
+  // Two framings. "full" is the whole figure, for the site. "bust" is head,
+  // hammer and beard with the plume behind — for the README, where the image
+  // is only a few hundred pixels wide and a beard rendered forty pixels tall
+  // cannot show that it is moving.
+  crop: (Q.get("crop") === "bust") ? [236, 18, 1006, 788] : [178, 8, 1318, 1148],
+  loop: +(Q.get("loop") || 8),
+  cycles: +(Q.get("cycles") || 2),
+});
+window.__thor = t;
+window.__ready = true;
+// left stopped: the page is driven deterministically by drawAt() for capture
+if (!location.search.includes("static")) t.start();
+</script>
