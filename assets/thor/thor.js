@@ -447,6 +447,24 @@ export function createThor(canvas, opts) {
   ];
   const SCALE = BOLT / (cx1 - cx0);      // ref pixels -> bolt-canvas pixels
 
+  /* Keep the discharge inside the picture. The hammer sits about nine percent
+     below the top of the plate, so there is very little headroom above it, and
+     midpoint displacement is free to throw a vertex straight out of frame — an
+     arc that leaves the canvas comes back as a bolt sliced off by a hard
+     straight edge, which is the one thing that reads as a bug rather than as
+     weather. Clamping each vertex is enough and costs nothing visually,
+     because the line is already erratic: a vertex that stops at the margin
+     reads as the arc glancing off, where the same clamp on a smooth curve
+     would show as a flat run. */
+  const EDGE = BOLT * 0.030;
+  const fit = (pts) => {
+    for (const p of pts) {
+      p[0] = Math.min(BOLT - EDGE, Math.max(EDGE, p[0]));
+      p[1] = Math.min(BOLT - EDGE, Math.max(EDGE, p[1]));
+    }
+    return pts;
+  };
+
   /* The two paths the halo grows along: out of the hammer head, over his crown,
      and down again on either side of it, so at full charge the discharge is an
      arch standing over him with its feet beside his head. The hammer is already
@@ -522,9 +540,9 @@ export function createThor(canvas, opts) {
     for (let i = 0; i < near; i++) {
       const a = rng() * Math.PI * 2;
       const len = (14 + c * 46) * SCALE * (0.5 + rng());
-      paths.push(jag(rng, ox, oy,
+      paths.push(fit(jag(rng, ox, oy,
         ox + Math.cos(a) * len, oy + Math.sin(a) * len,
-        len * 0.42, 4));
+        len * 0.42, 4)));
     }
 
     /* The canopy. Endpoints ride along the arc, so at low charge they sit right
@@ -550,7 +568,7 @@ export function createThor(canvas, opts) {
       // Scatter, or every arm at the peak terminates on the same two points.
       const [px, py] = to2D(ex + (rng() - 0.5) * 72, ey + (rng() - 0.5) * 72);
       const dist = Math.hypot(px - ox, py - oy);
-      const pts = jag(rng, ox, oy, px, py, dist * 0.30, 4 + Math.round(c * 2));
+      const pts = fit(jag(rng, ox, oy, px, py, dist * 0.30, 4 + Math.round(c * 2)));
       paths.push(pts);
 
       // Forks off the main arc. They are what make it look like a discharge
@@ -560,9 +578,9 @@ export function createThor(canvas, opts) {
         const [fx, fy] = pts[k];
         const fa = Math.atan2(py - oy, px - ox) + (rng() - 0.5) * 1.9;
         const flen = dist * (0.18 + rng() * 0.34);
-        paths.push(jag(rng, fx, fy,
+        paths.push(fit(jag(rng, fx, fy,
           fx + Math.cos(fa) * flen, fy + Math.sin(fa) * flen,
-          flen * 0.42, 3));
+          flen * 0.42, 3)));
       }
     }
 
@@ -571,7 +589,7 @@ export function createThor(canvas, opts) {
        charge finds. */
     if (c > 0.42) {
       const [fx, fy] = to2D(...FIST);
-      paths.push(jag(rng, ox, oy, fx, fy, Math.hypot(fx - ox, fy - oy) * 0.34, 4));
+      paths.push(fit(jag(rng, ox, oy, fx, fy, Math.hypot(fx - ox, fy - oy) * 0.34, 4)));
     }
 
     // And near the peak, a strike down onto a crown point.
@@ -580,7 +598,7 @@ export function createThor(canvas, opts) {
       const [tx, ty] = to2D(tip[0] + (rng() - 0.5) * 14, tip[1]);
       const [sx, sy] = to2D(...bezier(rng() < 0.5 ? ARC_L : ARC_R,
                                       0.30 + rng() * 0.34));
-      paths.push(jag(rng, sx, sy, tx, ty, Math.hypot(tx - sx, ty - sy) * 0.26, 5));
+      paths.push(fit(jag(rng, sx, sy, tx, ty, Math.hypot(tx - sx, ty - sy) * 0.26, 5)));
     }
 
     /* At the top of the charge, one or two arcs travelling across between the
@@ -592,8 +610,8 @@ export function createThor(canvas, opts) {
         const uu = 0.34 + rng() * 0.30;
         const [ax, ay] = to2D(...bezier(ARC_L, uu * reach));
         const [bx2, by2] = to2D(...bezier(ARC_R, (0.34 + rng() * 0.30) * reach));
-        paths.push(jag(rng, ax, ay, bx2, by2,
-          Math.hypot(bx2 - ax, by2 - ay) * 0.16, 5));
+        paths.push(fit(jag(rng, ax, ay, bx2, by2,
+          Math.hypot(bx2 - ax, by2 - ay) * 0.16, 5)));
       }
     }
 

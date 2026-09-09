@@ -289,9 +289,12 @@
     inline-size: clamp(11rem, 26vw, 20rem);
     block-size: auto;
     aspect-ratio: 1;
-    border-radius: 50%;
+    /* Square, and only just softened at the corners. A circular mask cost the
+       picture its corners, and the corners are where the discharge arcs — the
+       plate is a rectangle and it gets to stay one. */
+    border-radius: 4px;
     background: var(--bg-deep);
-    /* A ring in the accent, so it reads as a portrait and not a hole in the
+    /* A ring in the accent, so it reads as a framed plate and not a hole in the
        page — and a soft outer glow that ties it to the shape field. */
     box-shadow: 0 0 0 1px var(--line),
                 0 0 0 5px color-mix(in oklab, var(--accent) 22%, transparent),
