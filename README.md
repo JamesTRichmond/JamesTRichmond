@@ -8,6 +8,14 @@ building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: manging s
 ![Cybersecurity](https://img.shields.io/static/v1?label=Security&message=Cybersecurity&color=d29922&style=for-the-badge)
 ![USAF Veteran](https://img.shields.io/static/v1?label=USAF&message=Veteran&color=58a6ff&style=for-the-badge)
 
+
+## habitat
+
+A robot who lives on a web page — jointed SVG rig, spring physics, and a small state
+machine that decides what he does with his day. No dependencies.
+
+[Play with him](https://jamestrichmond.github.io/habitat/) · [Source](https://github.com/JamesTRichmond/habitat) · [In the wild](https://jamestrichmond.com/#habitat)
+
 ## Latest Activity
 
 <!--START_SECTION:activity-->
