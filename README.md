@@ -1,10 +1,10 @@
-<a href="https://jamestrichmond.com/"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/thor/thor.gif" width="320" align="right" alt="Thor, engraved in the 19th century, with the smoke rising off the crag, his beard moving in the wind, and his hammer charging" /></a>
+<a href="https://jamestrichmond.com/"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/thor/thor.webp" width="320" align="right" alt="A 19th century engraving of Thor, in colour and moving: smoke billowing off the crag behind him, his beard and drape in the wind, and lightning growing out of his hammer into an arch over his crown" /></a>
 
 # James Richmond
 
 building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: managing sales territory for software r &amp; d
 
-*My profile picture, animated — the smoke billows, his beard moves, the hammer charges. GitHub flattens avatars to a single frame, so it lives here instead. Nothing was redrawn; only the engraving's own pixels move. [The live version is on my site.](https://jamestrichmond.com/)*
+*My profile picture, animated and coloured. GitHub flattens avatars to a single frame, so it lives here instead. Nothing was redrawn and nothing was painted in: every pixel is the engraver's own line, displaced by a shader and lit by a colour grade. [The live version is on my site.](https://jamestrichmond.com/)*
 
 <br clear="right" />
 

@@ -116,7 +116,7 @@ async function initFeed() {
 /* ── Boot ──────────────────────────────────────────────────────────────── */
 
 /* The animated portrait. Loaded on its own, after the page is up: it is about
-   720 KB of plate and masks, and nothing else on the page should wait on it.
+   900 KB of plate and masks, and nothing else on the page should wait on it.
    If WebGL2 is missing or the assets fail, the figure removes itself and the
    hero falls back to a single column — :has() in the stylesheet handles that
    without a second layout rule. */
@@ -130,10 +130,11 @@ async function initPortrait() {
       i.onerror = () => rej(new Error(src));
       i.src = src;
     });
-    const [{ createThor }, plate, masks] = await Promise.all([
+    const [{ createThor }, plate, masks, grade] = await Promise.all([
       import("../thor/thor.js"),
       load("assets/thor/plate.webp"),
       load("assets/thor/masks.webp"),
+      load("assets/thor/grade.webp"),
     ]);
 
     // Render at device resolution: a circle of hatching at 1x on a retina
@@ -143,7 +144,7 @@ async function initPortrait() {
     canvas.width = canvas.height = Math.round(css * dpr);
 
     const thor = createThor(canvas, {
-      src: plate, mask: masks,
+      src: plate, mask: masks, grade,
       crop: [178, 8, 1318, 1148],   // the full figure, in the plate's own 1329x1600
       loop: 8, cycles: 2,
     });

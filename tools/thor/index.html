@@ -17,9 +17,9 @@ cv.style.width = cv.style.height = Math.min(SIZE, 520) + "px";
 const load = (s) => new Promise((res, rej) => {
   const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = s;
 });
-const [src, mask] = await Promise.all([load("plate.webp"), load("masks.webp")]);
+const [src, mask, grade] = await Promise.all([load("plate.webp"), load("masks.webp"), load("grade.webp")]);
 const t = createThor(document.querySelector("#c"), {
-  src, mask,
+  src, mask, grade,
   // Two framings. "full" is the whole figure, for the site. "bust" is head,
   // hammer and beard with the plume behind — for the README, where the image
   // is only a few hundred pixels wide and a beard rendered forty pixels tall
