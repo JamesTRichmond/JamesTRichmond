@@ -1,0 +1,614 @@
+/* ============================================================================
+   jamestrichmond.com
+   Three chocolates, banana highlights, and a robot.
+   ========================================================================== */
+
+@layer reset, base, theme, layout, components, motion;
+
+/* Registered so it can be animated on the compositor. Drives the iridescence. */
+@property --iri-hue {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+/* Per the reduced-motion pattern: components opt in by declaring their own
+   reduced variant, rather than a blanket kill-switch that makes things worse. */
+@property --animation-reduced {
+  syntax: "*";
+  inherits: false;
+  initial-value: none;
+}
+
+/* ─────────────────────────── RESET ─────────────────────────── */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :where(body, h1, h2, h3, p, ul, ol, figure, fieldset, legend) {
+    margin: 0;
+    padding: 0;
+  }
+
+  :where(ul, ol) { list-style: none; }
+
+  :where(img, svg) { display: block; max-inline-size: 100%; }
+
+  :where(button, input) { font: inherit; color: inherit; }
+
+  :where(fieldset) { border: 0; }
+}
+
+/* ─────────────────────────── TOKENS ─────────────────────────── */
+@layer theme {
+  :root {
+    /* Tier 1 — literal palette. Decoration colors are flavor-independent. */
+    --iri-p: oklch(0.64 0.25 305);   /* iridescent purple */
+    --fluoro: oklch(0.86 0.24 148);  /* fluorescent green */
+
+    /* Tier 2 — semantic, overridden per flavor below. Defaults = milk. */
+    --bg:        oklch(0.298 0.048 52);
+    --bg-deep:   oklch(0.232 0.042 50);
+    --surface:   oklch(0.372 0.056 52);
+    --raised:    oklch(0.452 0.06 54);
+    --line:      oklch(0.46 0.05 55 / 0.55);
+    --ink:       oklch(0.95 0.021 88);
+    --ink-dim:   oklch(0.795 0.031 80);
+    --accent:    oklch(0.865 0.168 95);   /* banana — fills, strokes, glow */
+    --accent-ink: var(--accent);          /* banana that is safe as text */
+    --accent-deep: oklch(0.66 0.14 88);
+
+    /* Stage / robot chassis */
+    --chassis:   oklch(0.58 0.055 62);
+    --chassis-hi: oklch(0.70 0.05 68);
+    --chassis-lo: oklch(0.40 0.05 55);
+
+    /* Tier 3 — UI */
+    --radius: 14px;
+    --radius-sm: 9px;
+    --pad: clamp(1rem, 0.5rem + 2vw, 2rem);
+    --measure: 62ch;
+    --shell: min(1160px, 100% - 2 * var(--pad));
+
+    --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    color-scheme: dark;
+    accent-color: var(--accent);
+    scrollbar-color: var(--raised) var(--bg-deep);
+  }
+
+  :root[data-flavor="dark"] {
+    --bg:        oklch(0.155 0.028 42);
+    --bg-deep:   oklch(0.115 0.022 40);
+    --surface:   oklch(0.212 0.034 44);
+    --raised:    oklch(0.285 0.04 46);
+    --line:      oklch(0.38 0.04 48 / 0.6);
+    --ink:       oklch(0.935 0.019 86);
+    --ink-dim:   oklch(0.745 0.028 78);
+    --chassis:   oklch(0.55 0.05 60);
+    --chassis-hi: oklch(0.68 0.048 66);
+    --chassis-lo: oklch(0.36 0.045 52);
+    color-scheme: dark;
+  }
+
+  /* The habitat is a lit diorama, not a panel of the page: it keeps the dark
+     cocoa neutrals in every flavor so the robot always has something to stand
+     against, while still borrowing the flavor's accent colors. */
+  .stage {
+    --bg-deep:   oklch(0.132 0.024 40);
+    --surface:   oklch(0.205 0.033 44);
+    --raised:    oklch(0.283 0.04 46);
+    --line:      oklch(0.38 0.04 48 / 0.6);
+    --ink:       oklch(0.945 0.019 86);
+    --ink-dim:   oklch(0.72 0.03 76);
+    --chassis:   oklch(0.585 0.055 62);
+    --chassis-hi: oklch(0.72 0.05 70);
+    --chassis-lo: oklch(0.40 0.05 55);
+    color-scheme: dark;
+  }
+
+  :root[data-flavor="white"] {
+    --bg:        oklch(0.958 0.021 88);
+    --bg-deep:   oklch(0.905 0.03 84);
+    --surface:   oklch(0.988 0.011 90);
+    --raised:    oklch(0.925 0.028 86);
+    --line:      oklch(0.66 0.045 60 / 0.42);
+    --ink:       oklch(0.275 0.045 48);
+    --ink-dim:   oklch(0.455 0.042 50);
+    --accent:    oklch(0.835 0.17 92);
+    --accent-ink: oklch(0.545 0.135 76);  /* legible banana on cream */
+    --accent-deep: oklch(0.62 0.15 84);
+    --chassis:   oklch(0.60 0.055 62);
+    --chassis-hi: oklch(0.74 0.05 70);
+    --chassis-lo: oklch(0.42 0.05 55);
+    color-scheme: light;
+  }
+}
+
+/* ─────────────────────────── BASE ─────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-block-start: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  body {
+    min-block-size: 100dvh;
+    background:
+      radial-gradient(120dvh 80dvh at 78% -10%,
+        oklch(from var(--accent) l c h / 0.10), transparent 60%),
+      radial-gradient(100dvh 70dvh at 8% 8%,
+        oklch(from var(--iri-p) l c h / 0.10), transparent 55%),
+      linear-gradient(to bottom, var(--bg), var(--bg-deep));
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 0.94rem + 0.25vw, 1.075rem);
+    line-height: 1.6;
+    text-wrap: pretty;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3 {
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--ink); }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  kbd {
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    padding: 0.15em 0.45em;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+  }
+
+  .sr-only {
+    position: absolute;
+    inline-size: 1px; block-size: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .skip {
+    position: absolute;
+    inset-block-start: -100px; inset-inline-start: 1rem;
+    z-index: 50;
+    padding: 0.6rem 1rem;
+    background: var(--accent);
+    color: oklch(0.2 0.04 50);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+  }
+  .skip:focus { inset-block-start: 1rem; }
+}
+
+/* ─────────────────────────── LAYOUT ─────────────────────────── */
+@layer layout {
+  .topbar {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 3vw, 2rem);
+    inline-size: var(--shell);
+    margin-inline: auto;
+    padding-block: 0.85rem;
+  }
+
+  /* A tinted bar behind the sticky header so content scrolls under it cleanly. */
+  .topbar::before {
+    content: "";
+    position: absolute;
+    inset: 0 -50vw;
+    z-index: -1;
+    background: color-mix(in oklab, var(--bg) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(1.3);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .mark-glyph {
+    inline-size: 1.4rem;
+    block-size: 1.4rem;
+    border-radius: 7px;
+    background: linear-gradient(140deg in oklab, var(--accent), var(--accent-deep));
+    box-shadow: inset 0 0 0 2px oklch(from var(--iri-p) l c h / 0.55);
+  }
+
+  @media (width < 34rem) { .mark-text { display: none; } }
+
+  .topnav {
+    display: flex;
+    gap: clamp(0.6rem, 2vw, 1.4rem);
+    margin-inline-end: auto;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+  .topnav a { color: var(--ink-dim); text-decoration: none; }
+  .topnav a:hover { color: var(--accent-ink); }
+
+  @media (width < 52rem) { .topnav { display: none; } }
+  @media (width < 52rem) { .topnav + .flavors { margin-inline-start: auto; } }
+
+  main { display: grid; }
+
+  .hero {
+    inline-size: var(--shell);
+    margin-inline: auto;
+    padding-block: clamp(4rem, 12vh, 8rem) clamp(3rem, 8vh, 5rem);
+    max-inline-size: 46rem;
+  }
+
+  .section {
+    inline-size: var(--shell);
+    margin-inline: auto;
+    padding-block: clamp(3rem, 8vh, 5.5rem);
+    border-block-start: 1px solid var(--line);
+  }
+
+  .section-head { margin-block-end: 2rem; max-inline-size: var(--measure); }
+
+  .section h2 {
+    font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem);
+    margin-block-end: 0.5rem;
+  }
+
+  .section-sub { color: var(--ink-dim); }
+
+  .foot {
+    inline-size: var(--shell);
+    margin-inline: auto;
+    padding-block: 3rem 4rem;
+    border-block-start: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    justify-content: space-between;
+    align-items: baseline;
+    color: var(--ink-dim);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+  .foot-meta { display: flex; gap: 1.2rem; }
+}
+
+/* ─────────────────────────── COMPONENTS ─────────────────────────── */
+@layer components {
+
+  /* ---- flavor switcher ---- */
+  .flavors { display: flex; gap: 0.4rem; }
+
+  .flavor { cursor: pointer; display: grid; place-items: center; }
+  .flavor input { position: absolute; opacity: 0; pointer-events: none; }
+
+  .swatch {
+    inline-size: 1.55rem;
+    block-size: 1.55rem;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.25);
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+  .swatch-dark  { background: linear-gradient(150deg in oklab, oklch(0.26 0.05 45), oklch(0.14 0.03 40)); }
+  .swatch-milk  { background: linear-gradient(150deg in oklab, oklch(0.52 0.08 55), oklch(0.32 0.05 52)); }
+  .swatch-white { background: linear-gradient(150deg in oklab, oklch(0.97 0.02 90), oklch(0.87 0.04 85)); }
+
+  .flavor:hover .swatch { transform: scale(1.12); }
+  .flavor input:checked + .swatch { border-color: var(--accent); transform: scale(1.12); }
+  .flavor input:focus-visible + .swatch { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* ---- hero ---- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    margin-block-end: 1.1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 1.6rem + 8vw, 6.5rem);
+    font-variation-settings: "wdth" 100;
+    margin-block-end: 1.4rem;
+  }
+
+  .hero-line {
+    font-size: clamp(1.05rem, 1rem + 0.5vw, 1.3rem);
+    color: var(--ink-dim);
+    max-inline-size: 40ch;
+    margin-block-end: 2rem;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-end: 2.2rem; }
+  .chips li {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--surface) 55%, transparent);
+    color: var(--ink-dim);
+  }
+  .chips .chip-accent {
+    border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+    color: var(--accent-ink);
+  }
+
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.35rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: color-mix(in oklab, var(--surface) 65%, transparent);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--ink); }
+
+  .btn-primary {
+    background: linear-gradient(140deg in oklab, var(--accent), var(--accent-deep));
+    color: oklch(0.22 0.045 50);
+    border-color: transparent;
+  }
+  .btn-primary:hover { color: oklch(0.18 0.04 50); }
+
+  /* ---- habitat / stage ---- */
+  .stage-wrap { display: grid; gap: 1rem; }
+
+  .stage {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: clip;
+    background: var(--bg-deep);
+    aspect-ratio: 12 / 5;
+    min-block-size: 280px;
+    max-block-size: 62dvh;
+    /* An aspect-ratio plus a min-block-size implies a min inline-size, which
+       on a phone is wider than the viewport and drags the whole page with it.
+       Below that width the stage takes a plain height instead. */
+    min-inline-size: 0;
+    contain: layout paint style;
+    touch-action: none;
+    cursor: grab;
+  }
+  .stage:active { cursor: grabbing; }
+  .stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .stage-svg { inline-size: 100%; block-size: 100%; }
+
+  @media (width < 46rem) {
+    .stage { aspect-ratio: auto; block-size: min(44dvh, 300px); min-block-size: 210px; }
+  }
+
+  .stage-status {
+    position: absolute;
+    inset-block-end: 0.7rem;
+    inset-inline-start: 0.85rem;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    background: color-mix(in oklab, var(--bg-deep) 72%, transparent);
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .stage-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem 1.4rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .acts { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .act {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: color-mix(in oklab, var(--surface) 55%, transparent);
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: color 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
+  }
+  .act:hover { color: var(--ink); border-color: var(--accent); transform: translateY(-1px); }
+  .act[aria-pressed="true"] {
+    color: oklch(0.22 0.045 50);
+    background: var(--accent);
+    border-color: transparent;
+  }
+
+  .hint {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+
+  /* ---- signal cards ---- */
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .card-img {
+    flex: 1 1 22rem;
+    max-inline-size: 100%;
+    block-size: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: color-mix(in oklab, var(--surface) 40%, transparent);
+    padding: 0.5rem;
+  }
+  .trophies { margin-block-start: 1rem; inline-size: 100%; }
+
+  /* ---- activity feed ---- */
+  .feed {
+    display: grid;
+    gap: 0.5rem;
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto 22rem;
+  }
+  .feed li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: baseline;
+    padding: 0.7rem 0.95rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--surface) 45%, transparent);
+    font-size: 0.92rem;
+  }
+  .feed .verb {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    white-space: nowrap;
+  }
+  .feed .when {
+    margin-inline-start: auto;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    white-space: nowrap;
+  }
+  .feed-empty { color: var(--ink-dim); }
+
+  /* ---- hypershapes ---- */
+  .hypershapes {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: clip;
+  }
+  .hypershape {
+    position: absolute;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 12px oklch(from var(--iri-p) l c h / 0.5));
+    will-change: transform;
+  }
+  .hypershape line { stroke: url(#iriStroke); stroke-width: 2.1; stroke-linecap: round; }
+
+  /* On cream the same strokes wash out, so they get a touch more weight. */
+  :root[data-flavor="white"] .hypershape {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px oklch(from var(--iri-p) l c h / 0.35));
+  }
+  :root[data-flavor="white"] .hypershape line { stroke-width: 2.6; }
+
+  /* On a phone they compete with the text, so they step back. */
+  @media (width < 46rem) {
+    .hypershape { opacity: 0.5; scale: 0.72; }
+  }
+
+  /* Everything above the decoration. */
+  .topbar, main, .foot { position: relative; z-index: 1; }
+}
+
+/* ─────────────────────────── MOTION ─────────────────────────── */
+@layer motion {
+  /* Iridescence: one registered custom property animating a hue angle,
+     consumed by the SVG gradient stops. Compositor-friendly, zero JS.
+     The sweep is deliberately narrow — a full 360° rotation would march the
+     purple through orange and the green through cyan, and the brief was
+     purple and green. ±26° reads as shifting light on one surface. */
+  .stage-svg, .hypershapes {
+    animation: iri-cycle 7s ease-in-out infinite alternate;
+    --animation-reduced: none;
+  }
+
+  @keyframes iri-cycle {
+    from { --iri-hue: -26deg; }
+    to   { --iri-hue: 26deg; }
+  }
+
+  .iri-a { stop-color: oklch(0.64 0.26 calc(302deg + var(--iri-hue))); }
+  .iri-b { stop-color: oklch(0.86 0.25 calc(150deg + var(--iri-hue))); }
+
+  /* The floating shapes carry their own lightness so they stay visible on
+     cream without dragging the robot's visor and core darker with them. */
+  .shape-a { stop-color: oklch(var(--shape-l, 0.64) 0.26 calc(302deg + var(--iri-hue))); }
+  .shape-b { stop-color: oklch(var(--shape-l2, 0.86) 0.25 calc(150deg + var(--iri-hue))); }
+  :root[data-flavor="white"] { --shape-l: 0.52; --shape-l2: 0.66; }
+
+  /* Shape parallax — decorative only, so progressive enhancement with no
+     JS fallback for browsers without scroll-driven animations. */
+  @supports ((animation-timeline: scroll()) and (animation-range: entry)) {
+    .hypershape {
+      animation: drift linear both;
+      animation-timeline: scroll(root block);
+      --animation-reduced: none;
+    }
+    @keyframes drift {
+      to { translate: 0 calc(-1 * var(--drift, 60px)); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: var(--animation-reduced) !important;
+    }
+    .btn:hover, .act:hover, .flavor:hover .swatch { transform: none; }
+  }
+
+  /* Flavor switching morphs the whole page rather than snapping. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.45s;
+    mix-blend-mode: normal;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) { animation: none !important; }
+  }
+}
