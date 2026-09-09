@@ -259,7 +259,11 @@
   @media (width < 52rem) { .topnav { display: none; } }
   @media (width < 52rem) { .topnav + .flavors { margin-inline-start: auto; } }
 
-  main { display: grid; }
+  /* minmax(0, 1fr), not the implicit "auto": a grid track's automatic minimum
+     is its min-content size, so one 495px-wide stats image was inflating the
+     whole column past the viewport on a phone. The body's overflow: clip then
+     hid the evidence by shearing the right edge off every paragraph. */
+  main { display: grid; grid-template-columns: minmax(0, 1fr); }
 
   .hero {
     inline-size: var(--shell);
@@ -479,6 +483,9 @@
   }
   .card-img {
     flex: 1 1 22rem;
+    /* A flex item's automatic minimum is min-content, which for an <img> is
+       its intrinsic width. Without this it refuses to shrink below 495px. */
+    min-inline-size: 0;
     max-inline-size: 100%;
     block-size: auto;
     border: 1px solid var(--line);
@@ -529,25 +536,70 @@
     z-index: 0;
     pointer-events: none;
     overflow: clip;
+    /* Placement is clamped so nothing starts out of bounds, but scroll drift
+       still carries shapes toward the top edge. A short fade there means they
+       dissolve out of the sky instead of being sliced off by the clip. */
+    mask-image: linear-gradient(to bottom, transparent, #000 46px calc(100% - 20px), transparent);
   }
   .hypershape {
     position: absolute;
     opacity: 0.9;
-    filter: drop-shadow(0 0 12px oklch(from var(--iri-p) l c h / 0.5));
     will-change: transform;
   }
-  .hypershape line { stroke: url(#iriStroke); stroke-width: 2.1; stroke-linecap: round; }
 
-  /* On cream the same strokes wash out, so they get a touch more weight. */
-  :root[data-flavor="white"] .hypershape {
-    opacity: 1;
-    filter: drop-shadow(0 0 8px oklch(from var(--iri-p) l c h / 0.35));
+  /* The bloom is expensive — every filtered element re-rasterizes on every
+     frame — so only the four featured shapes carry it. The rest get their
+     presence from tier weight, which is free. */
+  .hypershape.featured {
+    filter: drop-shadow(0 0 16px oklch(from var(--iri-p) l c h / 0.5));
   }
-  :root[data-flavor="white"] .hypershape line { stroke-width: 2.6; }
 
-  /* On a phone they compete with the text, so they step back. */
+  /* The ones allowed to cross the text column are small and half-there, so
+     they decorate the reading rather than interrupt it. */
+  .hypershape.wander { opacity: 0.5; }
+
+  /* Edges arrive pre-sorted into four depth tiers, each one a single path.
+     Near tiers are brighter AND heavier: two cues pulling the same direction
+     is what stops a wireframe from reading flat. */
+  .hyperedge { fill: none; stroke: url(#iriStroke); stroke-linecap: round; }
+  .hyperedge.tier-0 { stroke-width: 1.10; opacity: 0.30; }
+  .hyperedge.tier-1 { stroke-width: 1.60; opacity: 0.55; }
+  .hyperedge.tier-2 { stroke-width: 2.15; opacity: 0.82; }
+  .hyperedge.tier-3 { stroke-width: 2.80; opacity: 1; }
+
+  /* Lit faces. Additive blending means they never need a depth sort — the
+     order two translucent glows are painted in does not change the sum. */
+  .hyperface {
+    fill: url(#iriFace);
+    stroke: none;
+    /* plus-lighter is true addition; screen compresses toward white and turns
+       a stack of purple panes into grey putty on a warm ground. */
+    mix-blend-mode: plus-lighter;
+  }
+
+  /* On cream the same strokes wash out, so they get a touch more weight,
+     and additive blending has nothing to add to — light on light stays light.
+     Multiply is the mirror of screen on a bright ground. */
+  :root[data-flavor="white"] .hypershape { opacity: 1; }
+  :root[data-flavor="white"] .hypershape.featured {
+    filter: drop-shadow(0 0 8px oklch(from var(--iri-p) l c h / 0.3));
+  }
+  :root[data-flavor="white"] .hyperedge { stroke-width: 2.7; }
+  :root[data-flavor="white"] .hyperedge.tier-0 { stroke-width: 1.7; opacity: 0.3; }
+  :root[data-flavor="white"] .hyperedge.tier-1 { stroke-width: 2.2; opacity: 0.55; }
+  :root[data-flavor="white"] .hyperedge.tier-2 { stroke-width: 2.7; opacity: 0.8; }
+  :root[data-flavor="white"] .hyperedge.tier-3 { stroke-width: 3.3; opacity: 1; }
+  :root[data-flavor="white"] .hyperface { mix-blend-mode: multiply; }
+
+  /* On a phone they compete with the text, so the field thins out rather than
+     shrinking: eight shapes at half strength, not eighteen crowding the copy. */
   @media (width < 46rem) {
-    .hypershape { opacity: 0.5; scale: 0.72; }
+    .hypershape { opacity: 0.4; scale: 0.62; }
+    /* No gutters on a phone, so the wanderers have nowhere to be that is not
+       on top of a sentence. The field thins to six. (The defs <svg> is the
+       first of type, which is why the count starts at 8.) */
+    .hypershape.wander { display: none; }
+    .hypershape:nth-of-type(n + 8) { display: none; }
   }
 
   /* Everything above the decoration. */
