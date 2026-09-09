@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" data-flavor="milk" data-subject="security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Security — James Richmond</title>
+<meta name="description" content="A threat model of this website, including the bot that lets strangers write on my GitHub profile. Type something hostile into it and watch what happens.">
+
+<meta property="og:title" content="Security — James Richmond">
+<meta property="og:description" content="A threat model of this website, including the bot that lets strangers write on my GitHub profile. Type something hostile into it and watch what happens.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jamestrichmond.com/security/">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23472e1c'/><rect x='24' y='30' width='52' height='40' rx='10' fill='%23f2cf4a'/><rect x='34' y='44' width='32' height='11' rx='5.5' fill='%2340f58a'/><rect x='46' y='14' width='8' height='16' rx='4' fill='%23f2cf4a'/><circle cx='50' cy='12' r='7' fill='%23b06cf5'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/subject.css">
+
+<script>
+/* Set the saved flavor before first paint so there is no flash of the wrong chocolate. */
+{
+  const flavor = localStorage.getItem("flavor") || "milk";
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+
+<body>
+<div class="hypershapes" aria-hidden="true" data-hypershapes></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="mark" href="../">
+    <span class="mark-glyph" aria-hidden="true"></span>
+    <span class="mark-text">James Richmond</span>
+  </a>
+
+  <nav class="topnav" aria-label="Primary">
+    <a class="backlink" href="../">back</a>
+  </nav>
+
+  <fieldset class="flavors" data-flavors>
+    <legend class="sr-only">Chocolate flavor</legend>
+    <label class="flavor" title="Dark chocolate">
+      <input type="radio" name="flavor" value="dark">
+      <span class="swatch swatch-dark" aria-hidden="true"></span>
+      <span class="sr-only">Dark chocolate</span>
+    </label>
+    <label class="flavor" title="Milk chocolate">
+      <input type="radio" name="flavor" value="milk">
+      <span class="swatch swatch-milk" aria-hidden="true"></span>
+      <span class="sr-only">Milk chocolate</span>
+    </label>
+    <label class="flavor" title="White chocolate">
+      <input type="radio" name="flavor" value="white">
+      <span class="swatch swatch-white" aria-hidden="true"></span>
+      <span class="sr-only">White chocolate</span>
+    </label>
+  </fieldset>
+</header>
+
+<main id="main">
+
+  <section class="subject-hero">
+    <p class="subject-eyebrow">M.S. IT & Cybersecurity · Digital Forensics</p>
+    <h1 class="subject-title">I let strangers write on my GitHub profile.</h1>
+    <p class="subject-lede">There is a bot on my profile repo that takes an issue from anybody on the internet and prints it into my README. That is an appalling idea, and it works. Here is exactly why.</p>
+  </section>
+
+  <ul class="facts">
+    <li><span class="fact-n">M.S.</span><span class="fact-l">IT &amp; Cybersecurity, with certificates in digital forensics and AI</span></li>
+    <li><span class="fact-n">13</span><span class="fact-l">Adversarial cases the guestbook sanitizer has to survive</span></li>
+    <li><span class="fact-n">0</span><span class="fact-l">Untrusted values that reach a shell, ever</span></li>
+    <li><span class="fact-n">Allow-list</span><span class="fact-l">Not a block-list. The difference is the whole discipline</span></li>
+  </ul>
+
+  <section class="section">
+    <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+      <h2>Attack it</h2>
+      <p class="section-sub">This is a JavaScript port of the Python that actually runs in the workflow, with the same rules in the same order. Try to get something through it.</p>
+    </div>
+
+    <div class="exhibit" data-exhibit="sanitizer">
+      <div class="exhibit-head">
+        <h3>The guestbook sanitizer, running here in your browser</h3>
+        <p class="exhibit-note">Type something hostile. It is the real function.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="prose">
+      <h3>The threat model</h3>
+      <p>The guestbook takes a title and a body from a GitHub issue opened by anyone, and writes them into a Markdown file in my repository, which then renders on my profile. Every part of that sentence is an attack surface.</p>
+      <ul><li><strong>Markdown injection.</strong> A visitor writes <code>[click me](javascript:…)</code> or an image tag pointed at a tracking pixel, and now my profile is hosting it.</li><li><strong>Layout destruction.</strong> A newline, a table pipe, or a hundred-line entry, and the README stops being a README.</li><li><strong>Impersonation.</strong> A body that includes <code>— @someoneelse</code> and reads as a signature from a person who never signed.</li><li><strong>Command injection into the workflow.</strong> The one that actually matters. If untrusted text ever reaches a shell inside a GitHub Action, the attacker is running code with my token.</li></ul>
+      <h3>How it is stopped</h3>
+      <p>Allow-list, not block-list. The sanitizer does not try to enumerate bad input, because that is a race you lose. It defines the small set of characters a guestbook signature is allowed to contain — letters, digits, spaces, and a handful of punctuation marks — and discards everything else without opinion. There is no clever escaping, because escaping is where clever people put their bugs.</p>
+      <p>The username is matched against GitHub's own rule for what a username can be, so it cannot be anything else. The body is truncated to its first line and capped, so it cannot restructure the page. The whole file is capped at twenty-five entries, so it cannot grow without bound.</p>
+      <blockquote class="pull">Untrusted input never appears in a shell command in the workflow. It is passed through the environment and read by the script as a variable. That single rule closes the only vulnerability on this list that would have actually cost me something.<cite>The reason the workflow looks the way it does</cite></blockquote>
+      <h3>Where the habits came from</h3>
+      <p>The graduate work is the credential. The instinct is older than that, and it came from a job where the two-person rule was not a policy document — it was how every single task was performed, without exception, for people who had done it four hundred times. <a href="../usaf/">That page is here.</a></p>
+      <p>The habit it leaves you with is a specific kind of pessimism: assume the step will be performed wrong, and design so that being wrong is survivable. Not <em>detected</em> — survivable. Detection is a nice second place.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="docent">
+      <div class="docent-stage" data-docent></div>
+      <p class="docent-cap">Somebody's production, two in the morning.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sources">
+      <h3>Where this comes from</h3>
+      <ol>
+        <li><a href="https://github.com/JamesTRichmond/JamesTRichmond/blob/main/scripts/sign_guestbook.py">The sanitizer itself</a> — the Python this exhibit is a faithful port of</li>
+        <li><a href="https://github.com/JamesTRichmond/JamesTRichmond/blob/main/.github/workflows/guestbook.yml">The workflow that runs it</a> — note that untrusted input is passed by environment, never interpolated into a shell</li>
+        <li><a href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions">GitHub: security hardening for Actions</a> — why script injection in workflows is the vulnerability worth caring about</li>
+      </ol>
+      <p style="margin-block-start:1.2rem;color:var(--ink-dim)">If you find something this misses, the guestbook is right there. Opening an issue is both the attack surface and the disclosure channel, which I find funny and have decided to keep.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <nav class="rooms" aria-label="Other pages">
+      <a class="room" href="../usaf/">USAF</a>
+      <a class="room" href="../teacher/">Teacher</a>
+      <a class="room" href="../agents/">AI Agents</a>
+      <a class="room" href="../security/" aria-current="page">Security</a>
+      <a class="room" href="../python/">Python</a>
+      <a class="room" href="../typescript/">TypeScript</a>
+    </nav>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-line">
+    <a href="../">Back to the front page</a>, where the robot has more to do.
+  </p>
+  <p class="foot-meta">
+    <a href="https://github.com/JamesTRichmond">GitHub</a>
+    <a href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a>
+    <a href="mailto:jamestrichmond@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script type="module" src="../assets/js/subject.js"></script>
+</body>
+</html>

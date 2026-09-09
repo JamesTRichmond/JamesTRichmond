@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" data-flavor="milk" data-subject="teacher">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Teacher — James Richmond</title>
+<meta name="description" content="Eight years teaching, most of it AP US History. What a document-based question actually teaches, and why it turns out to be the same skill as reading a stack trace.">
+
+<meta property="og:title" content="Teacher — James Richmond">
+<meta property="og:description" content="Eight years teaching, most of it AP US History. What a document-based question actually teaches, and why it turns out to be the same skill as reading a stack trace.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jamestrichmond.com/teacher/">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23472e1c'/><rect x='24' y='30' width='52' height='40' rx='10' fill='%23f2cf4a'/><rect x='34' y='44' width='32' height='11' rx='5.5' fill='%2340f58a'/><rect x='46' y='14' width='8' height='16' rx='4' fill='%23f2cf4a'/><circle cx='50' cy='12' r='7' fill='%23b06cf5'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/subject.css">
+
+<script>
+/* Set the saved flavor before first paint so there is no flash of the wrong chocolate. */
+{
+  const flavor = localStorage.getItem("flavor") || "milk";
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+
+<body>
+<div class="hypershapes" aria-hidden="true" data-hypershapes></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="mark" href="../">
+    <span class="mark-glyph" aria-hidden="true"></span>
+    <span class="mark-text">James Richmond</span>
+  </a>
+
+  <nav class="topnav" aria-label="Primary">
+    <a class="backlink" href="../">back</a>
+  </nav>
+
+  <fieldset class="flavors" data-flavors>
+    <legend class="sr-only">Chocolate flavor</legend>
+    <label class="flavor" title="Dark chocolate">
+      <input type="radio" name="flavor" value="dark">
+      <span class="swatch swatch-dark" aria-hidden="true"></span>
+      <span class="sr-only">Dark chocolate</span>
+    </label>
+    <label class="flavor" title="Milk chocolate">
+      <input type="radio" name="flavor" value="milk">
+      <span class="swatch swatch-milk" aria-hidden="true"></span>
+      <span class="sr-only">Milk chocolate</span>
+    </label>
+    <label class="flavor" title="White chocolate">
+      <input type="radio" name="flavor" value="white">
+      <span class="swatch swatch-white" aria-hidden="true"></span>
+      <span class="sr-only">White chocolate</span>
+    </label>
+  </fieldset>
+</header>
+
+<main id="main">
+
+  <section class="subject-hero">
+    <p class="subject-eyebrow">Eight years · AP US History</p>
+    <h1 class="subject-title">I taught people to argue with a document.</h1>
+    <p class="subject-lede">Not to memorise it. To read a primary source, work out what it will and will not support, and then say so in writing under time pressure. It is the most transferable thing I know how to teach.</p>
+  </section>
+
+  <ul class="facts">
+    <li><span class="fact-n">8 years</span><span class="fact-l">In the classroom, Florida and then Vermont</span></li>
+    <li><span class="fact-n">AP USH</span><span class="fact-l">The course that is really a writing course wearing a history costume</span></li>
+    <li><span class="fact-n">7 points</span><span class="fact-l">What a DBQ is worth, and none of them are for knowing the date</span></li>
+    <li><span class="fact-n">55 min</span><span class="fact-l">To read seven documents and build an argument out of them</span></li>
+  </ul>
+
+  <section class="section">
+    <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+      <h2>The exercise</h2>
+      <p class="section-sub">This is the whole discipline, compressed. Four claims, one source, and only one of them is a thing the document can carry.</p>
+    </div>
+
+    <div class="exhibit" data-exhibit="dbq">
+      <div class="exhibit-head">
+        <h3>A document-based question, in miniature</h3>
+        <p class="exhibit-note">Read the source. Pick the claim it actually supports.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="prose">
+      <h3>What the exercise is really doing</h3>
+      <p>Every one of those wrong answers is wrong in a specific, teachable way. One is true but not <em>in the document</em>. One overreaches — the source supports a smaller version of it. One reverses cause and effect. And one is the trap: it is what the student already believed walking in, and the document has nothing to do with it.</p>
+      <p>Students hate this at first, because it takes away the thing school has trained them to do, which is to find the right answer. There is no right answer here in that sense. There is a claim, and there is the question of whether this particular piece of evidence gets you there. That is it. That is the whole course.</p>
+      <blockquote class="pull">The first month is spent convincing thirty sixteen-year-olds that I am not withholding the answer. I am not. The answer is the argument, and they have to build it.<cite>Every September, for eight years</cite></blockquote>
+      <h3>Why this is on a page about software</h3>
+      <p>Because it is debugging. A stack trace is a primary source. It was produced by a particular process at a particular moment, for its own purposes, and it will support some conclusions and not others. The failure mode is identical too: the junior engineer and the sophomore both reach past what the evidence says toward the story they already had in mind.</p>
+      <p>The same move shows up everywhere I work now. An eval result is a document. A log line is a document. A model's chain of reasoning is very much a document, and treating it as a transparent window onto what actually happened is exactly the mistake I spent eight years talking people out of.</p>
+      <h3>The part nobody warns you about</h3>
+      <p>Teaching is a performance job, five times a day, whether or not you have anything left. You learn to read a room in about four seconds — who is lost, who is bored, who is about to say something good and needs half a second of silence to do it. I use that in every meeting I have ever been in since, and it is worth more than most of what is on my résumé.</p>
+      <p>I also learned that if thirty people did not understand you, you were unclear. Not them. That one took a while.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="docent">
+      <div class="docent-stage" data-docent></div>
+      <p class="docent-cap">He runs the room the way I did: ask, wait through the silence, and do not answer your own question.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <h3>What I'd tell a new teacher</h3>
+      <ul><li>Plan the first five minutes and the last five minutes. The middle will look after itself more often than you think.</li><li>Wait longer than is comfortable after you ask something. The silence is not failure; it is the sound of people thinking. Fill it and you have taught them that you will always fill it.</li><li>Grade the argument, not the conclusion. Say so out loud, repeatedly, until they believe you.</li><li>The kid who fights you about the reading is engaged. The kid who agrees with everything is the one to worry about.</li></ul>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <nav class="rooms" aria-label="Other pages">
+      <a class="room" href="../usaf/">USAF</a>
+      <a class="room" href="../teacher/" aria-current="page">Teacher</a>
+      <a class="room" href="../agents/">AI Agents</a>
+      <a class="room" href="../security/">Security</a>
+      <a class="room" href="../python/">Python</a>
+      <a class="room" href="../typescript/">TypeScript</a>
+    </nav>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-line">
+    <a href="../">Back to the front page</a>, where the robot has more to do.
+  </p>
+  <p class="foot-meta">
+    <a href="https://github.com/JamesTRichmond">GitHub</a>
+    <a href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a>
+    <a href="mailto:jamestrichmond@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script type="module" src="../assets/js/subject.js"></script>
+</body>
+</html>

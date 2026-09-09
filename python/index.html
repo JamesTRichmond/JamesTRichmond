@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" data-flavor="milk" data-subject="python">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Python — James Richmond</title>
+<meta name="description" content="Python that runs in this page, on a real CPython compiled to WebAssembly. Edit it. Break it. Nothing here is a screenshot.">
+
+<meta property="og:title" content="Python — James Richmond">
+<meta property="og:description" content="Python that runs in this page, on a real CPython compiled to WebAssembly. Edit it. Break it. Nothing here is a screenshot.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jamestrichmond.com/python/">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23472e1c'/><rect x='24' y='30' width='52' height='40' rx='10' fill='%23f2cf4a'/><rect x='34' y='44' width='32' height='11' rx='5.5' fill='%2340f58a'/><rect x='46' y='14' width='8' height='16' rx='4' fill='%23f2cf4a'/><circle cx='50' cy='12' r='7' fill='%23b06cf5'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/subject.css">
+
+<script>
+/* Set the saved flavor before first paint so there is no flash of the wrong chocolate. */
+{
+  const flavor = localStorage.getItem("flavor") || "milk";
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+
+<body>
+<div class="hypershapes" aria-hidden="true" data-hypershapes></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="mark" href="../">
+    <span class="mark-glyph" aria-hidden="true"></span>
+    <span class="mark-text">James Richmond</span>
+  </a>
+
+  <nav class="topnav" aria-label="Primary">
+    <a class="backlink" href="../">back</a>
+  </nav>
+
+  <fieldset class="flavors" data-flavors>
+    <legend class="sr-only">Chocolate flavor</legend>
+    <label class="flavor" title="Dark chocolate">
+      <input type="radio" name="flavor" value="dark">
+      <span class="swatch swatch-dark" aria-hidden="true"></span>
+      <span class="sr-only">Dark chocolate</span>
+    </label>
+    <label class="flavor" title="Milk chocolate">
+      <input type="radio" name="flavor" value="milk">
+      <span class="swatch swatch-milk" aria-hidden="true"></span>
+      <span class="sr-only">Milk chocolate</span>
+    </label>
+    <label class="flavor" title="White chocolate">
+      <input type="radio" name="flavor" value="white">
+      <span class="swatch swatch-white" aria-hidden="true"></span>
+      <span class="sr-only">White chocolate</span>
+    </label>
+  </fieldset>
+</header>
+
+<main id="main">
+
+  <section class="subject-hero">
+    <p class="subject-eyebrow">Python</p>
+    <h1 class="subject-title">This page runs Python. Actual Python.</h1>
+    <p class="subject-lede">Not highlighted, not simulated, not a video. A real CPython interpreter compiled to WebAssembly, downloaded only if you ask for it, running in the tab you are reading this in.</p>
+  </section>
+
+  <ul class="facts">
+    <li><span class="fact-n">CPython</span><span class="fact-l">The real one, compiled to WebAssembly via Pyodide</span></li>
+    <li><span class="fact-n">0 bytes</span><span class="fact-l">Downloaded until you press run — it is a big thing to load unasked</span></li>
+    <li><span class="fact-n">Your tab</span><span class="fact-l">Where it executes. Nothing is sent anywhere</span></li>
+    <li><span class="fact-n">Editable</span><span class="fact-l">Change the code and run it again. Break it, ideally</span></li>
+  </ul>
+
+  <section class="section">
+    <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+      <h2>Run it</h2>
+      <p class="section-sub">The program is short on purpose — it is the sort of thing I actually write, not a fizzbuzz.</p>
+    </div>
+
+    <div class="exhibit" data-exhibit="pyrun">
+      <div class="exhibit-head">
+        <h3>A Python interpreter, in this page</h3>
+        <p class="exhibit-note">About 10 MB on first run, then cached.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="prose">
+      <h3>Why Python, specifically</h3>
+      <p>Because it is the language I reach for when the problem is not yet understood. It gets out of the way while I find out what I am building, and that is a real property, not a compromise. Almost everything I have written in the last two years started as a Python script that was supposed to be thrown away.</p>
+      <p>Some of them were. The ones that were not got types, tests, and a structure, and that transition — from script to thing — is where most of the interesting engineering decisions live.</p>
+      <h3>What I actually use it for</h3>
+      <ul><li><strong>Agent tooling.</strong> The tools an agent calls are almost always Python functions with narrow contracts and boring, legible failures.</li><li><strong>Data wrangling that has to be right.</strong> The kind where the answer matters and nobody will notice if it is subtly wrong, which means the test comes first.</li><li><strong>Automation that outlives its author's memory.</strong> The sanitizer on <a href="../security/">the security page</a> is Python, and it runs unattended every time a stranger opens an issue on my profile.</li></ul>
+      <h3>The opinion I will defend</h3>
+      <p>Type hints are not about the type checker. They are about the reader — usually me, later, with no memory of what this function was for. A signature that says what goes in and what comes out is documentation that cannot rot, because the moment it lies, something complains.</p>
+      <p>The corollary is that a function with a signature you cannot write down cleanly is usually a function doing two jobs. The type hint is not the problem there. It is the messenger.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="docent">
+      <div class="docent-stage" data-docent></div>
+      <p class="docent-cap">The pause is him thinking. It is the most accurate part of this animation.</p>
+    </div>
+  </section>
+
+
+
+  <section class="section">
+    <nav class="rooms" aria-label="Other pages">
+      <a class="room" href="../usaf/">USAF</a>
+      <a class="room" href="../teacher/">Teacher</a>
+      <a class="room" href="../agents/">AI Agents</a>
+      <a class="room" href="../security/">Security</a>
+      <a class="room" href="../python/" aria-current="page">Python</a>
+      <a class="room" href="../typescript/">TypeScript</a>
+    </nav>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-line">
+    <a href="../">Back to the front page</a>, where the robot has more to do.
+  </p>
+  <p class="foot-meta">
+    <a href="https://github.com/JamesTRichmond">GitHub</a>
+    <a href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a>
+    <a href="mailto:jamestrichmond@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script type="module" src="../assets/js/subject.js"></script>
+</body>
+</html>

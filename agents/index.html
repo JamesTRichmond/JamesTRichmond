@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-flavor="milk" data-subject="agents">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>AI Agents — James Richmond</title>
+<meta name="description" content="What an agent actually is underneath the word: a loop, a set of tools, and a decision about when to stop. Step through one.">
+
+<meta property="og:title" content="AI Agents — James Richmond">
+<meta property="og:description" content="What an agent actually is underneath the word: a loop, a set of tools, and a decision about when to stop. Step through one.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jamestrichmond.com/agents/">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23472e1c'/><rect x='24' y='30' width='52' height='40' rx='10' fill='%23f2cf4a'/><rect x='34' y='44' width='32' height='11' rx='5.5' fill='%2340f58a'/><rect x='46' y='14' width='8' height='16' rx='4' fill='%23f2cf4a'/><circle cx='50' cy='12' r='7' fill='%23b06cf5'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/subject.css">
+
+<script>
+/* Set the saved flavor before first paint so there is no flash of the wrong chocolate. */
+{
+  const flavor = localStorage.getItem("flavor") || "milk";
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+
+<body>
+<div class="hypershapes" aria-hidden="true" data-hypershapes></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="mark" href="../">
+    <span class="mark-glyph" aria-hidden="true"></span>
+    <span class="mark-text">James Richmond</span>
+  </a>
+
+  <nav class="topnav" aria-label="Primary">
+    <a class="backlink" href="../">back</a>
+  </nav>
+
+  <fieldset class="flavors" data-flavors>
+    <legend class="sr-only">Chocolate flavor</legend>
+    <label class="flavor" title="Dark chocolate">
+      <input type="radio" name="flavor" value="dark">
+      <span class="swatch swatch-dark" aria-hidden="true"></span>
+      <span class="sr-only">Dark chocolate</span>
+    </label>
+    <label class="flavor" title="Milk chocolate">
+      <input type="radio" name="flavor" value="milk">
+      <span class="swatch swatch-milk" aria-hidden="true"></span>
+      <span class="sr-only">Milk chocolate</span>
+    </label>
+    <label class="flavor" title="White chocolate">
+      <input type="radio" name="flavor" value="white">
+      <span class="swatch swatch-white" aria-hidden="true"></span>
+      <span class="sr-only">White chocolate</span>
+    </label>
+  </fieldset>
+</header>
+
+<main id="main">
+
+  <section class="subject-hero">
+    <p class="subject-eyebrow">AI · Agents</p>
+    <h1 class="subject-title">An agent is a loop with a budget.</h1>
+    <p class="subject-lede">Strip the word back and what is left is small: a model that can call functions, a transcript that grows, and a stopping rule. Everything difficult is in the third one.</p>
+  </section>
+
+  <ul class="facts">
+    <li><span class="fact-n">1</span><span class="fact-l">Loop. Think, act, observe, decide again</span></li>
+    <li><span class="fact-n">N</span><span class="fact-l">Tools, each of which can fail in its own way</span></li>
+    <li><span class="fact-n">Stop</span><span class="fact-l">The hardest thing to get right, and the least discussed</span></li>
+    <li><span class="fact-n">Every step</span><span class="fact-l">Is a place a wrong turn compounds</span></li>
+  </ul>
+
+  <section class="section">
+    <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+      <h2>The loop</h2>
+      <p class="section-sub">A real task, run one turn at a time, with the transcript on the right. The interesting part is turn four.</p>
+    </div>
+
+    <div class="exhibit" data-exhibit="agentloop">
+      <div class="exhibit-head">
+        <h3>One loop, stepped by hand</h3>
+        <p class="exhibit-note">Press step. Watch where it can go wrong.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="prose">
+      <h3>Why the stopping rule is the whole problem</h3>
+      <p>A model that can call tools will keep calling tools. It has no native sense of enough. Left alone it will re-read the file it already read, verify the thing it already verified, and produce a report about a task it never finished — all of it fluent, all of it confident, and none of it done.</p>
+      <p>So the engineering is mostly fences. A step budget. A rule that a tool returning the same result twice is a signal, not a coincidence. A definition of done that lives outside the model, because a model asked whether it is finished will tell you yes.</p>
+      <h3>The failure that taught me the most</h3>
+      <p>An agent I built kept succeeding on a task it had not done. It would call the search tool, get an empty result, and then — because empty is not an error — write a confident summary of nothing. The tool was working perfectly. The loop was working perfectly. The failure lived in the gap between them, in an unexamined assumption that a successful call returns something worth having.</p>
+      <p>This is the two-person rule again, and the reason I keep coming back to it. A step nobody checks is a step that will eventually be wrong, and the checker cannot be the same thing that took the step.</p>
+      <h3>What I actually build</h3>
+      <ul><li><strong>Tools with narrow contracts.</strong> A tool that can do six things fails in six ways and reports one. Six tools fail legibly.</li><li><strong>Empty is a result, not a success.</strong> Every tool distinguishes 'ran and found nothing' from 'ran and found something', out loud, in the value it returns.</li><li><strong>The transcript is the artifact.</strong> If I cannot reconstruct why it did what it did from what it wrote down, I have built something I cannot debug and therefore cannot trust.</li><li><strong>Budgets before cleverness.</strong> A hard step cap turns an unbounded failure into a bounded one, and a bounded failure is an engineering problem.</li></ul>
+      <p>The robot on the front page of this site is the toy version of the same idea: a state machine, a set of things it can do, and a rule about when to stop doing one and start another. It is genuinely the same shape. It is just that when he gets the stopping rule wrong he lies down in a kitchen, and nothing else happens.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="docent">
+      <div class="docent-stage" data-docent></div>
+      <p class="docent-cap">Call a tool, read what came back, decide again. He is doing the whole architecture with his hands.</p>
+    </div>
+  </section>
+
+
+
+  <section class="section">
+    <nav class="rooms" aria-label="Other pages">
+      <a class="room" href="../usaf/">USAF</a>
+      <a class="room" href="../teacher/">Teacher</a>
+      <a class="room" href="../agents/" aria-current="page">AI Agents</a>
+      <a class="room" href="../security/">Security</a>
+      <a class="room" href="../python/">Python</a>
+      <a class="room" href="../typescript/">TypeScript</a>
+    </nav>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-line">
+    <a href="../">Back to the front page</a>, where the robot has more to do.
+  </p>
+  <p class="foot-meta">
+    <a href="https://github.com/JamesTRichmond">GitHub</a>
+    <a href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a>
+    <a href="mailto:jamestrichmond@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script type="module" src="../assets/js/subject.js"></script>
+</body>
+</html>

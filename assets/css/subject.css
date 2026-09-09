@@ -1,0 +1,296 @@
+/* ============================================================================
+   subject.css — the six rooms.
+
+   Loaded after site.css, which owns the chocolate palette, the cascade layers
+   and the shape field. Nothing here redefines a chocolate: a subject page
+   shifts one accent and inherits everything else, so six pages read as rooms
+   in one building rather than six separate sites.
+   ========================================================================== */
+
+@layer theme {
+  /* Each page sets --sub (fills and strokes), --sub-2 (its partner) and
+     --sub-on (text placed ON a --sub fill) on <html>. The default is the house
+     banana, so a page that forgets still looks right.
+
+     These are written out per flavor rather than derived with a relative color
+     from --sub, because `--sub: oklch(from var(--sub) …)` is a cycle: the
+     custom property refers to itself, the whole declaration is invalid at
+     computed-value time, and every color-mix downstream of it silently
+     collapses to black. It looked fine on two chocolates out of three. */
+  :root {
+    --sub: var(--accent);
+    --sub-2: var(--iri-p);
+    --sub-on: var(--bg-deep);
+  }
+
+  :root[data-subject="usaf"]       { --sub: oklch(0.76 0.13 232); --sub-2: oklch(0.86 0.16 95); }
+  :root[data-subject="teacher"]    { --sub: oklch(0.82 0.11 128); --sub-2: oklch(0.87 0.14 82); }
+  :root[data-subject="agents"]     { --sub: oklch(0.84 0.21 148); --sub-2: oklch(0.68 0.23 305); }
+  :root[data-subject="security"]   { --sub: oklch(0.79 0.16 62);  --sub-2: oklch(0.72 0.18 28); }
+  :root[data-subject="python"]     { --sub: oklch(0.75 0.13 245); --sub-2: oklch(0.88 0.15 92); }
+  :root[data-subject="typescript"] { --sub: oklch(0.73 0.15 250); --sub-2: oklch(0.74 0.10 250); }
+
+  /* On cream every subject color has to come down in lightness or it vanishes,
+     and anything sitting on top of it has to flip from dark to light. */
+  :root[data-flavor="white"] { --sub-on: oklch(0.985 0.008 90); }
+  :root[data-flavor="white"][data-subject="usaf"]       { --sub: oklch(0.52 0.15 250); --sub-2: oklch(0.58 0.14 78); }
+  :root[data-flavor="white"][data-subject="teacher"]    { --sub: oklch(0.48 0.13 142); --sub-2: oklch(0.58 0.14 72); }
+  :root[data-flavor="white"][data-subject="agents"]     { --sub: oklch(0.50 0.16 155); --sub-2: oklch(0.48 0.20 305); }
+  :root[data-flavor="white"][data-subject="security"]   { --sub: oklch(0.52 0.15 52);  --sub-2: oklch(0.51 0.19 28); }
+  :root[data-flavor="white"][data-subject="python"]     { --sub: oklch(0.47 0.15 252); --sub-2: oklch(0.58 0.14 76); }
+  :root[data-flavor="white"][data-subject="typescript"] { --sub: oklch(0.46 0.16 255); --sub-2: oklch(0.50 0.09 255); }
+}
+
+@layer layout {
+  /* The subject pages carry far more text than the front page, so the sky
+     steps back behind it. Same field, half the presence. */
+  :root[data-subject] .hypershape { opacity: 0.55; }
+  :root[data-subject] .hypershape.wander { opacity: 0.3; }
+  :root[data-subject] .hypershape.featured {
+    filter: drop-shadow(0 0 12px oklch(from var(--iri-p) l c h / 0.32));
+  }
+
+  /* ---- back link in the top bar ---- */
+  .backlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    text-decoration: none;
+  }
+  .backlink:hover { color: var(--ink); }
+  .backlink::before { content: "←"; font-size: 1.05em; }
+
+  /* ---- hero ---- */
+  .subject-hero {
+    inline-size: var(--shell);
+    margin-inline: auto;
+    padding-block: clamp(3rem, 9vh, 5.5rem) clamp(1.5rem, 4vh, 2.5rem);
+    max-inline-size: 52rem;
+  }
+  .subject-eyebrow {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sub);
+  }
+  .subject-title {
+    margin: 0 0 1.1rem;
+    font-size: clamp(2.4rem, 1.3rem + 4.4vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+  .subject-lede {
+    margin: 0;
+    max-inline-size: 44ch;
+    font-size: clamp(1.05rem, 1rem + 0.35vw, 1.24rem);
+    color: var(--ink-dim);
+    text-wrap: pretty;
+  }
+
+  /* ---- the fact strip ---- */
+  .facts {
+    inline-size: var(--shell);
+    margin: clamp(2rem, 5vh, 3rem) auto 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: clip;
+  }
+  .facts li {
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    backdrop-filter: blur(10px);
+    padding: 1rem 1.1rem 1.05rem;
+  }
+  .fact-n {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--sub);
+    line-height: 1.1;
+  }
+  .fact-l {
+    display: block;
+    margin-block-start: 0.35rem;
+    font-size: 0.83rem;
+    line-height: 1.45;
+    color: var(--ink-dim);
+    text-wrap: pretty;
+  }
+
+  /* ---- prose ---- */
+  .prose {
+    inline-size: var(--shell);
+    margin-inline: auto;
+    max-inline-size: 40rem;
+  }
+  .prose > * + * { margin-block-start: 1.05em; }
+  .prose p { color: var(--ink-dim); text-wrap: pretty; }
+  .prose h3 {
+    margin-block-start: 2.4em;
+    font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .prose strong { color: var(--ink); font-weight: 600; }
+  .prose a { color: var(--sub); }
+  .prose ul { padding-inline-start: 1.15rem; color: var(--ink-dim); }
+  .prose li + li { margin-block-start: 0.4em; }
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    border-radius: 5px;
+    background: color-mix(in oklab, var(--raised) 60%, transparent);
+    color: var(--ink);
+  }
+
+  /* A pulled-out line. Used sparingly — one a page at most. */
+  .pull {
+    margin-block: 2.2em;
+    padding-inline-start: 1.15rem;
+    border-inline-start: 3px solid var(--sub);
+    font-size: 1.15em;
+    line-height: 1.5;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .pull cite {
+    display: block;
+    margin-block-start: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-style: normal;
+    letter-spacing: 0.05em;
+    color: var(--ink-dim);
+  }
+
+  /* ---- the robot's strip ---- */
+  .docent {
+    inline-size: var(--shell);
+    margin-inline: auto;
+  }
+  .docent-stage {
+    aspect-ratio: 7 / 3;
+    min-block-size: 220px;
+    max-block-size: 46dvh;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: clip;
+  }
+  .docent-cap {
+    margin: 0.7rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+  }
+  @media (width < 46rem) {
+    .docent-stage { aspect-ratio: auto; block-size: min(38dvh, 260px); min-block-size: 180px; }
+  }
+
+  /* ---- figure frame, used by every interactive centrepiece ---- */
+  .exhibit {
+    inline-size: var(--shell);
+    margin-inline: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    /* Opaque enough that the shape field reads as behind the panel rather than
+       inside it — a translucent card over moving geometry is unreadable. */
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    backdrop-filter: blur(10px);
+    padding: clamp(1rem, 3vw, 1.75rem);
+  }
+  .exhibit-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-block-end: 1.1rem;
+  }
+  .exhibit-head h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .exhibit-note {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    color: var(--ink-dim);
+  }
+
+  /* ---- sources ---- */
+  .sources {
+    inline-size: var(--shell);
+    margin-inline: auto;
+    max-inline-size: 46rem;
+    font-size: 0.82rem;
+  }
+  .sources h3 {
+    margin: 0 0 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    font-weight: 500;
+  }
+  .sources ol {
+    margin: 0;
+    padding-inline-start: 1.3rem;
+    color: var(--ink-dim);
+    columns: 2;
+    column-gap: 2rem;
+  }
+  .sources li { margin-block-end: 0.45rem; break-inside: avoid; }
+  .sources a { color: var(--ink-dim); }
+  .sources a:hover { color: var(--sub); }
+  @media (width < 46rem) { .sources ol { columns: 1; } }
+
+  /* ---- next / prev between rooms ---- */
+  .rooms {
+    inline-size: var(--shell);
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .room {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    text-decoration: none;
+    transition: color 0.18s, border-color 0.18s, transform 0.15s;
+  }
+  .room:hover { color: var(--ink); border-color: var(--sub); transform: translateY(-1px); }
+  .room[aria-current="page"] {
+    color: var(--sub-on);
+    background: var(--sub);
+    border-color: transparent;
+  }
+}
+
+@layer motion {
+  @media (prefers-reduced-motion: reduce) {
+    .room:hover { transform: none; }
+  }
+}

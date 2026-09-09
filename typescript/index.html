@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" data-flavor="milk" data-subject="typescript">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>TypeScript — James Richmond</title>
+<meta name="description" content="TypeScript's type system is a programming language of its own. Edit a route string and watch the type it produces change, character by character.">
+
+<meta property="og:title" content="TypeScript — James Richmond">
+<meta property="og:description" content="TypeScript's type system is a programming language of its own. Edit a route string and watch the type it produces change, character by character.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jamestrichmond.com/typescript/">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23472e1c'/><rect x='24' y='30' width='52' height='40' rx='10' fill='%23f2cf4a'/><rect x='34' y='44' width='32' height='11' rx='5.5' fill='%2340f58a'/><rect x='46' y='14' width='8' height='16' rx='4' fill='%23f2cf4a'/><circle cx='50' cy='12' r='7' fill='%23b06cf5'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/subject.css">
+
+<script>
+/* Set the saved flavor before first paint so there is no flash of the wrong chocolate. */
+{
+  const flavor = localStorage.getItem("flavor") || "milk";
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+
+<body>
+<div class="hypershapes" aria-hidden="true" data-hypershapes></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="mark" href="../">
+    <span class="mark-glyph" aria-hidden="true"></span>
+    <span class="mark-text">James Richmond</span>
+  </a>
+
+  <nav class="topnav" aria-label="Primary">
+    <a class="backlink" href="../">back</a>
+  </nav>
+
+  <fieldset class="flavors" data-flavors>
+    <legend class="sr-only">Chocolate flavor</legend>
+    <label class="flavor" title="Dark chocolate">
+      <input type="radio" name="flavor" value="dark">
+      <span class="swatch swatch-dark" aria-hidden="true"></span>
+      <span class="sr-only">Dark chocolate</span>
+    </label>
+    <label class="flavor" title="Milk chocolate">
+      <input type="radio" name="flavor" value="milk">
+      <span class="swatch swatch-milk" aria-hidden="true"></span>
+      <span class="sr-only">Milk chocolate</span>
+    </label>
+    <label class="flavor" title="White chocolate">
+      <input type="radio" name="flavor" value="white">
+      <span class="swatch swatch-white" aria-hidden="true"></span>
+      <span class="sr-only">White chocolate</span>
+    </label>
+  </fieldset>
+</header>
+
+<main id="main">
+
+  <section class="subject-hero">
+    <p class="subject-eyebrow">TypeScript</p>
+    <h1 class="subject-title">The type system is a language too.</h1>
+    <p class="subject-lede">Most people meet TypeScript as annotations on JavaScript. It is also a small, strange, pure functional language that runs at compile time — and you can make it read a string and hand you back a shape.</p>
+  </section>
+
+  <ul class="facts">
+    <li><span class="fact-n">Compile time</span><span class="fact-l">Where the second language runs. It costs nothing at runtime</span></li>
+    <li><span class="fact-n">Template literals</span><span class="fact-l">The feature that turned types into string processing</span></li>
+    <li><span class="fact-n">Zero</span><span class="fact-l">Runtime code produced by anything in the exhibit below</span></li>
+    <li><span class="fact-n">Live</span><span class="fact-l">Edit the route. The inferred type follows you</span></li>
+  </ul>
+
+  <section class="section">
+    <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+      <h2>Watch it think</h2>
+      <p class="section-sub">One recursive conditional type reads a URL pattern and produces an object type of its parameters. Nothing here exists at runtime.</p>
+    </div>
+
+    <div class="exhibit" data-exhibit="tsinfer">
+      <div class="exhibit-head">
+        <h3>Type-level route parsing</h3>
+        <p class="exhibit-note">Edit the route. The type on the right is what TypeScript would infer.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="prose">
+      <h3>What just happened</h3>
+      <p>The type on the right was not written by anyone. It was computed, by the compiler, from a string literal — and the moment you change a character of that string, every call site that uses it is re-checked against the new shape. Rename <code>:id</code> to <code>:userId</code> and the code that reads <code>params.id</code> stops compiling, everywhere, instantly.</p>
+      <p>That is the actual pitch for TypeScript, and it is much better than the one people usually give. It is not that types catch typos. It is that a single source of truth can be a <em>string</em>, and everything downstream of it stays honest by construction.</p>
+      <h3>When I stop</h3>
+      <p>Type-level programming has the same failure mode as any clever technique: it is enormous fun and it is very easy to leave behind something only you can maintain. My rule is that a type should be more legible than the bug it prevents. When a conditional type needs a paragraph of comment to explain itself, the paragraph is telling me to write a runtime check and go home.</p>
+      <blockquote class="pull">A type that takes ten minutes to read has cost more than the bug it was guarding against. I have written that type. I have also deleted it.<cite>Learned the expensive way</cite></blockquote>
+      <h3>Where I actually use it</h3>
+      <ul><li><strong>Tool schemas for agents.</strong> A tool's arguments are a type, the JSON schema is generated from that type, and the handler is checked against it. One definition, three consumers, no drift.</li><li><strong>Anything crossing a boundary.</strong> The network, the filesystem, another team. That is where the assumptions are, and where writing them down pays for itself.</li><li><strong>The robot on the front page.</strong> Which is plain JavaScript with JSDoc, because it has no build step and I wanted it to have none. Knowing when not to reach for the tool is part of the tool.</li></ul>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="docent">
+      <div class="docent-stage" data-docent></div>
+      <p class="docent-cap">Green bar. Then he changes something, and it is not a green bar.</p>
+    </div>
+  </section>
+
+
+
+  <section class="section">
+    <nav class="rooms" aria-label="Other pages">
+      <a class="room" href="../usaf/">USAF</a>
+      <a class="room" href="../teacher/">Teacher</a>
+      <a class="room" href="../agents/">AI Agents</a>
+      <a class="room" href="../security/">Security</a>
+      <a class="room" href="../python/">Python</a>
+      <a class="room" href="../typescript/" aria-current="page">TypeScript</a>
+    </nav>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-line">
+    <a href="../">Back to the front page</a>, where the robot has more to do.
+  </p>
+  <p class="foot-meta">
+    <a href="https://github.com/JamesTRichmond">GitHub</a>
+    <a href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a>
+    <a href="mailto:jamestrichmond@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script type="module" src="../assets/js/subject.js"></script>
+</body>
+</html>

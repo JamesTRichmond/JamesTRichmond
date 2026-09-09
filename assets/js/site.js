@@ -5,39 +5,9 @@
 
 import { mountHypershapes } from "./hypershapes.js";
 import { mountPet } from "./pet.js";
-
-/* ── Flavors ───────────────────────────────────────────────────────────── */
-
-function initFlavors() {
-  const root = document.documentElement;
-  const fieldset = document.querySelector("[data-flavors]");
-  if (!fieldset) return;
-
-  const sync = () => {
-    const current = root.dataset.flavor;
-    for (const input of fieldset.querySelectorAll("input")) {
-      input.checked = input.value === current;
-    }
-    document.querySelector('meta[name="color-scheme"]').content =
-      current === "white" ? "light" : "dark";
-  };
-  sync();
-
-  fieldset.addEventListener("change", (e) => {
-    const flavor = e.target.value;
-    const apply = () => {
-      root.dataset.flavor = flavor;
-      localStorage.setItem("flavor", flavor);
-      sync();
-    };
-    // Morph rather than snap, where the browser can.
-    if (document.startViewTransition && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      document.startViewTransition(apply);
-    } else {
-      apply();
-    }
-  });
-}
+// The flavor switcher lives in chrome.js because seven pages wear it, and
+// seven copies of it is seven chances for one of them to drift.
+import { initFlavors } from "./chrome.js";
 
 /* ── Live activity feed ────────────────────────────────────────────────── */
 
