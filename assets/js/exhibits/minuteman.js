@@ -59,10 +59,12 @@ const PARTS = [
     title: "The reentry vehicle",
     sub: "One per missile since 2014",
     rows: [
-      ["Carried", "One warhead"],
+      ["Carried", "One warhead, in one reentry vehicle"],
+      ["The sharp cone", "Is the aeroshell, not the warhead — it is thrown away on the way up"],
+      ["The black cone inside", "Is the reentry vehicle, drawn here to scale"],
       ["Flight time", "Roughly 30 minutes to anywhere"],
     ],
-    note: "This is the part the munitions squadron owns. Pick a warhead below and the nose changes shape, because they genuinely are different shapes.",
+    note: "This is the part the munitions squadron owns. Pick a warhead below — and then notice how little the shape changes. That is not the drawing being lazy.",
     warheadSlot: true,
   },
 ];
@@ -71,8 +73,9 @@ const WARHEADS = {
   w62: {
     name: "W62", rv: "Mk-12", lab: "Lawrence Livermore",
     years: "1970 – 2010", yield: "170 kt",
-    // nose profile: blunter, shorter
-    nose: { len: 128, blunt: 12 },
+    // 72 in on a 21-22 in base -> L/D 3.27. Base diameter is disputed
+    // between sources (21 vs 22 in); this uses the mid case.
+    nose: { ld: 3.27 },
     rows: [
       ["Reentry vehicle", "Mk-12"],
       ["Designed at", "Lawrence Livermore"],
@@ -80,13 +83,14 @@ const WARHEADS = {
       ["Yield", "170 kilotons"],
       ["Status", "Retired from the field in 2010; dismantlement completed at Pantex, announced August 2010"],
     ],
-    note: "The oldest one in the field, and it predates the modern safety set — no insensitive high explosive, no fire-resistant pit. It is the reason the W87 swap mattered.",
+    note: "The oldest one in the field, and it predates the modern safety set — no insensitive high explosive, no fire-resistant pit. It is the reason the W87 swap mattered. From outside it is indistinguishable from the other two.",
     safety: 1,
   },
   w78: {
     name: "W78", rv: "Mk-12A", lab: "Los Alamos",
     years: "1979 – present", yield: "335 kt",
-    nose: { len: 140, blunt: 8 },
+    // 71.3 in on 21.3 -> L/D 3.35. Length is disputed (67.7 vs 71.3 in).
+    nose: { ld: 3.35 },
     rows: [
       ["Reentry vehicle", "Mk-12A"],
       ["Designed at", "Los Alamos"],
@@ -94,13 +98,15 @@ const WARHEADS = {
       ["Yield", "about 335 kilotons"],
       ["Status", "Still deployed. Being replaced by the W87-1, an all-new build whose first plutonium pit was stamped at Los Alamos in October 2024"],
     ],
-    note: "The higher-yield option, and the one still going. Its replacement is the first genuinely new US warhead build in decades.",
+    note: "The higher-yield option, and the one still going. Its replacement is the first genuinely new US warhead build in decades. Wikimedia's own archivists have this vehicle filed under two different names, because nobody can tell a Mk-12 from a Mk-12A by looking at it.",
     safety: 2,
   },
   w87: {
     name: "W87", rv: "Mk-21", lab: "Lawrence Livermore",
     years: "1986 – present", yield: "300 kt",
-    nose: { len: 150, blunt: 6 },
+    // 68.9 in on 21.8 -> L/D 3.16. The only one of the three with a
+    // published nose half-angle (8.2 deg), so the drawing is built from it.
+    nose: { ld: 3.16 },
     rows: [
       ["Reentry vehicle", "Mk-21"],
       ["Designed at", "Lawrence Livermore"],
@@ -130,6 +136,10 @@ const CSS = `
    in all three chocolates without a per-flavor rule. */
 .mm-body { fill: color-mix(in oklab, var(--raised) 86%, var(--ink)); stroke: var(--line); stroke-width: 1.5; transition: fill .18s; }
 .mm-shadow { fill: var(--bg-deep); opacity: .5; }
+/* The reentry vehicle is a carbon heat shield over its whole surface, so it is
+   black — not a different colour from "the rest", because there is no rest. */
+.mm-rv { fill: #14100e; stroke: var(--sub); stroke-width: 1.2; opacity: .92; }
+:root[data-flavor="white"] .mm-rv { fill: #241c17; }
 .mm-part:hover .mm-body, .mm-part.on .mm-body { fill: color-mix(in oklab, var(--sub) 34%, var(--raised)); }
 .mm-part.on .mm-body { stroke: var(--sub); }
 .mm-seam { stroke: var(--bg-deep); stroke-width: 2; opacity: .5; }
@@ -210,9 +220,10 @@ export function mount(root) {
   for (const p of PARTS) {
     const g = svg("g", { class: "mm-part", "data-part": p.id });
     if (p.warheadSlot) {
-      const nose = svg("path", { class: "mm-body" });
-      g.append(nose);
-      partEls[p.id] = { g, nose };
+      const nose = svg("path", { class: "mm-body" });      // the shroud
+      const rv = svg("path", { class: "mm-rv" });          // what is inside it
+      g.append(nose, rv);
+      partEls[p.id] = { g, nose, rv };
     } else {
       const body = svg("rect", {
         class: "mm-body", x: p.x0, y: 105 - p.r, width: p.x1 - p.x0, height: p.r * 2, rx: 3,
@@ -269,18 +280,40 @@ export function mount(root) {
 
   /* ── behaviour ─────────────────────────────────────────────────────── */
 
-  /** The nose is redrawn per warhead: the Mk-12 is a blunter, shorter body and
-   *  the Mk-21 a longer, sharper one, which is a real difference and not a
-   *  flourish. */
+  /**
+   * The nose is redrawn per warhead from published length-to-diameter ratios,
+   * and the honest result is that you can barely tell them apart — which is
+   * the point the panel makes. All three are slender cones of about eight
+   * degrees with a tip blunted to roughly a tenth of the base diameter. A
+   * pointed tip would be wrong, and so would three obviously different shapes.
+   */
   function drawNose() {
     const w = WARHEADS[warhead];
-    const x0 = 700;
-    const tip = x0 + w.nose.len;
+    const x0 = 700, cy = 105;
+
+    // The aeroshell. This is the sharp cone in every photograph of a missile,
+    // and it is not the warhead — it is a fairing that covers the warhead
+    // during boost and is thrown away on the way up.
     const r = 26;
-    const b = w.nose.blunt;
     partEls.rv.nose.setAttribute(
+      "d", `M${x0} ${cy - r} L840 ${cy - 3} Q848 ${cy} 840 ${cy + 3} L${x0} ${cy + r} Z`,
+    );
+
+    // The reentry vehicle, drawn at its true scale relative to the missile:
+    // 21.8 in across on a body 65.5 in across is a quarter of the diameter, and
+    // 68.9 in long against 18.2 m is a tenth of the length. Drawing it the size
+    // of the fairing — which this exhibit did until it was checked — makes the
+    // warhead look four times bigger than it is.
+    const rr = 12;                    // half the RV's base diameter, to scale
+    const len = rr * 2 * w.nose.ld;   // straight from the published ratio
+    const b = rr * 0.1;               // tip blunted to a tenth of the base
+    const bx = x0 + 8;
+    const tip = bx + len;
+    partEls.rv.rv.setAttribute(
       "d",
-      `M${x0} ${105 - r} L${tip - b} ${105 - b} Q${tip} 105 ${tip - b} ${105 + b} L${x0} ${105 + r} Z`,
+      `M${bx} ${cy - rr} L${(tip - b).toFixed(1)} ${(cy - b).toFixed(1)}` +
+        ` Q${tip.toFixed(1)} ${cy} ${(tip - b).toFixed(1)} ${(cy + b).toFixed(1)}` +
+        ` L${bx} ${cy + rr} Z`,
     );
   }
 

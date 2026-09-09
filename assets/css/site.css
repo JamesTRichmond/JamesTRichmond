@@ -545,6 +545,12 @@
     position: absolute;
     opacity: 0.9;
     will-change: transform;
+    /* An SVG clips to its own viewport by default. The geometry is fitted to
+       the box in JS so nothing should reach the edge, but a round stroke cap
+       and the drop-shadow bloom both extend past their geometry — and being
+       sheared off by an invisible square is the exact failure this is here to
+       stop happening twice. */
+    overflow: visible;
   }
 
   /* The bloom is expensive — every filtered element re-rasterizes on every

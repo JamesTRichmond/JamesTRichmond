@@ -12,11 +12,11 @@
    ========================================================================== */
 
 const SOURCE = `type Params<S extends string> =
-  S extends \`\${string}:\${infer P}/\${infer Rest}\`
-    ? { [K in P | keyof Params<\`/\${Rest}\`>]: string }
-    : S extends \`\${string}:\${infer P}\`
-      ? { [K in P]: string }
-      : {};
+  S extends \`\${string}:\${infer P}/\${infer R}\`
+    ? { [K in P | keyof Params<\`/\${R}\`>]: string }
+  : S extends \`\${string}:\${infer P}\`
+    ? { [K in P]: string }
+  : {};
 
 type R = Params<"__ROUTE__">;`;
 
@@ -86,6 +86,30 @@ const CSS = `
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+/**
+ * One pass, not a chain of .replace() calls.
+ *
+ * Chaining them looks fine and is quietly broken: the keyword pass emits
+ * `<span class="ts-k">`, and the string pass that runs next sees the `"ts-k"`
+ * inside that markup as a string literal and wraps it again. The result is
+ * `"ts-k">type` printed on screen, which is precisely what this exhibit was
+ * doing. A single regex with alternation never sees its own output, so the two
+ * rules cannot collide.
+ */
+const TOKENS = /("[^"]*")|\b(type|extends|infer|keyof)\b/g;
+
+function highlight(src) {
+  let out = "";
+  let last = 0;
+  for (const m of src.matchAll(TOKENS)) {
+    out += esc(src.slice(last, m.index));
+    const cls = m[1] ? "ts-s" : "ts-k";
+    out += `<span class="${cls}">${esc(m[0])}</span>`;
+    last = m.index + m[0].length;
+  }
+  return out + esc(src.slice(last));
+}
+
 export function mount(root) {
   const style = document.createElement("style");
   style.textContent = CSS;
@@ -130,9 +154,7 @@ export function mount(root) {
     const route = input.value;
     const keys = paramsOf(route);
 
-    code.innerHTML = esc(SOURCE.replace("__ROUTE__", route))
-      .replace(/\b(type|extends|infer|keyof)\b/g, '<span class="ts-k">$1</span>')
-      .replace(/&quot;.*?&quot;|"[^"]*"/g, (m) => `<span class="ts-s">${m}</span>`);
+    code.innerHTML = highlight(SOURCE.replace("__ROUTE__", route));
 
     if (!keys.length) {
       out.innerHTML =

