@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en" data-flavor="milk" data-subject="workshop">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Workshop — James Richmond</title>
+<meta name="description" content="The room behind the other six. Half-built ideas for the GitHub profile, the projects waiting for a demo, and the things that did not work.">
+
+<meta property="og:title" content="Workshop — James Richmond">
+<meta property="og:description" content="The room behind the other six: what is on the bench, what is on the wall, and what got thrown away.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jamestrichmond.com/workshop/">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23472e1c'/><rect x='24' y='30' width='52' height='40' rx='10' fill='%23f2cf4a'/><rect x='34' y='44' width='32' height='11' rx='5.5' fill='%2340f58a'/><rect x='46' y='14' width='8' height='16' rx='4' fill='%23f2cf4a'/><circle cx='50' cy='12' r='7' fill='%23b06cf5'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/subject.css">
+
+<script>
+/* Set the saved flavor before first paint so there is no flash of the wrong chocolate. */
+{
+  const flavor = localStorage.getItem("flavor") || "milk";
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+
+<body>
+<div class="hypershapes" aria-hidden="true" data-hypershapes></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="mark" href="../">
+    <span class="mark-glyph" aria-hidden="true"></span>
+    <span class="mark-text">James Richmond</span>
+  </a>
+
+  <nav class="topnav" aria-label="Primary">
+    <a class="backlink" href="../">back</a>
+  </nav>
+
+  <fieldset class="flavors" data-flavors>
+    <legend class="sr-only">Chocolate flavor</legend>
+    <label class="flavor" title="Dark chocolate">
+      <input type="radio" name="flavor" value="dark">
+      <span class="swatch swatch-dark" aria-hidden="true"></span>
+      <span class="sr-only">Dark chocolate</span>
+    </label>
+    <label class="flavor" title="Milk chocolate">
+      <input type="radio" name="flavor" value="milk">
+      <span class="swatch swatch-milk" aria-hidden="true"></span>
+      <span class="sr-only">Milk chocolate</span>
+    </label>
+    <label class="flavor" title="White chocolate">
+      <input type="radio" name="flavor" value="white">
+      <span class="swatch swatch-white" aria-hidden="true"></span>
+      <span class="sr-only">White chocolate</span>
+    </label>
+  </fieldset>
+</header>
+
+<main id="main">
+
+<section class="subject-hero">
+  <div>
+    <p class="eyebrow">Open bench · nothing here is finished</p>
+    <h1 class="subject-title">The room behind the other six.</h1>
+    <p class="subject-lede">
+      Every other room on this site shows you something that works. This one
+      shows you the state it was in the day before. Ideas for the GitHub
+      profile get built here first, badly, and either survive or end up at the
+      bottom of the page. If you have found this room, you are looking at the
+      part most people delete before anyone arrives.
+    </p>
+  </div>
+
+  <ul class="facts">
+    <li><span class="fact-n">1</span><span class="fact-l">On the bench — playable, unfinished, and honest about which</span></li>
+    <li><span class="fact-n">3</span><span class="fact-l">On the wall, waiting for a demo that runs in your browser</span></li>
+    <li><span class="fact-n">4</span><span class="fact-l">Offcuts: approaches that were wrong, and what was wrong with them</span></li>
+    <li><span class="fact-n">0</span><span class="fact-l">Dependencies, here as everywhere else on this site</span></li>
+  </ul>
+</section>
+
+<section class="section">
+  <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+    <h2>On the bench</h2>
+    <p>Things being built for the profile. Play with them; they are wired up.</p>
+  </div>
+
+  <div class="exhibit" data-exhibit="drive">
+    <div class="exhibit-head">
+      <h3>Drive — the profile as something strangers play</h3>
+      <p class="exhibit-note">Prototype. The rules are final; the hard part is not built.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="prose">
+    <h3>What is actually being tested here</h3>
+
+    <p>There is already a bot on my profile that takes an issue from anybody on
+    the internet, sanitises it, writes it into my README, thanks the author and
+    closes the issue. No human is involved at any point. That machinery works,
+    and it has been attacked with thirteen different flavours of hostile input
+    without breaking.</p>
+
+    <p>So the question is what else you could point it at. A guestbook is a
+    wall. This is the same machinery pointed at a <em>world</em>: someone opens
+    an issue titled <code>move: north</code>, a workflow takes one step, redraws
+    the picture and closes the issue. Do that for a week and the internet has
+    walked the robot across the floor to the hammer, one stranger at a time.</p>
+
+    <p>The interesting part is not the maze — mazes are trivial. It is that a
+    document you thought you were only reading turns out to be a thing that
+    people are playing, slowly, over days, without ever meeting each other.
+    That is the reaction I am building for.</p>
+
+    <h3>What is not solved</h3>
+
+    <ul>
+      <li><strong>One person could just walk him.</strong> The rate limit has to
+      be per author, and GitHub gives me the author for free — but the moment I
+      enforce it, the first thing a visitor sees may be "you already moved
+      today," which is a worse first impression than a maze.</li>
+      <li><strong>A blocked move still burns a turn.</strong> That is deliberate:
+      it means walking him into a wall achieves nothing, so there is no reward
+      in griefing. Whether it also feels unfair to someone who guessed wrong is
+      a different question and I do not know the answer yet.</li>
+      <li><strong>The README needs a picture, not this.</strong> The panel on the
+      right is monospace because monospace is cheap and this is a prototype. The
+      real frame is an image a workflow has to render and commit on every single
+      move, which is a binary in git history several times a day — the exact
+      thing I refused to do for the robot GIF.</li>
+      <li><strong>Concurrency.</strong> Two issues opened in the same minute are
+      two workflow runs racing the same file. Solvable with a concurrency group,
+      untested.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+    <h2>The wall</h2>
+    <p>Other things I am building. Each one gets a tile here that runs in your
+    browser — no backend, no sign-up, no video of someone else using it.</p>
+  </div>
+
+  <div class="wall">
+    <article class="tile is-empty">
+      <header>
+        <h3>onto</h3>
+        <p class="tile-kind">Location-based events feed with a social layer</p>
+      </header>
+      <p>The tile will be the feed itself, filterable and scrollable, seeded
+      with real events and running entirely client-side.</p>
+      <p class="tile-state">Not built yet</p>
+    </article>
+
+    <article class="tile is-empty">
+      <header>
+        <h3>Prompt Dashboard <span class="tile-arrow" aria-hidden="true">→</span> Project Dashboard</h3>
+        <p class="tile-kind">The first two links in a chain</p>
+      </header>
+      <p>The prompt database makes the prompt; the project database turns that
+      prompt into a project. The tile has to show the <em>chain</em>, not either
+      end of it, because the chain is the idea.</p>
+      <p class="tile-state">Not built yet</p>
+    </article>
+
+    <article class="tile is-empty">
+      <header>
+        <h3>AgentiCubed</h3>
+        <p class="tile-kind">Governance-rigorous agentic orchestration</p>
+      </header>
+      <p>The hardest of the three to demo, because it does not reduce to a
+      screenshot. Probably one module, made legible to someone who has never
+      heard of it.</p>
+      <p class="tile-state">Not built yet</p>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="docent">
+    <div class="docent-stage" data-docent></div>
+    <p class="docent-caption">
+      He is used to being finished before anyone sees him. This room is the
+      exception.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="prose">
+    <h2>Offcuts</h2>
+
+    <p>Approaches that were wrong. They are here because the reasoning is
+    usually more useful than the thing that shipped, and because a portfolio
+    with no failures in it is not a portfolio, it is an advertisement.</p>
+
+    <ul>
+      <li><strong>A colour ramp on the engraving.</strong> The obvious way to
+      colour a monochrome plate is to map its luminance through a gradient. It
+      does not work: hatching averages into the middle of the range almost
+      everywhere, so nearly every pixel lands on the same mid stop and you get
+      the original picture under a purple filter. What replaced it treats the
+      plate as ink and paper and decides where the light is separately.</li>
+
+      <li><strong>The circular portrait frame.</strong> It looked like a
+      portrait, which was the point, right up until the lightning grew into an
+      arch and the mask ate the corners it was arcing through. The picture is a
+      rectangle and it gets to stay one.</li>
+
+      <li><strong>A 3.6 MB GIF.</strong> One 256-colour palette across a graded
+      storm sky forces the encoder to dither, and dithering a gradient that the
+      smoke is already warping is close to maximum entropy. The same eight
+      seconds is 746 KB as an animated WebP, which GitHub renders in a README
+      perfectly well.</li>
+
+      <li><strong>A test that could not fail.</strong> I checked the animation
+      looped seamlessly by comparing the first frame against the frame one full
+      loop later. The drawing function wraps its own clock, so those are the
+      same call — it was comparing a frame with itself and reporting a perfect
+      score for a visibly broken loop. This one is the most useful thing on the
+      page: a test you have never watched fail is not evidence.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+    <h2>The finished rooms</h2>
+  </div>
+  <nav class="rooms" aria-label="Other pages">
+    <a class="room" href="../usaf/">USAF</a>
+    <a class="room" href="../teacher/">Teacher</a>
+    <a class="room" href="../agents/">AI Agents</a>
+    <a class="room" href="../security/">Security</a>
+    <a class="room" href="../python/">Python</a>
+    <a class="room" href="../typescript/">TypeScript</a>
+    <a class="room" href="./" aria-current="page">Workshop</a>
+  </nav>
+</section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-line">
+    <a href="../">Back to the front page</a>, where everything is finished.
+  </p>
+  <p class="foot-meta">
+    <a href="https://github.com/JamesTRichmond">GitHub</a>
+    <a href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a>
+    <a href="mailto:jamestrichmond@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script type="module" src="../assets/js/subject.js"></script>
+</body>
+</html>

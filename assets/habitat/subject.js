@@ -567,6 +567,7 @@ export const DOCENTS = {
   security:   { scene: "rack",      activity: "patch",    caption: "Somebody's production, two in the morning." },
   python:     { scene: "terminal",  activity: "code",     caption: "The pause is him thinking. It is the most accurate part of this animation." },
   typescript: { scene: "terminal",  activity: "code",     caption: "Green bar. Then he changes something, and it is not a green bar." },
+  workshop:   { scene: "terminal",  activity: "code",     caption: "He is used to being finished before anyone sees him. This room is the exception." },
 };
 
 /** Everything a subject page needs to hand createHabitat(). */

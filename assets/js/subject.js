@@ -46,19 +46,22 @@ async function boot() {
   }
 
   /* ── the centrepiece ─────────────────────────────────────────────────── */
-  const exhibit = document.querySelector("[data-exhibit]");
-  if (exhibit) {
-    const name = exhibit.dataset.exhibit;
+  /* Every exhibit on the page, not just the first. The six subject rooms have
+     one centrepiece each; the workshop has a bench, and a bench holds several
+     things at once. Each is imported and mounted independently so one that
+     fails takes only itself down. */
+  await Promise.all([...document.querySelectorAll("[data-exhibit]")].map(async (el) => {
+    const name = el.dataset.exhibit;
     try {
       const mod = await import(`./exhibits/${name}.js`);
-      mod.mount(exhibit);
+      mod.mount(el);
     } catch (err) {
       // An exhibit that fails to load should cost the page its interactive
       // toy and nothing else — the article around it still reads.
       console.warn(`exhibit "${name}" did not load:`, err);
-      exhibit.hidden = true;
+      el.hidden = true;
     }
-  }
+  }));
 }
 
 if (document.readyState === "loading") {
