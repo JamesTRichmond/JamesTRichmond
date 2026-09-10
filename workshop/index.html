@@ -81,9 +81,9 @@
   </div>
 
   <ul class="facts">
-    <li><span class="fact-n">1</span><span class="fact-l">On the bench — playable, unfinished, and honest about which</span></li>
+    <li><span class="fact-n">3</span><span class="fact-l">On the bench — being built now, nothing playable yet</span></li>
     <li><span class="fact-n">3</span><span class="fact-l">On the wall, waiting for a demo that runs in your browser</span></li>
-    <li><span class="fact-n">4</span><span class="fact-l">Offcuts: approaches that were wrong, and what was wrong with them</span></li>
+    <li><span class="fact-n">5</span><span class="fact-l">Offcuts: approaches that were wrong, and what was wrong with them</span></li>
     <li><span class="fact-n">0</span><span class="fact-l">Dependencies, here as everywhere else on this site</span></li>
   </ul>
 </section>
@@ -91,59 +91,30 @@
 <section class="section">
   <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
     <h2>On the bench</h2>
-    <p>Things being built for the profile. Play with them; they are wired up.</p>
+    <p>Being built for the profile right now. Nothing here is playable yet —
+    when one is, it appears here with its controls wired up.</p>
   </div>
 
-  <div class="exhibit" data-exhibit="drive">
-    <div class="exhibit-head">
-      <h3>Drive — the profile as something strangers play</h3>
-      <p class="exhibit-note">Prototype. The rules are final; the hard part is not built.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="prose">
-    <h3>What is actually being tested here</h3>
-
-    <p>There is already a bot on my profile that takes an issue from anybody on
-    the internet, sanitises it, writes it into my README, thanks the author and
-    closes the issue. No human is involved at any point. That machinery works,
-    and it has been attacked with thirteen different flavours of hostile input
-    without breaking.</p>
-
-    <p>So the question is what else you could point it at. A guestbook is a
-    wall. This is the same machinery pointed at a <em>world</em>: someone opens
-    an issue titled <code>move: north</code>, a workflow takes one step, redraws
-    the picture and closes the issue. Do that for a week and the internet has
-    walked the robot across the floor to the hammer, one stranger at a time.</p>
-
-    <p>The interesting part is not the maze — mazes are trivial. It is that a
-    document you thought you were only reading turns out to be a thing that
-    people are playing, slowly, over days, without ever meeting each other.
-    That is the reaction I am building for.</p>
-
-    <h3>What is not solved</h3>
-
-    <ul>
-      <li><strong>One person could just walk him.</strong> The rate limit has to
-      be per author, and GitHub gives me the author for free — but the moment I
-      enforce it, the first thing a visitor sees may be "you already moved
-      today," which is a worse first impression than a maze.</li>
-      <li><strong>A blocked move still burns a turn.</strong> That is deliberate:
-      it means walking him into a wall achieves nothing, so there is no reward
-      in griefing. Whether it also feels unfair to someone who guessed wrong is
-      a different question and I do not know the answer yet.</li>
-      <li><strong>The README needs a picture, not this.</strong> The panel on the
-      right is monospace because monospace is cheap and this is a prototype. The
-      real frame is an image a workflow has to render and commit on every single
-      move, which is a binary in git history several times a day — the exact
-      thing I refused to do for the robot GIF.</li>
-      <li><strong>Concurrency.</strong> Two issues opened in the same minute are
-      two workflow runs racing the same file. Solvable with a concurrency group,
-      untested.</li>
-    </ul>
-  </div>
+  <ol class="queue">
+    <li class="queued">
+      <h3>The plate at two hours of day</h3>
+      <p>The engraving graded twice — a night storm and a dawn forge — swapping
+      with whatever theme your browser is set to. Not a colour swap. A different
+      hour, with different weather in it.</p>
+    </li>
+    <li class="queued">
+      <h3>A frame that advances every visit</h3>
+      <p>An image served one step at a time, further along every time anyone
+      opens the profile. The page ends up with a history with its visitors,
+      which is a strange thing for a document to have.</p>
+    </li>
+    <li class="queued">
+      <h3>The engraving in parallax</h3>
+      <p>Layered planes of the same plate drifting at different rates. Real
+      depth in a flat nineteenth-century woodcut, and nobody does this to an
+      engraving.</p>
+    </li>
+  </ol>
 </section>
 
 <section class="section">
@@ -224,6 +195,21 @@
       smoke is already warping is close to maximum entropy. The same eight
       seconds is 746 KB as an animated WebP, which GitHub renders in a README
       perfectly well.</li>
+
+      <li><strong>Drive — a game strangers play by opening an issue.</strong>
+      Built, playable, and killed the same day. There is already a bot on this
+      profile that takes an issue from anyone on the internet, sanitises it,
+      writes it into the README and closes the issue — so pointing that same
+      machinery at a world instead of a wall was almost free. Someone opens an
+      issue titled <code>move: north</code>, a workflow takes one step, and over
+      a week the internet walks a robot across a floor to a hammer. The
+      prototype worked and the rules held up. What it could not answer is that
+      the README needs a <em>picture</em>, and a picture redrawn on every move
+      is a binary committed to git several times a day, forever — the exact
+      thing the daily robot rotation exists to avoid, which makes it hard to
+      argue for here with a straight face. The unsolved rate limit was close
+      behind: the first thing a curious visitor would meet is "you already moved
+      today."</li>
 
       <li><strong>A test that could not fail.</strong> I checked the animation
       looped seamlessly by comparing the first frame against the frame one full

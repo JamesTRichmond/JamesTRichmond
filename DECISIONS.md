@@ -34,7 +34,22 @@ Costs much more per project, and some features will not survive the port to
 relationship to the work than one who watched a video of someone else playing
 with it, and that difference is the entire reason the six rooms work.
 
-## 2026-09-10 — First bench item: Drive
+## 2026-09-10 — Drive is killed
+
+Built, playable, and killed the same day. The prototype worked and the rules
+held up under play; what it could not answer is that the README needs a
+*picture*, and a picture redrawn on every move is a binary committed to git
+several times a day forever — the exact thing `rotate_robot.py` exists to avoid.
+Arguing for it here would have required ignoring a decision already made
+elsewhere in this repo for the same reason.
+
+The reasoning is on `/workshop/` in the offcuts, which is what that section is
+for. The module and its stylesheet are deleted; the story is the artifact now.
+
+**Replaced by three bench items, in order:** the plate graded at two hours of
+day, a frame that advances on every visit, the engraving in layered parallax.
+
+## 2026-09-10 — (superseded) First bench item: Drive
 
 The play-by-issue prototype, ahead of the day/night portrait, the per-request
 flipbook and the parallax engraving. Chosen because the guestbook already proves
