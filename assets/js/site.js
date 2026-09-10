@@ -120,6 +120,10 @@ async function initFeed() {
    If WebGL2 is missing or the assets fail, the figure removes itself and the
    hero falls back to a single column — :has() in the stylesheet handles that
    without a second layout rule. */
+/* Dark chocolate is midnight, white is dawn, milk is somewhere in the small
+   hours. See assets/thor/thor.js — the hour is one uniform, not a second grade. */
+const HOURS = { dark: 0, milk: 0.35, white: 1 };
+
 async function initPortrait() {
   const canvas = document.querySelector("[data-thor]");
   if (!canvas) return;
@@ -147,7 +151,16 @@ async function initPortrait() {
       src: plate, mask: masks, grade,
       crop: [178, 8, 1318, 1148],   // the full figure, in the plate's own 1329x1600
       loop: 8, cycles: 2,
+      hour: HOURS[document.documentElement.dataset.flavor] ?? 0,
     });
+
+    /* The chocolate sets the hour. It is the same control the visitor already
+       has, it already means light or dark, and tying the weather to it means
+       switching flavor changes what time of day it is in the picture — which
+       is a better reason to have three flavors than "three flavors". */
+    new MutationObserver(() => {
+      thor.setHour(HOURS[document.documentElement.dataset.flavor] ?? 0);
+    }).observe(document.documentElement, { attributeFilter: ["data-flavor"] });
 
     // Costs nothing while scrolled away or in a background tab.
     let onScreen = true;

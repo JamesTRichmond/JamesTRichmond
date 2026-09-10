@@ -72,6 +72,21 @@ uniform vec2  u_hammer;
 uniform vec2  u_vent;
 uniform float u_amp;        // global motion scale; 0 under reduced-motion
 uniform float u_debug;      // 1 masks · 2 grade masks
+uniform float u_hour;       // 0 = night storm · 1 = dawn forge
+
+/* The hour dial.
+
+   Every colour in the grade below is written as a pair — what it is at night,
+   what it is at dawn — and this mixes between them. Pulling the palette out of
+   the shader body and into a parameter is the whole change: it was hidden
+   information, baked into constants, and it is now visible information the
+   caller sets. That is what makes a second hour cost a column of numbers
+   instead of a second shader.
+
+   It is deliberately continuous rather than a switch. A dial can be scrubbed,
+   and scrubbing is how you find out that the interesting part is not either end
+   but the twenty minutes in between. */
+vec3 hr(vec3 night, vec3 dawn) { return mix(night, dawn, u_hour); }
 
 /* ── periodic value noise ──────────────────────────────────────────────────
    Every moving thing in this shader has to return to its exact starting state
@@ -217,43 +232,54 @@ void main() {
      too bright does not just look wrong, it destroys the colour of the
      lightning as well. Narrow, and the warmth is confined to the burst the
      engraver actually drew, with storm everywhere else. */
-  float key = smoothstep(0.30, 0.97, lit);
+  // Dawn light is lower and rakes further, so the window opens a little.
+  float key = smoothstep(0.30 - 0.06 * u_hour, 0.97, lit);
 
   // Sky: storm, crossfaded into the burst of light the engraver put behind him.
-  vec3 paper = mix(vec3(0.125, 0.165, 0.388), vec3(0.965, 0.855, 0.675), key);
-  vec3 ink   = mix(vec3(0.012, 0.024, 0.098), vec3(0.286, 0.173, 0.122), key);
+  vec3 paper = mix(hr(vec3(0.125, 0.165, 0.388), vec3(0.404, 0.322, 0.365)),
+                   hr(vec3(0.965, 0.855, 0.675), vec3(1.000, 0.812, 0.545)), key);
+  vec3 ink   = mix(hr(vec3(0.012, 0.024, 0.098), vec3(0.075, 0.047, 0.055)),
+                   hr(vec3(0.286, 0.173, 0.122), vec3(0.361, 0.196, 0.106)), key);
 
   /* A ceiling. A storm is darkest directly overhead, and dropping the top of
      the frame is also what stops the sky competing with the discharge that is
      about to happen in it. */
   float lid = smoothstep(0.34, 1.0, uv.y) * (1.0 - key * 0.62);
-  paper = mix(paper, vec3(0.043, 0.059, 0.176), lid * 0.82);
-  ink   = mix(ink,   vec3(0.006, 0.010, 0.047), lid * 0.82);
+  paper = mix(paper, hr(vec3(0.043, 0.059, 0.176), vec3(0.243, 0.180, 0.212)),
+              lid * (0.82 - 0.34 * u_hour));
+  ink   = mix(ink,   hr(vec3(0.006, 0.010, 0.047), vec3(0.055, 0.039, 0.051)),
+              lid * (0.82 - 0.34 * u_hour));
 
   // Ember. It is a volcano: the base of the plume glows, and it breathes.
   float dv = distance(uv, u_vent);
   float ember = exp(-dv * dv / (2.0 * 0.135 * 0.135)) * (0.58 + 0.42 * gust);
-  paper = mix(paper, vec3(0.930, 0.412, 0.125), ember * 0.68);
-  ink   = mix(ink,   vec3(0.267, 0.067, 0.012), ember * 0.68);
+  // Hotter at dawn: the storm is spent and the vent is the loudest thing left.
+  paper = mix(paper, hr(vec3(0.930, 0.412, 0.125), vec3(1.000, 0.518, 0.114)),
+              ember * (0.68 + 0.22 * u_hour));
+  ink   = mix(ink,   hr(vec3(0.267, 0.067, 0.012), vec3(0.310, 0.086, 0.016)),
+              ember * (0.68 + 0.22 * u_hour));
 
   // Stone. Colder and flatter than he is, so he separates from the crag.
-  paper = mix(paper, mix(vec3(0.235, 0.267, 0.361), vec3(0.640, 0.686, 0.784),
+  paper = mix(paper, mix(hr(vec3(0.235, 0.267, 0.361), vec3(0.353, 0.318, 0.325)),
+                         hr(vec3(0.640, 0.686, 0.784), vec3(0.757, 0.694, 0.647)),
                          key), g.b);
-  ink   = mix(ink,   vec3(0.031, 0.043, 0.078), g.b);
+  ink   = mix(ink,   hr(vec3(0.031, 0.043, 0.078), vec3(0.078, 0.063, 0.067)), g.b);
 
   /* Him. His paper warms with the key so his lit side is warm and his shadow
      side stays cool — he is backlit in this picture, and that one gradient
      across a figure is most of what makes a flat plate look three-dimensional. */
-  paper = mix(paper, mix(vec3(0.416, 0.278, 0.271), vec3(0.980, 0.800, 0.655),
+  paper = mix(paper, mix(hr(vec3(0.416, 0.278, 0.271), vec3(0.514, 0.333, 0.286)),
+                         hr(vec3(0.980, 0.800, 0.655), vec3(1.000, 0.835, 0.678)),
                          smoothstep(0.14, 0.86, lit)), g.g);
-  ink   = mix(ink,   vec3(0.176, 0.051, 0.043), g.g);
+  ink   = mix(ink,   hr(vec3(0.176, 0.051, 0.043), vec3(0.208, 0.078, 0.055)), g.g);
 
   /* Metal takes the highlight harder and holds a deeper warm shadow than skin
      does. That gap between the two ends, more than the hue, is what reads as
      metal rather than as something painted gold. */
-  paper = mix(paper, mix(vec3(0.400, 0.278, 0.098), vec3(1.000, 0.933, 0.678),
+  paper = mix(paper, mix(hr(vec3(0.400, 0.278, 0.098), vec3(0.478, 0.325, 0.106)),
+                         hr(vec3(1.000, 0.933, 0.678), vec3(1.000, 0.902, 0.588)),
                          smoothstep(0.10, 0.70, lit)), g.r);
-  ink   = mix(ink,   vec3(0.145, 0.075, 0.012), g.r);
+  ink   = mix(ink,   hr(vec3(0.145, 0.075, 0.012), vec3(0.184, 0.098, 0.020)), g.r);
 
   vec3 col = mix(paper, ink, d);
 
@@ -280,6 +306,12 @@ void main() {
      shows where it lands. */
   float occl = mix(1.0, 0.12, m.a);
 
+  /* The weather is part of the hour. At night he is about to strike; at dawn
+     the storm has already passed and the hammer is only warm. Swapping the
+     palette without swapping the weather would be a filter, which is the whole
+     thing this is trying not to be. */
+  float storm = 1.0 - 0.88 * u_hour;
+
   vec3 bolt = vec3(1.00, 1.00, 0.98) * pow(core, 1.40) * 1.60 * occl
             + vec3(0.62, 0.88, 1.00) * bloom * 1.05 * occl
             + vec3(0.28, 0.46, 1.00) * halo  * 1.15;
@@ -288,17 +320,17 @@ void main() {
      laying it on top: the halo lifts the sky it passes through, and it lifts
      his edge harder, so the light appears to be falling on him. */
   float spill = halo * 0.95 + bloom * 0.45;
-  col = screenBlend(col, vec3(0.44, 0.60, 1.00) * spill * (0.32 + 0.95 * g.g));
-  col += bolt;
+  col = screenBlend(col, vec3(0.44, 0.60, 1.00) * spill * (0.32 + 0.95 * g.g) * storm);
+  col += bolt * storm;
 
   // Warmth off the head between discharges, so it is never just dark metal.
   float dh = distance(uv, u_hammer);
   col = screenBlend(col, vec3(0.55, 0.74, 1.00)
-        * exp(-dh * dh / (2.0 * 0.048 * 0.048)) * u_charge * 0.34);
+        * exp(-dh * dh / (2.0 * 0.048 * 0.048)) * u_charge * (0.34 - 0.14 * u_hour));
 
   // The discharge lights the whole sky for a few frames. Small on purpose:
   // this is the line between cinematic and a white screen.
-  col = screenBlend(col, vec3(0.58, 0.70, 1.00) * u_flash * 0.30);
+  col = screenBlend(col, vec3(0.58, 0.70, 1.00) * u_flash * 0.30 * storm);
 
   /* A vignette, and it is doing more than looking filmic. The eye goes to the
      brightest thing it can find; pulling the corners down means that thing is
@@ -359,7 +391,12 @@ function jag(rng, x0, y0, x1, y1, spread, depth) {
  * @param {number} [opts.cycles]         hammer charges per loop
  */
 export function createThor(canvas, opts) {
-  const { src, mask, grade, crop, loop = 8.0, cycles = 2, ref = [1329, 1600] } = opts;
+  const { src, mask, grade, crop, loop = 8.0, cycles = 2, ref = [1329, 1600],
+          hour = 0 } = opts;
+
+  /* Declared up here rather than beside the other render state, because the
+     bolt generator reads it and is defined well above that point. */
+  let hour_ = Math.min(1, Math.max(0, +hour || 0));
   const gl = canvas.getContext("webgl2", { antialias: false, preserveDrawingBuffer: true });
   if (!gl) throw new Error("WebGL2 unavailable");
 
@@ -519,7 +556,12 @@ export function createThor(canvas, opts) {
   function drawBolts(t) {
     const tc = t % CYCLE;
     const p = tc / CYCLE;
-    const c = envelope(p);
+    /* The hour reaches the generator, not only the palette. Dimming a full
+       discharge leaves a full discharge that is dim; a spent storm makes
+       *fewer and smaller* discharges, and that is a different picture. Scaling
+       the charge here reduces the bolt count, the reach and the stroke width
+       together, because all three are already functions of it. */
+    const c = envelope(p) * (1.0 - 0.88 * hour_);
     const fl = flicker(t);
 
     bx.globalCompositeOperation = "source-over";
@@ -659,9 +701,11 @@ export function createThor(canvas, opts) {
 
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   let debug = 0;
+  let lastT = 0;
 
   /** Draw one frame at an absolute time. Pure: same t, same pixels. */
   function drawAt(t) {
+    lastT = t;
     const tt = ((t % loop) + loop) % loop;
     const p = (tt % CYCLE) / CYCLE;
     const fl = flicker(tt);
@@ -672,6 +716,7 @@ export function createThor(canvas, opts) {
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, bc);
 
     gl.uniform1f(U("u_debug"), debug);
+    gl.uniform1f(U("u_hour"), hour_);
     gl.uniform1f(U("u_t"), tt);
     gl.uniform1f(U("u_charge"), envelope(p) * (0.7 + 0.3 * fl));
     gl.uniform1f(U("u_flash"), flash(p) * fl);
@@ -690,6 +735,12 @@ export function createThor(canvas, opts) {
   return {
     drawAt,
     loop,
+    get hour() { return hour_; },
+    /** 0 = night storm, 1 = dawn forge. Continuous; redraws if stopped. */
+    setHour(v) {
+      hour_ = Math.min(1, Math.max(0, +v || 0));
+      if (!raf) drawAt(lastT);
+    },
     set debugMasks(v) { debug = v === 2 ? 2 : v ? 1 : 0; },
     start() { if (!raf) { t0 = performance.now(); raf = requestAnimationFrame(frame); } },
     stop() { cancelAnimationFrame(raf); raf = 0; },

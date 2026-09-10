@@ -34,6 +34,30 @@ Costs much more per project, and some features will not survive the port to
 relationship to the work than one who watched a video of someone else playing
 with it, and that difference is the entire reason the six rooms work.
 
+## 2026-09-10 — The hour is a shader uniform, not a second grade
+
+Bench item 01 ships. Every colour in the grade is now written as a pair — what
+it is at night, what it is at dawn — mixed by one `u_hour` uniform.
+
+The alternative was a second shader, or a second set of baked frames. Rejected
+because the palette was *hidden information* baked into constants, and making it
+visible information the caller sets is what turns a third hour into a column of
+numbers rather than a rewrite. It is continuous rather than a switch so it can
+be scrubbed, and scrubbing is how you learn the interesting part is neither end.
+
+**The hour moves the weather, not only the palette.** The charge feeding the bolt
+generator is scaled by it, so a spent storm makes fewer and smaller discharges
+rather than a full discharge that is dim. Dimming alone read as a filter, which
+is the exact thing this is trying not to be.
+
+On the site the hour is bound to the chocolate flavor — dark is midnight, white
+is dawn, milk is the small hours — which gives three flavors a better reason to
+exist than three flavors.
+
+**Not decided:** whether the README ships both hours. Two 746 KB animations is
+1.5 MB, and this repo has already argued that weight you cannot see is weight not
+worth paying. Stated as unsolved on `/workshop/` rather than quietly resolved.
+
 ## 2026-09-10 — Drive is killed
 
 Built, playable, and killed the same day. The prototype worked and the rules

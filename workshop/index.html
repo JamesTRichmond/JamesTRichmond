@@ -81,7 +81,7 @@
   </div>
 
   <ul class="facts">
-    <li><span class="fact-n">3</span><span class="fact-l">On the bench — being built now, nothing playable yet</span></li>
+    <li><span class="fact-n">1 of 3</span><span class="fact-l">On the bench, working — the other two are queued behind it</span></li>
     <li><span class="fact-n">3</span><span class="fact-l">On the wall, waiting for a demo that runs in your browser</span></li>
     <li><span class="fact-n">5</span><span class="fact-l">Offcuts: approaches that were wrong, and what was wrong with them</span></li>
     <li><span class="fact-n">0</span><span class="fact-l">Dependencies, here as everywhere else on this site</span></li>
@@ -91,17 +91,66 @@
 <section class="section">
   <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
     <h2>On the bench</h2>
-    <p>Being built for the profile right now. Nothing here is playable yet —
-    when one is, it appears here with its controls wired up.</p>
+    <p>Being built for the profile. What is wired up is wired up — play with
+    it.</p>
   </div>
 
-  <ol class="queue">
-    <li class="queued">
-      <h3>The plate at two hours of day</h3>
-      <p>The engraving graded twice — a night storm and a dawn forge — swapping
-      with whatever theme your browser is set to. Not a colour swap. A different
-      hour, with different weather in it.</p>
-    </li>
+  <div class="exhibit" data-exhibit="hours">
+    <div class="exhibit-head">
+      <h3>01 · The plate at two hours of day</h3>
+      <p class="exhibit-note">Working. Drag the hour; the weather changes with it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="prose">
+    <h3>Why this is not a colour swap</h3>
+
+    <p>A theme-aware image is usually the same picture with different
+    saturation, and it always looks like what it is. So the hour here moves the
+    weather, not only the palette: at midnight the discharge is at full
+    strength and he is about to use it; by dawn the storm has passed, the
+    lightning is nearly gone, and the vent behind the crag is the loudest thing
+    left in the frame. Same engraving, same pixels, different morning.</p>
+
+    <p>The mechanism is one number. Every colour in the grade is written as a
+    pair — what it is at night, what it is at dawn — and a single uniform mixes
+    between them. That palette used to be constants buried in the shader body,
+    which is hidden information; it is visible information the caller sets now.
+    The point of the move is that a <em>third</em> hour costs a column of
+    numbers instead of a second shader.</p>
+
+    <p>It is a dial rather than a switch on purpose, because scrubbing it is how
+    you find out that the interesting part is neither end. On the profile it
+    will not be a dial at all — it binds to the reader's own light or dark
+    theme, so two people open the same README and get different weather.</p>
+
+    <h3>What is not solved</h3>
+
+    <ul>
+      <li><strong>Two of everything doubles the README.</strong> The animation
+      there is a 746 KB WebP. Shipping a second one for the light theme makes it
+      1.5 MB, and I have already argued on this page that weight you cannot see
+      is weight not worth paying. Either the light version is shorter, or
+      smaller, or the profile picks one hour and the dial stays here.</li>
+      <li><strong>Dawn has no reference.</strong> The night grade was built
+      against a real thing — a storm — and the dawn one is invented. It reads,
+      but it is the weaker of the two and I know it.</li>
+      <li><strong>Nearly a megabyte of plate</strong> to run this on a page most
+      people will not scroll to. It loads only when it comes into view, which is
+      a mitigation, not a fix.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head" style="inline-size: var(--shell); margin-inline: auto;">
+    <h2>Also on the bench</h2>
+    <p>Queued behind it, in this order.</p>
+  </div>
+
+  <ol class="queue" start="2">
     <li class="queued">
       <h3>A frame that advances every visit</h3>
       <p>An image served one step at a time, further along every time anyone
