@@ -33,11 +33,11 @@ machine that decides what he does with his day. No dependencies, no build step.
 ## Latest Activity
 
 <!--START_SECTION:activity-->
-- Pushed to [JamesTRichmond/LordAinz](https://github.com/JamesTRichmond/LordAinz)
-- Pushed to [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
-- Created branch in [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
 - Pushed to [JamesTRichmond/JamesTRichmond](https://github.com/JamesTRichmond/JamesTRichmond)
-- Labeled an issue in [JamesTRichmond/JamesTRichmond](https://github.com/JamesTRichmond/JamesTRichmond)
+- Pushed to [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
+- Pushed to [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
+- Pushed to [JamesTRichmond/LordAinz](https://github.com/JamesTRichmond/LordAinz)
+- Merged PR #1 in [AgentiCubed/petrichor](https://github.com/AgentiCubed/petrichor)
 <!--END_SECTION:activity-->
 
 ## GitHub Stats
