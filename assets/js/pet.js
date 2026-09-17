@@ -528,7 +528,7 @@ class Pet {
 
   grab(x, y, time = performance.now()) {
     if (this.yard?.broken) return;
-    if (this.activity) this.goHome();
+    if (this.activity || this.state === "travel") this.goHome();
     this.setState("drag");
     this.dragOff = { x: this.x - x, y: this.y - y };
     this.vx = 0; this.vy = 0;
@@ -862,6 +862,7 @@ export function mountPet(stage, { onStateChange, onRepairChange } = {}) {
 
   stage.addEventListener("pointerdown", (e) => {
     if (e.button !== 0 || pointerId !== null) return;
+    e.preventDefault();
     stage.focus({ preventScroll: true });
     const pt = toLocal(e);
     downAt = pt;
@@ -907,6 +908,7 @@ export function mountPet(stage, { onStateChange, onRepairChange } = {}) {
   stage.addEventListener("pointerup", e => endPointer(e));
   stage.addEventListener("pointercancel", e => endPointer(e, true));
   stage.addEventListener("lostpointercapture", e => endPointer(e, true));
+  stage.addEventListener("dragstart", e => e.preventDefault());
 
   function repair(name) {
     keys.clear();

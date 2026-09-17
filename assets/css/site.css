@@ -465,6 +465,8 @@
     min-inline-size: 0;
     contain: layout paint style;
     touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
     cursor: default;
   }
   .stage:active { cursor: grabbing; }
