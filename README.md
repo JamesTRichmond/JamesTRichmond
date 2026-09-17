@@ -21,7 +21,9 @@ building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: managing 
 <a href="https://jamestrichmond.com/#habitat"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/robot/climb.gif" width="760" alt="A small robot climbing a rock face. Click him and he becomes controllable." /></a>
 <!--END_SECTION:robot-->
 
-He does something different every day. **[Click him](https://jamestrichmond.com/#habitat)** and he becomes yours to drive — arrow keys to walk, space to jump, and you can pick him up and throw him.
+He does something different every day. **[Click him](https://jamestrichmond.com/#habitat)** to enter his ink-and-paper workshop — arrow keys to walk, space to jump, and grab + fling to send his parts flying. Hard throws into the floor, walls, lamp, crates, or bench break him apart; ordinary walking and jumping don't.
+
+Drag the loose pieces onto the dotted robot to rebuild him, or borrow a tin-can head, spring arm, and wheel from the bench. **X** test-throws, **R** reassembles, and **M** remixes him with room scraps while the workshop is focused. The buttons also work on touch screens and without dragging. **Start over** restores his original parts. His sleep, cook, ride, climb, and oil-change routines still work with the new hardware.
 
 ## habitat
 

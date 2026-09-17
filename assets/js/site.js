@@ -190,16 +190,30 @@ function boot() {
   if (!stage) return;
 
   const acts = [...document.querySelectorAll(".act")];
+  const repairTools = [...document.querySelectorAll("[data-repair]")];
+  const repairCount = document.querySelector("[data-repair-count]");
   const pet = mountPet(stage, {
     onStateChange(name) {
       for (const b of acts) {
         b.setAttribute("aria-pressed", String(b.dataset.act === name));
       }
     },
+    onRepairChange({ broken, count, custom }) {
+      for (const b of acts) b.disabled = broken;
+      for (const b of repairTools) {
+        b.disabled = b.dataset.repair === "throw" ? broken :
+          ["rebuild", "remix"].includes(b.dataset.repair) ? !broken : false;
+      }
+      if (repairCount) repairCount.textContent =
+        `${count} / 6 parts · ${broken ? "some assembly required" : custom ? `${custom} scavenged upgrades` : "factory-ish"}`;
+    },
   });
 
   for (const btn of acts) {
     btn.addEventListener("click", () => pet.command(btn.dataset.act));
+  }
+  for (const btn of repairTools) {
+    btn.addEventListener("click", () => pet.repair(btn.dataset.repair));
   }
 
   /* One loop for the whole page. It stops when the tab is hidden and when the

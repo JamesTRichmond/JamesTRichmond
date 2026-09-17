@@ -117,17 +117,27 @@
   <!-- ─────────── HABITAT ─────────── -->
   <section id="habitat" class="section habitat">
     <div class="section-head">
-      <h2>Habitat</h2>
+      <p class="eyebrow">Habitat / an experiment in spare parts</p>
+      <h2>Some assembly<br>required.</h2>
       <p class="section-sub">
-        There is a robot living on this page. He has opinions about what to do with his day.
+        Meet a little machine with very loose screws. Throw him. Break him.
+        Put him back together wrong.
       </p>
     </div>
 
     <div class="stage-wrap">
+      <div class="workshop-caption"><span>FIG. 01 — THE REPAIR DEPARTMENT</span><span>Nothing here is beyond repair.</span></div>
       <div class="stage" data-stage tabindex="0" role="application"
-           aria-label="Robot habitat. Use arrow keys to walk, space to jump, or pick an activity below.">
-        <svg class="stage-svg" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+           aria-label="Robot workshop. Arrow keys walk, space jumps, X test throws, R rebuilds, M rebuilds with room scraps. Drag the robot to throw him, then drag loose parts onto the repair outline."
+           aria-describedby="habitat-help">
+        <svg class="stage-svg" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <defs>
+            <pattern id="sketch-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+              <path d="M0 7L7 0M-2 2L2-2M5 9L9 5" stroke="var(--ink)" stroke-width=".7" opacity=".3"/>
+            </pattern>
+            <pattern id="sketch-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+              <path d="M24 0H0V24" fill="none" stroke="#577f8b" stroke-width=".6" opacity=".18"/>
+            </pattern>
             <linearGradient id="iri" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" class="iri-a"></stop>
               <stop offset="1" class="iri-b"></stop>
@@ -152,6 +162,13 @@
       </div>
 
       <div class="stage-controls">
+        <div class="repair-tools" role="group" aria-label="Break and rebuild the robot">
+          <button type="button" class="repair-tool" data-repair="throw">↗ Test throw <kbd>X</kbd></button>
+          <button type="button" class="repair-tool" data-repair="rebuild" disabled>Rebuild <kbd>R</kbd></button>
+          <button type="button" class="repair-tool" data-repair="remix" disabled>Room remix <kbd>M</kbd></button>
+          <button type="button" class="repair-tool" data-repair="reset">Start over</button>
+        </div>
+        <p class="repair-count" data-repair-count aria-live="polite">6 / 6 parts · factory-ish</p>
         <div class="acts" role="group" aria-label="Tell the robot what to do">
           <button type="button" class="act" data-act="idle">Idle</button>
           <button type="button" class="act" data-act="sleep">Sleep</button>
@@ -160,9 +177,10 @@
           <button type="button" class="act" data-act="climb">Climb</button>
           <button type="button" class="act" data-act="service">Oil change</button>
         </div>
-        <p class="hint">
+        <p class="hint" id="habitat-help">
           <kbd>←</kbd><kbd>→</kbd> walk &nbsp;·&nbsp; <kbd>space</kbd> jump &nbsp;·&nbsp;
-          drag him around &nbsp;·&nbsp; click to say hi. Leave him alone and he'll find something to do.
+          grab + fling to break &nbsp;·&nbsp; drag pieces onto the dotted robot to repair.
+          Borrow the tin, spring, or wheel from the bench. Rebuild buttons work without dragging.
         </p>
       </div>
     </div>

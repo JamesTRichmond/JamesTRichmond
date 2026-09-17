@@ -16,6 +16,7 @@
    ========================================================================== */
 
 import { SCENES, PROPS } from "./scenes.js";
+import { Scrapyard, SCENE_SOLIDS } from "./scrapyard.js";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const DEG = 180 / Math.PI;
@@ -46,17 +47,20 @@ const up = (n) => n * RIG_SCALE;
 
 const limb = (cls, seg1, seg2, tone, tone2) => `
   <g class="${cls}">
-    <rect x="${-seg1.w / 2}" y="0" width="${seg1.w}" height="${seg1.len + 4}" rx="${seg1.w / 2}" fill="${tone}"/>
+    <path d="M${-seg1.w / 2} 0l${seg1.w} 1 -1 ${seg1.len + 3}h${2 - seg1.w}z" fill="${tone}"/>
+    <path d="M-3 5l6 3m-6 3 6 3m-6 3 6 3" fill="none" opacity=".4" stroke-width=".8"/>
     <g class="${cls}-lo">
-      <rect x="${-seg2.w / 2}" y="0" width="${seg2.w}" height="${seg2.len}" rx="${seg2.w / 2}" fill="${tone}"/>
+      <rect x="${-seg2.w / 2}" y="0" width="${seg2.w}" height="${seg2.len}" rx="2" fill="${tone}"/>
+      <circle r="4" fill="var(--bg-deep)"/>
+      <path d="M-2 0h4M0-2v4" fill="none" stroke-width=".8"/>
       ${seg2.foot
-        ? `<rect x="-9" y="${seg2.len - 5}" width="25" height="12" rx="5.5" fill="${tone2}"/>`
-        : `<circle cy="${seg2.len}" r="7.5" fill="${tone2}"/>`}
+        ? `<path d="M-9 ${seg2.len - 5}l21 1 4 10-26 1z" fill="${tone2}"/><path d="M-7 ${seg2.len + 3}h20" fill="none"/>`
+        : `<path d="M-6 ${seg2.len - 4}l-2 9 5 3 3-5 3 5 5-3-2-9" fill="${tone2}"/>`}
     </g>
   </g>`;
 
 const RIG = `
-<ellipse class="pet-shadow" rx="42" ry="8" fill="#000" opacity=".3"/>
+<ellipse class="pet-shadow" rx="42" ry="8" fill="url(#sketch-hatch)" opacity=".3"/>
 <g class="pet-root">
   <!-- far-side limbs, behind and darker, which is what reads as depth -->
   <g class="limb-b" opacity=".68">
@@ -66,28 +70,34 @@ const RIG = `
 
   <g class="pet-body">
     <!-- torso -->
-    <rect x="-24" y="-56" width="48" height="58" rx="15" fill="var(--chassis)"/>
-    <rect x="-24" y="-56" width="48" height="20" rx="15" fill="var(--chassis-hi)" opacity=".5"/>
-    <rect x="-15" y="-43" width="30" height="28" rx="9" fill="var(--chassis-lo)" opacity=".9"/>
-    <circle class="pet-core" cx="0" cy="-29" r="8.5" fill="var(--iri-p)"/>
-    <circle cx="0" cy="-29" r="19" fill="url(#coreGrad)" opacity=".6"/>
-    <rect x="-18" y="-9" width="36" height="7" rx="3.5" fill="var(--accent)" opacity=".9"/>
+    <g class="chassis">
+      <path d="M-24-55L23-57 26-3 19 3-23 1Z" fill="var(--chassis)"/>
+      <path d="M-21-52L20-54 22-4-20-2Z" fill="none" stroke-width=".7"/>
+      <path d="M-24-55l7 6v49l-6 1z" fill="url(#sketch-hatch)" stroke="none"/>
+      <circle cx="0" cy="-29" r="13" fill="var(--bg-deep)"/>
+      <path class="pet-core" d="M-9-29h5l3-7 4 14 3-7h4" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      <path d="M-12-10h24M-12-6h17" fill="none" stroke-width="1"/>
+      <g fill="var(--ink)" stroke="none"><circle cx="-17" cy="-47" r="1.8"/><circle cx="17" cy="-47" r="1.8"/></g>
     <!-- shoulder caps, so the arms read as attached -->
     <circle cx="-25" cy="-48" r="9" fill="var(--chassis-lo)"/>
     <circle cx="25" cy="-48" r="9" fill="var(--chassis)"/>
+    </g>
 
     <!-- head -->
     <g class="head">
-      <rect x="-26" y="-48" width="52" height="49" rx="15" fill="var(--chassis)"/>
-      <rect x="-26" y="-48" width="52" height="17" rx="15" fill="var(--chassis-hi)" opacity=".45"/>
-      <rect x="-19" y="-36" width="38" height="18" rx="9" fill="var(--bg-deep)"/>
-      <rect class="visor" x="-17" y="-34.5" width="34" height="15" rx="7.5" fill="url(#visorGrad)"/>
-      <rect class="pupil" x="-5" y="-32" width="10" height="10" rx="5" fill="var(--bg-deep)" opacity=".85"/>
-      <rect class="lid" x="-19" y="0" width="38" height="18" rx="9" fill="var(--chassis)"/>
-      <rect x="-9" y="-11" width="18" height="5" rx="2.5" fill="var(--chassis-lo)" opacity=".8"/>
+      <path d="M-28-47L23-50 29-43 26-1-25 2Z" fill="var(--chassis-hi)"/>
+      <path d="M-25-44L20-47M-23-1l1-41M24-39l-1 35" fill="none" stroke-width=".7"/>
+      <path d="M-28-47l7 5-1 42-3 2z" fill="url(#sketch-hatch)" stroke="none"/>
+      <path d="M-19-36l37-1 2 19-38 1z" fill="var(--fluoro)" fill-opacity=".22"/>
+      <g class="pupil" fill="var(--ink)" stroke="none">
+        <ellipse cx="-7" cy="-27" rx="3" ry="5"/><ellipse cx="8" cy="-27" rx="3" ry="5"/>
+      </g>
+      <rect class="lid" x="-19" y="0" width="38" height="18" rx="1" fill="var(--chassis)"/>
+      <path d="M-8-9l5 2 4-3 7 1" fill="none"/>
+      <path d="M-32-32v17m63-19-1 17" fill="none" stroke-width="4"/>
       <g class="antenna">
-        <path d="M0 0 v-20" stroke="var(--chassis-hi)" stroke-width="4.5" stroke-linecap="round"/>
-        <circle class="antenna-tip" cy="-26" r="6.5" fill="var(--accent)"/>
+        <path d="M0 0l-3-7 5-6-4-7 2-6" fill="none"/>
+        <circle class="antenna-tip" cy="-27" r="4" fill="var(--accent)"/>
       </g>
     </g>
   </g>
@@ -475,6 +485,7 @@ class Pet {
 
   /** Send him off to do something. He walks to his mark first. */
   startActivity(name) {
+    if (this.yard?.broken) return;
     const act = ACTIVITIES[name];
     if (!act) return this.goHome();
     this.setScene(act.scene);
@@ -484,14 +495,18 @@ class Pet {
   }
 
   goHome() {
+    if (this.yard?.broken) return;
     this.setScene("workshop");
     this.y = this.groundY;
     this.vx = 0; this.vy = 0;
+    this.armed = false;
+    this.grounded = true;
     this.setState("idle");
   }
 
   /* -- input -- */
   handleInput(input) {
+    if (this.yard?.broken || this.armed) return;
     this.idleT = 0;
     if (this.activity || this.state === "travel") {
       if (input.dir || input.jump) this.goHome();
@@ -511,32 +526,43 @@ class Pet {
     }
   }
 
-  grab(x, y) {
+  grab(x, y, time = performance.now()) {
+    if (this.yard?.broken) return;
     if (this.activity) this.goHome();
     this.setState("drag");
     this.dragOff = { x: this.x - x, y: this.y - y };
     this.vx = 0; this.vy = 0;
+    this.armed = false;
+    this.samples = [{ x: this.x, y: this.y, time }];
     this.idleT = 0;
   }
 
-  dragTo(x, y) {
+  dragTo(x, y, time = performance.now()) {
     if (this.state !== "drag") return;
     const nx = clamp(x + this.dragOff.x, 46, 1154);
-    const ny = clamp(y + this.dragOff.y, 60, this.groundY);
+    const ny = clamp(y + this.dragOff.y, up(178), this.groundY);
     this.vx = (nx - this.x) * 9;
     this.vy = (ny - this.y) * 9;
     this.x = nx; this.y = ny;
+    this.samples.push({ x: nx, y: ny, time });
+    this.samples = this.samples.filter(p => time - p.time <= 110).slice(-12);
   }
 
-  release() {
+  release(time = performance.now(), cancel = false) {
     if (this.state !== "drag") return;
-    this.vx = clamp(this.vx, -950, 950);
-    this.vy = clamp(this.vy, -1200, 800);
+    const last = this.samples.at(-1);
+    const first = this.samples.find(p => last.time - p.time >= 16);
+    const elapsed = first ? (last.time - first.time) / 1000 : 0;
+    const moving = !cancel && elapsed > 0 && time - last.time < 100;
+    this.vx = moving ? clamp((last.x - first.x) / elapsed, -1400, 1400) : 0;
+    this.vy = moving ? clamp((last.y - first.y) / elapsed, -1200, 1000) : 0;
+    this.armed = !cancel;
     this.grounded = false;
     this.setState("air");
   }
 
   greet() {
+    if (this.yard?.broken) return;
     this.idleT = 0;
     if (this.activity) this.goHome();
     this.setState("greet");
@@ -544,6 +570,7 @@ class Pet {
   }
 
   walkTo(x) {
+    if (this.yard?.broken || this.armed) return;
     if (this.activity) this.goHome();
     if (this.state === "drag") return;
     this.target = clamp(x, 60, 1140);
@@ -552,6 +579,8 @@ class Pet {
 
   /* -- per-frame -- */
   update(dt, input) {
+    this.yard?.update(dt);
+    if (this.yard?.broken) { this.fx.update(dt); return; }
     this.stateT += dt;
     this.idleT += dt;
 
@@ -570,6 +599,7 @@ class Pet {
 
     const scripted = Boolean(this.activity);
     if (!scripted && this.state !== "drag") this.integrate(dt);
+    if (this.yard?.broken) return;
     if (this.state === "drag") this.grounded = false;
 
     // walk phase advances with real speed, so his feet never skate
@@ -613,10 +643,32 @@ class Pet {
   }
 
   integrate(dt) {
+    const steps = Math.max(1, Math.ceil(dt / (1 / 120)));
+    for (let i = 0; i < steps; i++) {
+      this.integrateStep(dt / steps);
+      if (this.yard?.broken) break;
+    }
+  }
+
+  integrateStep(dt) {
     this.vy += GRAVITY * dt;
     this.x += this.vx * dt;
     this.y += this.vy * dt;
 
+    if (this.armed) {
+      const speed = Math.hypot(this.vx, this.vy);
+      const wall = (this.x <= 46 || this.x >= 1154) && Math.abs(this.vx) > 450;
+      const floor = this.y >= this.groundY && this.vy > 620;
+      const ceiling = this.y < up(178) && this.vy < -450;
+      const fixture = this.scene === "workshop" && speed > 450 && SCENE_SOLIDS.some(b =>
+        this.x + 32 > b.x && this.x - 32 < b.x + b.w &&
+        this.y > b.y && this.y - up(160) < b.y + b.h);
+      if (wall || floor || ceiling || fixture) {
+        this.yard.burst();
+        return;
+      }
+    }
+    if (this.y < up(178)) { this.y = up(178); this.vy = Math.max(0, -this.vy * .3); }
     if (this.x < 46) { this.x = 46; this.vx = Math.abs(this.vx) * 0.4; }
     if (this.x > 1154) { this.x = 1154; this.vx = -Math.abs(this.vx) * 0.4; }
 
@@ -627,6 +679,7 @@ class Pet {
       }
       this.y = this.groundY;
       this.vy = 0;
+      this.armed = false;
       if (!this.grounded) {
         this.grounded = true;
         if (this.state === "air") this.setState(Math.abs(this.vx) > 24 ? "walk" : "idle");
@@ -762,7 +815,7 @@ class Pet {
 
 /* ── Mounting + input ──────────────────────────────────────────────────── */
 
-export function mountPet(stage, { onStateChange } = {}) {
+export function mountPet(stage, { onStateChange, onRepairChange } = {}) {
   const svg = stage.querySelector(".stage-svg");
   const pet = new Pet({
     sceneLayer: svg.querySelector("[data-scene-layer]"),
@@ -775,72 +828,98 @@ export function mountPet(stage, { onStateChange } = {}) {
 
   const keys = new Set();
   const input = { dir: 0, jump: false };
+  pet.update(0, input);
+  pet.yard = new Scrapyard(pet, svg.querySelector("[data-fg-layer]"), onRepairChange);
 
-  /** Client point → the SVG's own coordinates. preserveAspectRatio is "slice",
-   *  so the viewBox is cropped rather than letterboxed. */
+  /** Invert the actual SVG transform, including responsive letterboxing. */
   const toLocal = (evt) => {
-    const r = svg.getBoundingClientRect();
-    const vb = svg.viewBox.baseVal;
-    const scale = Math.max(r.width / vb.width, r.height / vb.height);
-    return {
-      x: (evt.clientX - r.left - (r.width - vb.width * scale) / 2) / scale,
-      y: (evt.clientY - r.top - (r.height - vb.height * scale) / 2) / scale,
-    };
+    return new DOMPoint(evt.clientX, evt.clientY).matrixTransform(svg.getScreenCTM().inverse());
   };
 
   /* Keyboard is scoped to the stage, so arrow keys never steal page scroll. */
   let hovering = false;
   stage.addEventListener("pointerenter", () => { hovering = true; });
   stage.addEventListener("pointerleave", () => { hovering = false; });
-  const listening = () => hovering || document.activeElement === stage;
+  const listening = () => document.activeElement === stage ||
+    (hovering && !document.activeElement?.matches("button, input, textarea, select, a, [contenteditable]"));
 
-  const WATCHED = ["arrowleft", "arrowright", "arrowup", " ", "a", "d", "w"];
+  const WATCHED = ["arrowleft", "arrowright", "arrowup", " ", "a", "d", "w", "x", "r", "m"];
   addEventListener("keydown", (e) => {
     const k = e.key.toLowerCase();
-    if (!listening() || !WATCHED.includes(k)) return;
+    if (!listening() || !WATCHED.includes(k) || e.ctrlKey || e.metaKey || e.altKey) return;
     e.preventDefault();
+    if (["x", "r", "m"].includes(k)) {
+      if (!e.repeat) repair({ x: "throw", r: "rebuild", m: "remix" }[k]);
+      return;
+    }
     keys.add(k);
   });
   addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
   addEventListener("blur", () => keys.clear());
 
   /* Pointer: grab him, or send him somewhere. */
-  let dragging = false, moved = false, downAt = null;
+  let dragging = false, moved = false, downAt = null, pointerId = null, part = false;
 
   stage.addEventListener("pointerdown", (e) => {
+    if (e.button !== 0 || pointerId !== null) return;
+    stage.focus({ preventScroll: true });
     const pt = toLocal(e);
     downAt = pt;
     moved = false;
-    if (Math.hypot(pt.x - pet.x, pt.y - (pet.y - up(90))) < up(105)) {
+    pointerId = e.pointerId;
+    const piece = e.target.closest("[data-piece]");
+    if (piece) {
+      part = pet.yard.grab(piece.dataset.piece, pt);
+      downAt = null;
+    } else if (!pet.yard.broken &&
+      (e.target.closest(".pet-root") || Math.hypot(pt.x - pet.x, pt.y - (pet.y - up(90))) < up(85))) {
       dragging = true;
-      stage.setPointerCapture(e.pointerId);
-      pet.grab(pt.x, pt.y);
+      pet.grab(pt.x, pt.y, e.timeStamp);
     }
+    stage.setPointerCapture(e.pointerId);
   });
 
   stage.addEventListener("pointermove", (e) => {
     const pt = toLocal(e);
     pet.lookAt(pt.x, pt.y);
+    if (e.pointerId !== pointerId) return;
+    if (part) { pet.yard.move(pt); return; }
     if (!dragging) return;
     if (Math.hypot(pt.x - downAt.x, pt.y - downAt.y) > 12) moved = true;
-    pet.dragTo(pt.x, pt.y);
+    pet.dragTo(pt.x, pt.y, e.timeStamp);
   });
 
-  stage.addEventListener("pointerup", (e) => {
-    if (dragging) {
+  const endPointer = (e, cancel = false) => {
+    if (e.pointerId !== pointerId) return;
+    if (part) {
+      pet.yard.release(cancel);
+    } else if (dragging) {
       dragging = false;
-      if (moved) pet.release();
+      if (moved || cancel) pet.release(e.timeStamp, cancel);
       else { pet.setState("idle"); pet.greet(); }
-    } else if (downAt) {
+    } else if (downAt && !cancel) {
       pet.walkTo(toLocal(e).x);
     }
-    downAt = null;
-  });
+    const id = pointerId;
+    pointerId = null; part = false; downAt = null;
+    if (stage.hasPointerCapture(id)) stage.releasePointerCapture(id);
+  };
+  stage.addEventListener("pointerup", e => endPointer(e));
+  stage.addEventListener("pointercancel", e => endPointer(e, true));
+  stage.addEventListener("lostpointercapture", e => endPointer(e, true));
 
-  stage.addEventListener("pointercancel", () => {
-    if (dragging) { dragging = false; pet.release(); }
-    downAt = null;
-  });
+  function repair(name) {
+    keys.clear();
+    if (pointerId !== null) endPointer({ pointerId, timeStamp: performance.now() }, true);
+    if (name === "reset") pet.yard.reset();
+    else if (name === "rebuild" || name === "remix") pet.yard.rebuild(name === "remix");
+    else if (name === "throw" && !pet.yard.broken) {
+      pet.goHome();
+      pet.x = 550; pet.y = 300;
+      pet.vx = 1150; pet.vy = -120; pet.armed = true; pet.grounded = false;
+      pet.setState("air");
+    }
+  }
 
   return {
     update(dt) {
@@ -852,6 +931,7 @@ export function mountPet(stage, { onStateChange } = {}) {
       pet.update(dt, input);
     },
     command(name) { name === "idle" ? pet.goHome() : pet.startActivity(name); },
+    repair,
     get state() { return pet.state; },
   };
 }

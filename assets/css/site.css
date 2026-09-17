@@ -91,20 +91,21 @@
     color-scheme: dark;
   }
 
-  /* The habitat is a lit diorama, not a panel of the page: it keeps the dark
-     cocoa neutrals in every flavor so the robot always has something to stand
-     against, while still borrowing the flavor's accent colors. */
+  /* The workshop is a sheet of drawing paper in every chocolate flavor. */
   .stage {
-    --bg-deep:   oklch(0.132 0.024 40);
-    --surface:   oklch(0.205 0.033 44);
-    --raised:    oklch(0.283 0.04 46);
-    --line:      oklch(0.38 0.04 48 / 0.6);
-    --ink:       oklch(0.945 0.019 86);
-    --ink-dim:   oklch(0.72 0.03 76);
-    --chassis:   oklch(0.585 0.055 62);
-    --chassis-hi: oklch(0.72 0.05 70);
-    --chassis-lo: oklch(0.40 0.05 55);
-    color-scheme: dark;
+    --bg-deep: #f5f0e4;
+    --surface: #e9e3d5;
+    --raised: #d8d2c3;
+    --line: #99998c;
+    --ink: #292c2c;
+    --ink-dim: #626963;
+    --accent: #b54c36;
+    --iri-p: #577f8b;
+    --fluoro: #577f8b;
+    --chassis: #efe9da;
+    --chassis-hi: #fffaf0;
+    --chassis-lo: #b6b6a5;
+    color-scheme: light;
   }
 
   :root[data-flavor="white"] {
@@ -439,47 +440,62 @@
   .btn-primary:hover { color: oklch(0.18 0.04 50); }
 
   /* ---- habitat / stage ---- */
-  .stage-wrap { display: grid; gap: 1rem; }
+  .habitat .section-head { position: relative; }
+  .habitat h2 { font-size: clamp(2.8rem, 7vw, 5.5rem); letter-spacing: -.065em; }
+  .habitat .eyebrow { margin-block-end: 1rem; color: var(--ink-dim); }
+  .habitat .section-sub { max-inline-size: 42ch; }
+  .stage-wrap { display: grid; gap: 0; }
+  .workshop-caption {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem;
+    font: .65rem/1.5 var(--font-mono); letter-spacing: .06em;
+    padding: .8rem 0; border-block-start: 1px solid var(--ink-dim);
+  }
+  .workshop-caption span:last-child { font-style: italic; letter-spacing: 0; }
 
   .stage {
     position: relative;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border: 2px solid #292c2c;
+    border-radius: 3px 8px 2px 5px / 6px 2px 7px 3px;
     overflow: clip;
     background: var(--bg-deep);
-    aspect-ratio: 12 / 5;
-    min-block-size: 280px;
-    max-block-size: 62dvh;
+    aspect-ratio: 1200 / 520;
     /* An aspect-ratio plus a min-block-size implies a min inline-size, which
        on a phone is wider than the viewport and drags the whole page with it.
        Below that width the stage takes a plain height instead. */
     min-inline-size: 0;
     contain: layout paint style;
     touch-action: none;
-    cursor: grab;
+    cursor: default;
   }
   .stage:active { cursor: grabbing; }
-  .stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .stage:focus-visible { outline: 2px dashed var(--ink); outline-offset: 5px; }
 
   .stage-svg { inline-size: 100%; block-size: 100%; }
-
-  @media (width < 46rem) {
-    .stage { aspect-ratio: auto; block-size: min(44dvh, 300px); min-block-size: 210px; }
+  .pet-root, .loose-part { cursor: grab; }
+  .pet-root, .loose-part, .repair-outline {
+    stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
   }
+  .loose-part:hover { filter: drop-shadow(2px 3px 0 #b54c3640); }
+  .part-hit { fill: transparent; stroke: none; pointer-events: all; }
+  .repair-outline { pointer-events: none; }
+  .repair-socket { opacity: .28; stroke-dasharray: 3 3; }
+  .repair-socket[data-filled="true"] { opacity: 1; stroke-dasharray: none; }
+  .repair-socket[data-ready="true"] { opacity: .8; stroke: var(--accent); }
+  .impact-word { font: italic 800 42px var(--font-display); fill: var(--accent); stroke: none; }
 
   .stage-status {
     position: absolute;
-    inset-block-end: 0.7rem;
+    inset-block-end: 0.4rem;
     inset-inline-start: 0.85rem;
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: clamp(.48rem, 1.2vw, .72rem);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--ink-dim);
-    background: color-mix(in oklab, var(--bg-deep) 72%, transparent);
+    background: var(--bg-deep);
     padding: 0.25rem 0.6rem;
-    border-radius: 999px;
+    border-radius: 0;
     pointer-events: none;
   }
 
@@ -489,7 +505,22 @@
     gap: 0.9rem 1.4rem;
     align-items: center;
     justify-content: space-between;
+    padding-block: 1rem;
+    border-block-end: 1px solid var(--line);
   }
+  .repair-tools { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .repair-tool {
+    min-block-size: 44px; padding: .5rem .8rem;
+    border: 1px solid var(--ink-dim); border-radius: 2px 5px 3px 2px;
+    background: transparent; color: var(--ink); font: .75rem var(--font-mono);
+    cursor: pointer;
+  }
+  .repair-tool:first-child { background: var(--ink); color: var(--bg); }
+  .repair-tool:hover:not(:disabled) { border-color: var(--accent); text-decoration: underline; }
+  .repair-tool:disabled { opacity: .4; cursor: not-allowed; }
+  .repair-tool kbd { border: 0; background: none; padding-inline-end: 0; opacity: .7; }
+  .repair-count { font: .68rem var(--font-mono); color: var(--ink-dim); }
+  .acts { inline-size: 100%; }
 
   .acts { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
@@ -497,11 +528,12 @@
     font-family: var(--font-mono);
     font-size: 0.76rem;
     padding: 0.4rem 0.85rem;
-    border-radius: 999px;
+    border-radius: 2px;
     border: 1px solid var(--line);
     background: color-mix(in oklab, var(--surface) 55%, transparent);
     color: var(--ink-dim);
     cursor: pointer;
+    min-block-size: 36px;
     transition: color 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
   }
   .act:hover { color: var(--ink); border-color: var(--accent); transform: translateY(-1px); }
@@ -509,6 +541,12 @@
     color: oklch(0.22 0.045 50);
     background: var(--accent);
     border-color: transparent;
+  }
+  .act:disabled { opacity: .4; cursor: not-allowed; }
+  @media (width < 46rem) {
+    .repair-tool { font-size: .68rem; padding: .4rem .6rem; }
+    .repair-tools { gap: .35rem; }
+    .workshop-caption { font-size: .55rem; }
   }
 
   .hint {
