@@ -33,11 +33,11 @@ machine that decides what he does with his day. No dependencies, no build step.
 ## Latest Activity
 
 <!--START_SECTION:activity-->
-- Opened PR #47 in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 - Pushed to [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
-- Created branch in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
-- Pushed to [AgentiCubed/bannerbanner](https://github.com/AgentiCubed/bannerbanner)
-- Opened PR #46 in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
+- Pushed to [JamesTRichmond/ship-by-sunday](https://github.com/JamesTRichmond/ship-by-sunday)
+- Pushed to [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
+- Created branch in [JamesTRichmond/ship-by-sunday](https://github.com/JamesTRichmond/ship-by-sunday)
+- Opened PR #1 in [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
 <!--END_SECTION:activity-->
 
 ## GitHub Stats
