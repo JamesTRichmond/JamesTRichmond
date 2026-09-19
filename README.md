@@ -33,11 +33,11 @@ machine that decides what he does with his day. No dependencies, no build step.
 ## Latest Activity
 
 <!--START_SECTION:activity-->
+- Created branch in [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
 - Pushed to [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
+- Opened an issue in [JamesTRichmond/ship-by-sunday](https://github.com/JamesTRichmond/ship-by-sunday)
 - Pushed to [JamesTRichmond/ship-by-sunday](https://github.com/JamesTRichmond/ship-by-sunday)
-- Pushed to [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
-- Created branch in [JamesTRichmond/ship-by-sunday](https://github.com/JamesTRichmond/ship-by-sunday)
-- Opened PR #1 in [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
+- Merged PR #2 in [JamesTRichmond/ship-by-sunday](https://github.com/JamesTRichmond/ship-by-sunday)
 <!--END_SECTION:activity-->
 
 ## GitHub Stats
