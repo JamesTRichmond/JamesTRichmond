@@ -35,9 +35,9 @@ machine that decides what he does with his day. No dependencies, no build step.
 <!--START_SECTION:activity-->
 - Pushed to [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
 - Created branch in [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
+- Opened PR #8 in [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
 - Opened PR #7 in [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
 - Pushed to [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
-- Merged PR #1 in [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
 <!--END_SECTION:activity-->
 
 ## GitHub Stats
