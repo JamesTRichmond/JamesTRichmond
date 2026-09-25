@@ -33,11 +33,11 @@ machine that decides what he does with his day. No dependencies, no build step.
 ## Latest Activity
 
 <!--START_SECTION:activity-->
+- Created branch in [JamesTRichmond/aural-companion](https://github.com/JamesTRichmond/aural-companion)
 - Pushed to [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
+- Pushed to [AgentiCubed/A3](https://github.com/AgentiCubed/A3)
+- Pushed to [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 - Created branch in [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
-- Opened PR #8 in [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
-- Opened PR #7 in [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
-- Pushed to [JamesTRichmond/habitat](https://github.com/JamesTRichmond/habitat)
 <!--END_SECTION:activity-->
 
 ## GitHub Stats
