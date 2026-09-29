@@ -33,11 +33,11 @@ machine that decides what he does with his day. No dependencies, no build step.
 ## Latest Activity
 
 <!--START_SECTION:activity-->
-- Starred [jakehilborn/displayplacer](https://github.com/jakehilborn/displayplacer)
-- Opened PR #91 in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 - Pushed to [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
-- Pushed to [JamesTRichmond/Prompt-Dashboard](https://github.com/JamesTRichmond/Prompt-Dashboard)
-- Assigned an issue in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
+- Opened PR #92 in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
+- Created branch in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
+- Pushed to [JamesTRichmond/LordAinz](https://github.com/JamesTRichmond/LordAinz)
+- Closed an issue in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 <!--END_SECTION:activity-->
 
 ## GitHub Stats
