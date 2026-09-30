@@ -34,10 +34,10 @@ machine that decides what he does with his day. No dependencies, no build step.
 
 <!--START_SECTION:activity-->
 - Pushed to [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
+- Pushed to [AgentiCubed/A3](https://github.com/AgentiCubed/A3)
 - Opened PR #92 in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 - Created branch in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 - Pushed to [JamesTRichmond/LordAinz](https://github.com/JamesTRichmond/LordAinz)
-- Closed an issue in [JamesTRichmond/Verbal_Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
 <!--END_SECTION:activity-->
 
 ## GitHub Stats
