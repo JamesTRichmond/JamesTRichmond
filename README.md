@@ -10,29 +10,18 @@ agentic systems & closed-loop orchestration :: privacy & client-side security ::
 
 **Every badge below goes somewhere.**
 
-[[https://img.shields.io/badge/Python-2b1d12?style=for-the-badge&logo=python&logoColor=8ab4f8]](https://jamestrichmond.com/python/)
-[[https://img.shields.io/badge/TypeScript-2b1d12?style=for-the-badge&logo=typescript&logoColor=7aa2ff]](https://jamestrichmond.com/typescript/)
-[[https://img.shields.io/badge/AI%20Agents-2b1d12?style=for-the-badge&logo=anthropic&logoColor=6ee7a0]](https://github.com/AgentiCubed/agenticubed)
-[[https://img.shields.io/badge/Cybersecurity-2b1d12?style=for-the-badge&logo=owasp&logoColor=f2a63b]](https://jamestrichmond.com/security/)
-[[https://img.shields.io/badge/AP%20US%20History-2b1d12?style=for-the-badge&logo=academia&logoColor=9ad3a0]](https://jamestrichmond.com/teacher/)
-[[https://img.shields.io/badge/USAF%20Veteran-2b1d12?style=for-the-badge&logo=rocket&logoColor=8fbcff]](https://jamestrichmond.com/usaf/)
+<a href="https://jamestrichmond.com/python/"><img src="https://img.shields.io/badge/Python-2b1d12?style=for-the-badge&logo=python&logoColor=8ab4f8" alt="Python" /></a>
+<a href="https://jamestrichmond.com/typescript/"><img src="https://img.shields.io/badge/TypeScript-2b1d12?style=for-the-badge&logo=typescript&logoColor=7aa2ff" alt="TypeScript" /></a>
+<a href="https://github.com/AgentiCubed/agenticubed"><img src="https://img.shields.io/badge/AI%20Agents-2b1d12?style=for-the-badge&logo=anthropic&logoColor=6ee7a0" alt="AI Agents" /></a>
+<a href="https://jamestrichmond.com/security/"><img src="https://img.shields.io/badge/Cybersecurity-2b1d12?style=for-the-badge&logo=owasp&logoColor=f2a63b" alt="Cybersecurity" /></a>
+<a href="https://jamestrichmond.com/teacher/"><img src="https://img.shields.io/badge/AP%20US%20History-2b1d12?style=for-the-badge&logo=academia&logoColor=9ad3a0" alt="AP US History" /></a>
+<a href="https://jamestrichmond.com/usaf/"><img src="https://img.shields.io/badge/USAF%20Veteran-2b1d12?style=for-the-badge&logo=rocket&logoColor=8fbcff" alt="USAF Veteran" /></a>
 
 ---
 
 ## systems: closed loops, security & adversarial reasoning
 
 I build agentic architectures, client-side security tools, and observable evaluation engines that turn unpredictable model behavior into deterministic software.
-
-Objective ──▶ Approved Task Graph (DAG) ──▶ Worker Agents (Celery/Redis)
-│
-┌─────────────────────────────────┘
-▼
-Structured Pydantic Contract
-│
-├──▶ [PASS] ──▶ Predecessor Context Handoff ──▶ Downstream Tasks
-│
-└──▶ [FAIL] ──▶ Dynamic Error Diff Capture ──▶ Remediation Loop
-
 
 ### [AgentiCubed](https://github.com/AgentiCubed/agenticubed)
 *Closed-loop orchestration platform connecting intake, DAG task execution, evaluation, and remediation.*
