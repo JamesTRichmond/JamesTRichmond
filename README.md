@@ -2,7 +2,7 @@
 
 # James Richmond
 
-building ai systems for fun :: fmr af 2w2 :: fmr ap history teacher :: managing sales territory for software r &amp; d
+ai safety & productivity systems :: fmr af 2w2 :: fmr ap history teacher :: managing sales territory for software r &amp; d
 
 *My profile picture, animated and coloured. GitHub flattens avatars to a single frame, so it lives here instead. Nothing was redrawn and nothing was painted in: every pixel is the engraver's own line, displaced by a shader and lit by a colour grade. [The live version is on my site.](https://jamestrichmond.com/)*
 
