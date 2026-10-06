@@ -4,19 +4,7 @@
 
 agentic systems & closed-loop orchestration :: privacy & client-side security :: fmr af 2w2 (top secret) :: ms it, cybersec, data sci, & df/ir :: fmr ap teacher :: territory sales for r&d
 
-*My profile picture, animated and coloured. GitHub flattens avatars to a single frame, so it lives here instead. Nothing was redrawn and nothing was painted in: every pixel is the engraver's own line, displaced by a shader and lit by a colour grade. [The live version is on my site.](https://jamestrichmond.com/)*
-
 <br clear="right" />
-
-**Every badge below goes somewhere.**
-
-<a href="https://jamestrichmond.com/python/"><img src="https://img.shields.io/badge/Python-2b1d12?style=for-the-badge&logo=python&logoColor=8ab4f8" alt="Python" /></a>
-<a href="https://jamestrichmond.com/typescript/"><img src="https://img.shields.io/badge/TypeScript-2b1d12?style=for-the-badge&logo=typescript&logoColor=7aa2ff" alt="TypeScript" /></a>
-<a href="https://github.com/AgentiCubed/agenticubed"><img src="https://img.shields.io/badge/AI%20Agents-2b1d12?style=for-the-badge&logo=anthropic&logoColor=6ee7a0" alt="AI Agents" /></a>
-<a href="https://jamestrichmond.com/security/"><img src="https://img.shields.io/badge/Cybersecurity-2b1d12?style=for-the-badge&logo=owasp&logoColor=f2a63b" alt="Cybersecurity" /></a>
-<a href="https://jamestrichmond.com/teacher/"><img src="https://img.shields.io/badge/AP%20US%20History-2b1d12?style=for-the-badge&logo=academia&logoColor=9ad3a0" alt="AP US History" /></a>
-<a href="https://jamestrichmond.com/usaf/"><img src="https://img.shields.io/badge/USAF%20Veteran-2b1d12?style=for-the-badge&logo=rocket&logoColor=8fbcff" alt="USAF Veteran" /></a>
-
 ---
 
 ## systems: closed loops, security & adversarial reasoning
