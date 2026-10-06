@@ -2,7 +2,7 @@
 
 # James Richmond
 
-ai safety & productivity systems :: fmr af 2w2 :: ms it, cybersec, data sci, & df/ir :: fmr ap history teacher :: managing sales territory for software r &amp; d
+agentic systems & closed-loop orchestration :: privacy & client-side security :: fmr af 2w2 (top secret) :: ms it, cybersec, data sci, & df/ir :: fmr ap teacher :: territory sales for r&d
 
 *My profile picture, animated and coloured. GitHub flattens avatars to a single frame, so it lives here instead. Nothing was redrawn and nothing was painted in: every pixel is the engraver's own line, displaced by a shader and lit by a colour grade. [The live version is on my site.](https://jamestrichmond.com/)*
 
@@ -10,12 +10,43 @@ ai safety & productivity systems :: fmr af 2w2 :: ms it, cybersec, data sci, & d
 
 **Every badge below goes somewhere.**
 
-[![Python](https://img.shields.io/badge/Python-2b1d12?style=for-the-badge&logo=python&logoColor=8ab4f8)](https://jamestrichmond.com/python/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-2b1d12?style=for-the-badge&logo=typescript&logoColor=7aa2ff)](https://jamestrichmond.com/typescript/)
-[![AI Agents](https://img.shields.io/badge/AI%20Agents-2b1d12?style=for-the-badge&logo=anthropic&logoColor=6ee7a0)](https://jamestrichmond.com/agents/)
-[![Cybersecurity](https://img.shields.io/badge/Cybersecurity-2b1d12?style=for-the-badge&logo=owasp&logoColor=f2a63b)](https://jamestrichmond.com/security/)
-[![AP US History](https://img.shields.io/badge/AP%20US%20History-2b1d12?style=for-the-badge&logo=academia&logoColor=9ad3a0)](https://jamestrichmond.com/teacher/)
-[![USAF Veteran](https://img.shields.io/badge/USAF%20Veteran-2b1d12?style=for-the-badge&logo=rocket&logoColor=8fbcff)](https://jamestrichmond.com/usaf/)
+[[https://img.shields.io/badge/Python-2b1d12?style=for-the-badge&logo=python&logoColor=8ab4f8]](https://jamestrichmond.com/python/)
+[[https://img.shields.io/badge/TypeScript-2b1d12?style=for-the-badge&logo=typescript&logoColor=7aa2ff]](https://jamestrichmond.com/typescript/)
+[[https://img.shields.io/badge/AI%20Agents-2b1d12?style=for-the-badge&logo=anthropic&logoColor=6ee7a0]](https://github.com/AgentiCubed/agenticubed)
+[[https://img.shields.io/badge/Cybersecurity-2b1d12?style=for-the-badge&logo=owasp&logoColor=f2a63b]](https://jamestrichmond.com/security/)
+[[https://img.shields.io/badge/AP%20US%20History-2b1d12?style=for-the-badge&logo=academia&logoColor=9ad3a0]](https://jamestrichmond.com/teacher/)
+[[https://img.shields.io/badge/USAF%20Veteran-2b1d12?style=for-the-badge&logo=rocket&logoColor=8fbcff]](https://jamestrichmond.com/usaf/)
+
+---
+
+## systems: closed loops, security & adversarial reasoning
+
+I build agentic architectures, client-side security tools, and observable evaluation engines that turn unpredictable model behavior into deterministic software.
+
+### [AgentiCubed](https://github.com/AgentiCubed/agenticubed)
+*Closed-loop orchestration platform connecting intake, DAG task execution, evaluation, and remediation.*
+- Converts high-level objectives into human-approved task graphs, resolves predecessor dependencies, and dispatches to Celery/Redis workers.
+- Enforces strict separation between executor and evaluator agents; outputs must satisfy structured Pydantic contracts or the system fails closed, captures error diffs, and dynamically reprompts for automated remediation.
+- 268 passing tests (Pytest/Vitest), default-deny tool permissions, and immutable execution logs. Built with Python, FastAPI, Next.js, and PostgreSQL.
+
+### [BannerBanner](https://github.com/AgentiCubed/bannerbanner)
+*Privacy-first Chrome Manifest V3 extension built on strict consent boundaries and security restraint.*
+- Hides consent dialogs only on user-authorized origins via explicit CMP adapters (OneTrust, Cookiebot, CookieYes, Usercentrics)—strictly rejecting reckless "click-anything" fallbacks.
+- Zero server accounts, zero remote telemetry, and isolated local storage; leaves login, checkout, and sensitive dialogs untouched.
+- 71 unit tests, 33 browser tests, and cross-platform byte-deterministic packaging.
+
+### [Verbal Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
+*A 2D fighting game that acts as a real-time visualization and reinforcement learning harness for multi-agent debate.*
+- Two AI minds battle over complex premises: valid logic and sound arguments land as strikes and combos, while logical fallacies miss, get blocked, or backfire into damage.
+- Health bars represent the structural integrity of an argument; every round produces an annotated transcript scrubber mapping hitboxes directly to lines of reasoning.
+- Modular TypeScript monorepo architecture: `@vk/core`, `@vk/debate`, `@vk/judge` (fallacy taxonomy & soundness verdicts), and `@vk/combat` (verdicts → physics).
+
+### [SCE Probe Runtime](https://github.com/JamesTRichmond/sce-probe-runtime)
+*Pre/post runtime telemetry and behavioral scoring around irreversible tools.*
+- Silent held-out micro-probes that score model certainty against actual behavior (`claim↔act` matching) before state-mutating tool calls execute.
+- Seals execution triplets into append-only hash chains for SOC-style audit and replay.
+
+---
 
 <!--START_SECTION:robot-->
 <a href="https://jamestrichmond.com/#habitat"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/robot/sleep.gif" width="760" alt="A small robot asleep on a mat. Click him and he becomes controllable." /></a>
