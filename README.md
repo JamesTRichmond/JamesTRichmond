@@ -5,7 +5,6 @@
 agentic systems & closed-loop orchestration :: privacy & client-side security :: fmr af 2w2 (top secret) :: ms it, cybersec, data sci, & df/ir :: fmr ap teacher :: territory sales for r&d
 
 <br clear="right" />
----
 
 ## systems: closed loops, security & adversarial reasoning
 
