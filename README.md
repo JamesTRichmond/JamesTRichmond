@@ -36,7 +36,7 @@ I build agentic architectures, client-side security tools, and observable evalua
 ---
 
 <!--START_SECTION:robot-->
-<a href="https://jamestrichmond.com/#habitat"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/robot/sleep.gif" width="760" alt="A small robot asleep on a mat. Click him and he becomes controllable." /></a>
+<a href="https://jamestrichmond.com/#habitat"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/robot/cook.gif" width="760" alt="A small robot cooking. Click him and he becomes controllable." /></a>
 <!--END_SECTION:robot-->
 
 He does something different every day. **[Click him](https://jamestrichmond.com/#habitat)** and he becomes yours to drive — arrow keys to walk, space to jump, and you can pick him up and throw him.
