@@ -27,7 +27,7 @@ START = "<!--START_SECTION:robot-->"
 END = "<!--END_SECTION:robot-->"
 
 RAW = "https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/robot"
-LIVE = "https://jamestrichmond.com/#habitat"
+LIVE = "https://jamestrichmond.github.io/habitat/"
 
 # 7 slots over 6 loops: the cycle and the week are coprime, so the schedule
 # drifts and he is not always cooking on a Tuesday.
