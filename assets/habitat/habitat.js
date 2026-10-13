@@ -195,6 +195,7 @@ export function createHabitat(host, options = {}) {
     let dragging = false, moved = false, downAt = null;
 
     on(host, "pointerdown", (e) => {
+      host.focus({ preventScroll: true });
       const pt = toLocal(e);
       downAt = pt; moved = false;
       if (Math.hypot(pt.x - robot.x, pt.y - (robot.y - up(90))) < up(105)) {

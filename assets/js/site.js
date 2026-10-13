@@ -202,6 +202,14 @@ function boot() {
     btn.addEventListener("click", () => pet.command(btn.dataset.act));
   }
 
+  // The Habitat nav is an in-page hash. Focusing the stage is what makes the
+  // arrow keys his, instead of the page's.
+  const armHabitat = () => {
+    if (location.hash === "#habitat") stage.focus({ preventScroll: true });
+  };
+  armHabitat();
+  addEventListener("hashchange", armHabitat);
+
   /* One loop for the whole page. It stops when the tab is hidden and when the
      habitat scrolls out of view, so an idle tab costs nothing. */
   let visible = true;

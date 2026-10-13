@@ -808,6 +808,7 @@ export function mountPet(stage, { onStateChange } = {}) {
   let dragging = false, moved = false, downAt = null;
 
   stage.addEventListener("pointerdown", (e) => {
+    stage.focus({ preventScroll: true });
     const pt = toLocal(e);
     downAt = pt;
     moved = false;
