@@ -8,14 +8,20 @@ agentic systems & closed-loop orchestration :: privacy & client-side security ::
 
 ## now shipping: onto
 
-<a href="https://onto-35j.pages.dev"><img src="assets/onto/onto-feed.png" width="360" alt="onto on a phone: the Things To Do feed listing events near Middlebury, Vermont, with time, venue, and source for each" /></a>
-
-<p>
-<a href="https://onto-35j.pages.dev"><img src="assets/onto/filters.png" width="170" alt="onto filters: interests, sort, GPS, map pin or city, distance, and dates" /></a>
-<a href="https://onto-35j.pages.dev"><img src="assets/onto/change-city.png" width="170" alt="onto change-city list grouped by state" /></a>
-<a href="https://onto-35j.pages.dev"><img src="assets/onto/brooklyn-feed.png" width="170" alt="onto feed searching Brooklyn within 25 miles, showing a roller skating night at Pier 2" /></a>
-<a href="https://onto-35j.pages.dev"><img src="assets/onto/places-to-go.png" width="170" alt="onto Places To Go: trails around Brooklyn, including Prospect Park and Green-Wood Cemetery" /></a>
-</p>
+<table>
+<tr>
+<td valign="top">
+<a href="https://onto-35j.pages.dev"><img src="assets/onto/onto-feed.png" width="300" alt="onto on a phone: the Things To Do feed listing events near Middlebury, Vermont, with time, venue, and source for each" /></a><br />
+<sub>Click or tap this screenshot to open onto (onto-35j.pages.dev).</sub>
+</td>
+<td valign="top" align="center">
+<img src="assets/onto/filters.png" width="72" alt="onto filters: interests, sort, GPS, map pin or city, distance, and dates" /><br />
+<img src="assets/onto/change-city.png" width="72" alt="onto change-city list grouped by state" /><br />
+<img src="assets/onto/brooklyn-feed.png" width="72" alt="onto feed searching Brooklyn within 25 miles, showing a roller skating night at Pier 2" /><br />
+<img src="assets/onto/places-to-go.png" width="72" alt="onto Places To Go: trails around Brooklyn, including Prospect Park and Green-Wood Cemetery" /><br />
+</td>
+</tr>
+</table>
 
 [onto](https://onto-35j.pages.dev) is a free web app that shows what's happening near you right now: concerts, trail runs, library talks, gallery openings, pulled from venues' own calendars.
 
