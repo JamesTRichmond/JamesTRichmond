@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" data-flavor="milk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>ONTO case study — James Richmond</title>
+<meta name="description" content="How James Richmond built ONTO, a location-based PWA for events and places, with a focus on useful discovery and careful data boundaries.">
+<meta property="og:title" content="ONTO case study — James Richmond">
+<meta property="og:description" content="How James Richmond built ONTO, a location-based PWA for events and places, with a focus on useful discovery and careful data boundaries.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jamestrichmond.com/work/onto/">
+<link rel="canonical" href="https://jamestrichmond.com/work/onto/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23472e1c'/%3E%3Cpath d='M25 70V30h13l12 24 12-24h13v40H62V52L50 74 38 52v18Z' fill='%23f2cf4a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/portfolio.css">
+<script>
+{
+  let flavor = "milk";
+  try {
+    const saved = localStorage.getItem("flavor");
+    if (["dark", "milk", "white"].includes(saved)) flavor = saved;
+  } catch { /* Preference storage is optional. */ }
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+<body class="portfolio-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar pf-topbar">
+  <a class="mark" href="../../"><span class="mark-glyph" aria-hidden="true"></span><span class="mark-text">James Richmond</span></a>
+  <nav class="topnav pf-nav" aria-label="Primary"><a href="../../#work">Work</a><a href="../../about/">About</a><a href="../../resume/">Résumé</a><a href="../../workshop/">Workshop</a><a href="../../#contact">Contact</a></nav>
+  <fieldset class="flavors" data-flavors hidden><legend class="sr-only">Chocolate flavor</legend><label class="flavor" title="Dark chocolate"><input type="radio" name="flavor" value="dark"><span class="swatch swatch-dark" aria-hidden="true"></span><span class="sr-only">Dark chocolate</span></label><label class="flavor" title="Milk chocolate"><input type="radio" name="flavor" value="milk" checked><span class="swatch swatch-milk" aria-hidden="true"></span><span class="sr-only">Milk chocolate</span></label><label class="flavor" title="White chocolate"><input type="radio" name="flavor" value="white"><span class="swatch swatch-white" aria-hidden="true"></span><span class="sr-only">White chocolate</span></label></fieldset>
+</header>
+<main id="main" tabindex="-1" class="pf-shell pf-document">
+<header class="pf-document-header">
+  <p class="pf-kicker">Selected work · ONTO</p>
+  <h1 class="pf-title">Less searching.<br>More getting out.</h1>
+  <p class="pf-lede">ONTO brings events and places into one location-based PWA. The goal is simple: help someone find something nearby worth doing, then make it easy to act on it.</p>
+  <div class="pf-actions"><a class="pf-button pf-button-primary" href="https://onto.events/">Explore ONTO <span aria-hidden="true">↗</span></a><a class="pf-button" href="#decisions">Read the decisions</a></div>
+  <dl class="pf-facts">
+    <div class="pf-fact"><dt>My role</dt><dd>Product direction, interface, and full-stack development</dd></div>
+    <div class="pf-fact"><dt>Delivery</dt><dd>Installable Progressive Web App</dd></div>
+    <div class="pf-fact"><dt>Core stack</dt><dd>TypeScript · Expo · React Native Web · PostgreSQL</dd></div>
+  </dl>
+</header>
+<section class="pf-section pf-split" aria-labelledby="problem-title">
+  <div><p class="pf-kicker">01 · The problem</p><h2 id="problem-title">The evening is short.<br>The search shouldn't be.</h2></div>
+  <div class="pf-prose">
+    <p>A concert has a ticketing page. A library has a calendar. A community group has its own listing. Finding something to do can mean checking all of them, then working out whether the time, distance, and cost fit.</p>
+    <p>I built ONTO to bring that search together. It includes nearby events and destinations such as parks, trails, and indoor spaces. Browsing works without an account; someone who wants synchronized plans can choose to sign in.</p>
+    <p>I work across the product and its implementation, using AI-assisted development alongside source review and verification. That includes deciding what the interface asks of a person and how incoming event data becomes a useful feed.</p>
+  </div>
+</section>
+<section class="pf-section pf-split" aria-labelledby="flow-title">
+  <div><p class="pf-kicker">02 · The experience</p><h2 id="flow-title">A place, a choice,<br>and a next step.</h2></div>
+  <div class="pf-prose">
+    <ol>
+      <li><strong>Choose where to look.</strong> Use a supported city, device location, or a temporary map pin. Events and Places share that choice.</li>
+      <li><strong>Narrow the possibilities.</strong> Search events, change distance or sorting, and inspect the event's details. Places can take time of day and weather into account.</li>
+      <li><strong>Act on the result.</strong> Follow the original source, get directions, or save a private Going plan. Guest plans work without signup; accounts add synchronization.</li>
+    </ol>
+    <p>The interesting engineering work is often in the less convenient version of that flow: location is denied, a calendar is incomplete, a saved event has changed, or the connection has gone away.</p>
+  </div>
+</section>
+<section id="decisions" class="pf-section pf-split" aria-labelledby="decisions-title">
+  <div><p class="pf-kicker">03 · Engineering decisions</p><h2 id="decisions-title">A simple feed needs<br>careful boundaries.</h2></div>
+  <div class="pf-prose">
+    <h3>One location context across the app</h3>
+    <p>A selected city and a device fix are different kinds of information. ONTO resolves them into one browsing context, including the service region and timezone. Both discovery views use it, so changing location does not leave Places looking somewhere else.</p>
+    <p><strong>The tradeoff:</strong> when a location cannot be resolved, discovery has to explain what it needs instead of quietly treating an old coordinate as a new GPS fix.</p>
+    <h3>Normalize sources before they reach the screen</h3>
+    <p>Ticketing feeds and publisher calendars arrive in different formats. Registered readers feed a shared pipeline for validation, attribution, deduplication, and regional checks. Source names and ID prefixes establish ownership, helping keep one reader from overwriting another source's events.</p>
+    <p><strong>The tradeoff:</strong> adding a publisher takes more work than collecting its URL. The reader has to preserve identity, dates, and provenance, including when a refresh is only partly successful.</p>
+    <h3>Keep feed decisions testable</h3>
+    <p>Feed filtering and ranking live in a pure TypeScript core. Time and location arrive as inputs. The interface wires those decisions to state and persistence, rather than hiding the rules inside a screen.</p>
+    <p><strong>The tradeoff:</strong> the boundaries need explicit contracts, but the decisions can be exercised without a live device, account, or database.</p>
+    <h3>Give offline recovery an honest limit</h3>
+    <p>Cached public events and bundled regional snapshots provide fallback discovery. They cannot make an old listing fresh. Current events, weather, and account synchronization still depend on connectivity.</p>
+  </div>
+</section>
+<section class="pf-section pf-split" aria-labelledby="privacy-title">
+  <div><p class="pf-kicker">04 · Privacy</p><h2 id="privacy-title">Make each disclosure<br>a deliberate choice.</h2></div>
+  <div class="pf-prose">
+    <p>Browsing does not require a login. Precise device and pin coordinates are kept in memory; catalog requests identify a service region. Local preferences and cached data support the experience, while optional accounts introduce account and plan records.</p>
+    <p>That makes privacy an engineering constraint, not a claim that the app handles no data. Maps and weather also have their own network boundaries. Those distinctions matter when explaining what stays on the device and what another service receives.</p>
+  </div>
+</section>
+<section class="pf-section pf-split" aria-labelledby="result-title">
+  <div><p class="pf-kicker">05 · Where it stands</p><h2 id="result-title">A working product.<br>An ongoing discipline.</h2></div>
+  <div class="pf-prose">
+    <p>ONTO is in active PWA development. The codebase brings discovery, shared location controls, source ingestion, guest plans, and optional account synchronization into one product. Feature availability depends on the deployed build and its configuration.</p>
+    <p>The next work is the work that makes an aggregator useful over time: reliable event coverage, understandable empty states, and verified mobile installation, offline recovery, and updates.</p>
+    <div class="pf-callout"><p><strong>What this project demonstrates</strong></p><p>Taking a practical problem through product choices, interface work, data contracts, privacy boundaries, and delivery—and being able to explain the compromises along the way.</p></div>
+    <div class="pf-actions"><a class="pf-button pf-button-primary" href="https://onto.events/">Open ONTO <span aria-hidden="true">↗</span></a><a class="pf-button" href="../../#contact">Talk about the work</a></div>
+  </div>
+</section>
+</main>
+<footer class="pf-shell pf-footer">
+  <p>James Richmond · Middlebury, Vermont</p>
+  <nav aria-label="Footer"><a href="../../#work">All work</a><a href="../../about/">About</a><a href="mailto:jamestrichmond@gmail.com">Email</a><a href="https://github.com/JamesTRichmond" rel="me">GitHub</a></nav>
+</footer>
+<script type="module" src="../../assets/js/portfolio.js"></script>
+</body>
+</html>

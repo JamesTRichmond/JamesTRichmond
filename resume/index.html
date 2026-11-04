@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-flavor="milk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Résumé — James Richmond</title>
+<meta name="description" content="James Richmond, full-stack developer in Middlebury, Vermont. Selected development work, technical practice, education, and earlier experience.">
+<meta property="og:title" content="Résumé — James Richmond">
+<meta property="og:description" content="James Richmond, full-stack developer in Middlebury, Vermont. Selected development work, technical practice, education, and earlier experience.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jamestrichmond.com/resume/">
+<link rel="canonical" href="https://jamestrichmond.com/resume/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23472e1c'/%3E%3Cpath d='M25 70V30h13l12 24 12-24h13v40H62V52L50 74 38 52v18Z' fill='%23f2cf4a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/portfolio.css">
+<script>
+{
+  let flavor = "milk";
+  try {
+    const saved = localStorage.getItem("flavor");
+    if (["dark", "milk", "white"].includes(saved)) flavor = saved;
+  } catch { /* Preference storage is optional. */ }
+  document.documentElement.dataset.flavor = flavor;
+  document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+}
+</script>
+</head>
+<body class="portfolio-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar pf-topbar">
+  <a class="mark" href="../"><span class="mark-glyph" aria-hidden="true"></span><span class="mark-text">James Richmond</span></a>
+  <nav class="topnav pf-nav" aria-label="Primary"><a href="../#work">Work</a><a href="../about/">About</a><a href="../resume/" aria-current="page">Résumé</a><a href="../workshop/">Workshop</a><a href="../#contact">Contact</a></nav>
+  <fieldset class="flavors" data-flavors hidden><legend class="sr-only">Chocolate flavor</legend><label class="flavor" title="Dark chocolate"><input type="radio" name="flavor" value="dark"><span class="swatch swatch-dark" aria-hidden="true"></span><span class="sr-only">Dark chocolate</span></label><label class="flavor" title="Milk chocolate"><input type="radio" name="flavor" value="milk" checked><span class="swatch swatch-milk" aria-hidden="true"></span><span class="sr-only">Milk chocolate</span></label><label class="flavor" title="White chocolate"><input type="radio" name="flavor" value="white"><span class="swatch swatch-white" aria-hidden="true"></span><span class="sr-only">White chocolate</span></label></fieldset>
+</header>
+<main id="main" tabindex="-1" class="pf-shell pf-document">
+<header class="pf-document-header">
+  <p class="pf-kicker">Résumé · Middlebury, Vermont</p>
+  <h1 class="pf-title">James Richmond</h1>
+  <p class="pf-lede">Full-stack developer with a background in teaching, military service, and information technology. I build web applications and AI systems, with an interest in clear interfaces, testable decisions, and privacy.</p>
+  <p class="pf-note"><a href="mailto:jamestrichmond@gmail.com">jamestrichmond@gmail.com</a> · <a href="https://github.com/JamesTRichmond">github.com/JamesTRichmond</a> · <a href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a></p>
+  <div class="pf-actions"><button class="pf-button pf-button-primary" type="button" data-print-resume hidden>Print / save as PDF</button><a class="pf-button" href="../#work">Explore the work</a></div>
+  <noscript><p class="pf-note">Use your browser's Print command to print this résumé or save it as a PDF.</p></noscript>
+</header>
+<section class="pf-section pf-split" aria-labelledby="projects-title">
+  <div><p class="pf-kicker">Selected work</p><h2 id="projects-title">Applications<br>and experiments.</h2></div>
+  <div class="pf-prose">
+    <h3>ONTO · Product and full-stack development</h3>
+    <p>A location-based Progressive Web App for discovering events and places. Built the product end to end using an AI-assisted workflow, from experience design through application and data-pipeline work.</p>
+    <ul>
+      <li>Work across a TypeScript, Expo, and React Native Web interface with Supabase authentication and PostgreSQL.</li>
+      <li>Connect heterogeneous event sources through shared validation, attribution, deduplication, and region-aware ingestion.</li>
+      <li>Address accountless discovery, shared location controls, private plans, optional synchronization, and cached recovery.</li>
+    </ul>
+    <p><a href="../work/onto/">Read the ONTO case study</a></p>
+    <h3>Personal website · Interactive web development</h3>
+    <p>A static HTML, CSS, and JavaScript site with browser-based exhibits. The Habitat robot combines a jointed SVG rig, spring physics, and a state machine. A security exercise lets visitors test a sanitizer directly.</p>
+    <p><a href="../#habitat">Explore Habitat</a> · <a href="../security/">Try the security exercise</a></p>
+  </div>
+</section>
+<section class="pf-section pf-split" aria-labelledby="skills-title">
+  <div><p class="pf-kicker">Technical practice</p><h2 id="skills-title">Across the stack.</h2></div>
+  <div class="pf-prose">
+    <p><strong>Applications:</strong> TypeScript, JavaScript, React Native, React Native Web, Expo, HTML, CSS, and browser interactions.</p>
+    <p><strong>Data and systems:</strong> PostgreSQL, Supabase, Python, source ingestion, validation, and explicit module contracts.</p>
+    <p><strong>Engineering:</strong> Git and pull-request workflows, testable application logic, privacy boundaries, cybersecurity, and digital forensics.</p>
+  </div>
+</section>
+<section class="pf-section pf-split" aria-labelledby="experience-title">
+  <div><p class="pf-kicker">Earlier experience</p><h2 id="experience-title">Evidence.<br>Responsibility.<br>Communication.</h2></div>
+  <div class="pf-prose">
+    <h3>Education · Florida and Vermont</h3>
+    <p>Taught AP U.S. History, Psychology, and social sciences at Lincoln High School in Tallahassee, followed by teaching at Vergennes High School in Vermont. Planned instruction, evaluated evidence and arguments, and explained complex material to different audiences.</p>
+    <h3>United States Air Force</h3>
+    <p>Served as a nuclear weapons technician before transitioning to higher education. Worked within procedures where clear responsibilities, careful verification, and accountability mattered.</p>
+  </div>
+</section>
+<section class="pf-section pf-split" aria-labelledby="education-title">
+  <div><p class="pf-kicker">Education</p><h2 id="education-title">Information technology<br>and education.</h2></div>
+  <div class="pf-prose">
+    <h3>Champlain College</h3><p>Master's degree in Information Technology. Additional study in cybersecurity and digital forensics.</p>
+    <h3>Florida State University</h3><p>Degree in Social Science Education.</p>
+  </div>
+</section>
+</main>
+<footer class="pf-shell pf-footer">
+  <p>James Richmond · Middlebury, Vermont</p>
+  <nav aria-label="Footer"><a href="../#work">All work</a><a href="../about/">About</a><a href="mailto:jamestrichmond@gmail.com">Email</a><a href="https://github.com/JamesTRichmond" rel="me">GitHub</a></nav>
+</footer>
+<script type="module" src="../assets/js/portfolio.js"></script>
+</body>
+</html>

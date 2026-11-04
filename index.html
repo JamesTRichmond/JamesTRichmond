@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>James Richmond — builds AI systems</title>
-<meta name="description" content="James Richmond. I build AI systems. Previously: USAF nuclear weapons tech, eight years teaching, and a sales territory that taught me more about software than most standups.">
+<title>James Richmond — full-stack developer</title>
+<meta name="description" content="James Richmond, a full-stack developer in Middlebury, Vermont. Explore ONTO, interactive experiments, and the decisions behind the work.">
 
-<meta property="og:title" content="James Richmond — builds AI systems">
-<meta property="og:description" content="AI systems, cybersecurity, and one robot who lives on this page.">
+<meta property="og:title" content="James Richmond — full-stack developer">
+<meta property="og:description" content="Useful software, interactive experiments, and a path from the Air Force and teaching to full-stack development.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jamestrichmond.com/">
 
@@ -18,42 +18,49 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/portfolio.css">
+<link rel="stylesheet" href="assets/css/home.css">
+<link rel="stylesheet" href="assets/css/fall-in.css">
+<link rel="canonical" href="https://jamestrichmond.com/">
 
 <script>
 /* Set the saved flavor before first paint so there is no flash of the wrong chocolate. */
 {
   // Milk is the house flavor and stays the default regardless of the system
   // setting; the switcher pins anything else.
-  const flavor = localStorage.getItem("flavor") || "milk";
+  let flavor = "milk";
+  try {
+    const saved = localStorage.getItem("flavor");
+    if (["dark", "milk", "white"].includes(saved)) flavor = saved;
+  } catch { /* Preferences are optional; the page still works. */ }
   document.documentElement.dataset.flavor = flavor;
   document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
 }
 </script>
 </head>
 
-<body>
+<body class="portfolio-page">
 <!-- Don't Try. — Bukowski -->
 
-<div class="hypershapes" aria-hidden="true" data-hypershapes></div>
+
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="topbar">
+<header class="topbar pf-topbar">
   <a class="mark" href="#main">
     <span class="mark-glyph" aria-hidden="true"></span>
     <span class="mark-text">James Richmond</span>
   </a>
 
-  <nav class="topnav" aria-label="Primary">
-    <a href="#habitat">Habitat</a>
-    <a href="#signal">Signal</a>
-    <a href="#activity">Activity</a>
+  <nav class="topnav pf-nav" aria-label="Primary">
+    <a href="#work">Work</a>
+    <a href="about/">About</a>
+    <a href="resume/">Résumé</a>
     <a href="workshop/">Workshop</a>
-    <a href="https://beacon-lunar-yonder-lark.grok.me/">Open Field</a>
-    <a href="https://github.com/JamesTRichmond" rel="me">GitHub</a>
+    <a href="#contact">Contact</a>
   </nav>
 
-  <fieldset class="flavors" data-flavors>
+  <fieldset class="flavors" data-flavors hidden>
     <legend class="sr-only">Chocolate flavor</legend>
     <label class="flavor" title="Dark chocolate">
       <input type="radio" name="flavor" value="dark">
@@ -73,46 +80,69 @@
   </fieldset>
 </header>
 
-<main id="main">
+<main id="main" tabindex="-1">
 
-  <section class="hero has-portrait">
-    <div class="hero-copy">
-    <p class="eyebrow">Middlebury, Vermont</p>
-    <h1 class="hero-title">I build<br>AI&nbsp;systems.</h1>
-    <p class="hero-line">
-      Previously: USAF nuclear weapons tech, eight years teaching, and a sales
-      territory that taught me more about software than most standups.
-    </p>
-
-    <ul class="chips" aria-label="Stack">
-      <li>Python</li>
-      <li>TypeScript</li>
-      <li>AI Agents</li>
-      <li>Cybersecurity</li>
-      <li class="chip-accent">USAF Veteran</li>
-    </ul>
-
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="https://github.com/JamesTRichmond">See the code</a>
-      <a class="btn" href="#habitat">Meet the robot</a>
+  <section class="pf-shell pf-hero" aria-labelledby="intro-title">
+    <div class="pf-hero-copy">
+      <p class="pf-kicker">Full-stack developer · Middlebury, Vermont</p>
+      <h1 id="intro-title" class="pf-title">Useful software.<br>A little <em>wonder.</em></h1>
+      <p class="pf-lede">I'm James Richmond. I build web experiences and AI systems, with a background in teaching and cybersecurity. I like making complicated things understandable—and usable.</p>
+      <div class="pf-actions">
+        <a class="pf-button pf-button-primary" href="#work">Explore my work <span aria-hidden="true">↘</span></a>
+        <a class="pf-button" href="resume/">Read my résumé</a>
+      </div>
+      <ul class="pf-tags home-skills" aria-label="Selected skills"><li>TypeScript</li><li>Python</li><li>Interface design</li><li>Security</li></ul>
     </div>
+    <div class="pf-hero-visual">
+      <section class="fall-in" data-fall-in aria-label="Fall In — Jamestellation">
+        <div class="fall-in__scene">
+          <canvas data-fall-canvas aria-hidden="true"></canvas>
+          <p class="fall-in__label" aria-hidden="true">JAMESTELLATION</p>
+        </div>
+        <div class="fall-in__controls">
+          <button type="button" data-fall-start>Fall in</button>
+          <button type="button" data-fall-pause aria-pressed="false" disabled>Pause motion</button>
+          <button type="button" data-fall-reset disabled>Reset</button>
+        </div>
+        <p class="fall-in__status" data-fall-status aria-live="polite">A constellation becomes a face, opening into a field of stars.</p>
+        <noscript><p class="fall-in__status">This optional canvas experience needs JavaScript. Everything below is ready to explore.</p></noscript>
+      </section>
+      <p class="pf-note home-caption">Fall In · an experiment in particles, perspective, and a familiar face.</p>
     </div>
+  </section>
 
-    <!-- The engraving from the profile picture, with its own pixels pushed
-         around: smoke off the crag, a breeze through the beard and the drape,
-         and the hammer charging. Falls back to the still plate if WebGL is
-         unavailable, which is the whole point of animating the real image
-         rather than generating a new one. -->
-    <figure class="portrait-thor">
-      <canvas data-thor width="440" height="440"
-              aria-label="Thor, engraved, in colour. The smoke rises, his beard moves, and lightning grows out of the hammer."
-              role="img"></canvas>
-      <figcaption>
-        A 19th-century wood engraving. Every line here is the engraver's — none
-        of it was redrawn — and the colour is a grade over his own ink, not
-        paint.
-      </figcaption>
-    </figure>
+  <section id="work" class="pf-shell pf-section" aria-labelledby="work-title">
+    <div class="pf-section-heading">
+      <div><p class="pf-kicker">Selected work</p><h2 id="work-title">Built to be used.</h2></div>
+      <p>Applications with a practical purpose. Experiments you can put your hands on.</p>
+    </div>
+    <article class="home-feature" aria-labelledby="onto-title">
+      <div class="home-feature-copy">
+        <p class="pf-card-label">01 · Product &amp; full-stack development</p>
+        <h3 id="onto-title">ONTO.<br>Go do something.</h3>
+        <p>A location-based PWA for finding nearby events and places, browsing without an account, and optionally syncing plans.</p>
+        <p>The case study follows the interface, the event pipeline, and the decisions that connect them.</p>
+        <ul class="pf-tags" aria-label="ONTO stack"><li>TypeScript</li><li>Expo / React Native Web</li><li>PostgreSQL</li></ul>
+        <div class="pf-actions"><a class="pf-button pf-button-primary" href="work/onto/">Explore the case study <span aria-hidden="true">↗</span></a><a class="pf-button" href="https://onto.events/">Visit ONTO</a></div>
+      </div>
+      <div class="home-principles" aria-label="ONTO design priorities">
+        <p class="pf-kicker">A shorter path outside</p>
+        <ol>
+          <li><span aria-hidden="true">01</span><div><strong>Find something nearby.</strong><p>Bring listings together around a chosen location.</p></div></li>
+          <li><span aria-hidden="true">02</span><div><strong>Make a choice.</strong><p>Keep the details and original source within reach.</p></div></li>
+          <li><span aria-hidden="true">03</span><div><strong>Go. The feed can wait.</strong><p>The point is what happens away from the screen.</p></div></li>
+        </ol>
+      </div>
+    </article>
+    <div class="pf-grid home-secondary">
+      <article class="pf-card"><p class="pf-card-label">02 · Interaction &amp; physics</p><h3 class="pf-card-title">A robot with a day of his own.</h3><p>Habitat combines a jointed SVG rig, spring physics, and a small state machine. Walk, jump, or give him something to do.</p><a class="pf-card-link" href="#habitat">Meet the robot <span aria-hidden="true">&nbsp;↘</span></a></article>
+      <article class="pf-card"><p class="pf-card-label">03 · Security &amp; explanation</p><h3 class="pf-card-title">Try to break the guestbook.</h3><p>A browser exercise makes the sanitizer's decisions visible. Submit a payload and inspect what gets through.</p><a class="pf-card-link" href="security/">Open the security exercise <span aria-hidden="true">&nbsp;↗</span></a></article>
+    </div>
+  </section>
+
+  <section class="pf-shell pf-section pf-split" aria-labelledby="about-title">
+    <div><p class="pf-kicker">The person behind the work</p><h2 id="about-title">Service. Teaching.<br>Software.</h2></div>
+    <div class="pf-prose"><p>Before software, I served in the Air Force and taught AP U.S. History and social sciences. Teaching gave me a lasting interest in how people understand things. Security gave me a habit of checking what the evidence actually supports.</p><p>Those habits meet in the work here: clear interfaces, careful systems, and room to explore.</p><a class="pf-button" href="about/">A few lives before this one <span aria-hidden="true">↗</span></a></div>
   </section>
 
   <!-- ─────────── HABITAT ─────────── -->
@@ -124,7 +154,8 @@
       </p>
     </div>
 
-    <div class="stage-wrap">
+    <p class="pf-note" data-habitat-fallback>The Habitat demo uses JavaScript. You can also <a href="https://github.com/JamesTRichmond/habitat">explore its source on GitHub</a>.</p>
+    <div class="stage-wrap" hidden>
       <div class="stage" data-stage tabindex="0" role="application"
            aria-label="Robot habitat. Use arrow keys to walk, space to jump, or pick an activity below.">
         <svg class="stage-svg" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
@@ -169,6 +200,27 @@
     </div>
   </section>
 
+  <section class="pf-shell pf-section home-engraving" aria-labelledby="engraving-title">
+    <div class="pf-prose"><p class="pf-kicker">Still curious</p><h2 id="engraving-title">An old engraving.<br>A change in the weather.</h2><p>The ink belongs to a nineteenth-century engraver. A shader adds the colour, smoke, and lightning. Change the chocolate flavor above and the storm changes with it.</p><a class="pf-button" href="workshop/">Step into the workshop <span aria-hidden="true">↗</span></a><p class="pf-note">More rooms: <a href="agents/">AI systems</a> · <a href="python/">Python</a> · <a href="typescript/">TypeScript</a> · <a href="teacher/">Teaching</a> · <a href="usaf/">USAF</a> · <a href="https://beacon-lunar-yonder-lark.grok.me/">Open Field</a></p></div>
+    <figure class="portrait-thor">
+      <canvas data-thor width="440" height="440" hidden
+              aria-label="Thor, engraved, in colour. The smoke rises, his beard moves, and lightning grows out of the hammer."
+              role="img"></canvas>
+      <noscript><img src="assets/thor/plate.webp" width="320" height="385" loading="lazy" alt="The original nineteenth-century Thor engraving"></noscript>
+      <figcaption>
+        A 19th-century wood engraving. Every line here is the engraver's — none
+        of it was redrawn — and the colour is a grade over his own ink, not
+        paint.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section id="contact" class="pf-shell pf-section pf-contact" aria-labelledby="contact-title">
+    <div><p class="pf-kicker">Start a conversation</p><h2 id="contact-title">Have something worth building?</h2><p>I'd like to hear about it. For a project, a collaboration, or a conversation about the work, email is a good place to start.</p><p><a href="mailto:jamestrichmond@gmail.com">jamestrichmond@gmail.com</a></p></div>
+    <div class="pf-actions"><a class="pf-button pf-button-primary" href="mailto:jamestrichmond@gmail.com">Get in touch <span aria-hidden="true">↗</span></a><a class="pf-button" href="resume/">Résumé</a></div>
+  </section>
+
+  <details class="pf-shell home-backstage"><summary>From GitHub · activity &amp; guestbook</summary>
   <!-- ─────────── SIGNAL ─────────── -->
   <section id="signal" class="section">
     <div class="section-head">
@@ -216,9 +268,11 @@
     </a>
   </section>
 
+  </details>
+
 </main>
 
-<footer class="foot">
+<footer class="foot pf-footer">
   <p class="foot-line">
     Built with too much care for a page about myself.
     The robot is <a href="https://github.com/JamesTRichmond/habitat">his own open-source project</a>.

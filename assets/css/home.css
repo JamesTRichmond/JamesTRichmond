@@ -1,0 +1,23 @@
+@layer portfolio {
+  .home-skills { margin-block-start: 1.75rem; }
+  .home-caption { font-family: var(--font-mono); font-size: .7rem; }
+  .home-feature { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--line); border-radius: 6px; background: color-mix(in oklab, var(--surface) 25%, var(--bg)); }
+  .home-feature h3 { font-size: clamp(2.6rem, 3.8vw, 4rem); line-height: 1.02; margin-block: 1.2rem; }
+  .home-feature-copy > p:not(.pf-card-label) { color: var(--ink-dim); max-inline-size: 48ch; margin-block: 1rem; }
+  .home-principles { align-self: center; border-inline-start: 1px solid var(--line); padding-inline-start: clamp(1.5rem, 3vw, 3rem); }
+  .home-principles ol { display: grid; gap: 1.8rem; }
+  .home-principles li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 1rem; }
+  .home-principles li > span { color: var(--accent-ink); font: .72rem/1.8 var(--font-mono); }
+  .home-principles strong { font-size: 1.1rem; }
+  .home-principles li p { color: var(--ink-dim); font-size: .92rem; margin-block-start: .35rem; }
+  .home-secondary { margin-block-start: var(--pf-gap); }
+  .home-engraving { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3rem; align-items: center; }
+  .home-engraving h2 { font-size: clamp(2rem, 3vw, 3.3rem); }
+  .home-engraving .portrait-thor img { inline-size: clamp(11rem, 26vw, 20rem); block-size: auto; border-radius: 4px; border: 1px solid var(--line); }
+  .home-backstage { margin-block-end: 3rem; border: 1px solid var(--line); border-radius: 6px; }
+  .home-backstage summary { padding: 1.2rem; cursor: pointer; font: .8rem/1.5 var(--font-mono); color: var(--ink-dim); }
+  .home-backstage > .section { inline-size: calc(100% - 2.5rem); padding-block: 2rem; }
+  @media (width < 62rem) { .home-feature { grid-template-columns: minmax(0, 1fr); } .home-principles { border-inline-start: 0; border-block-start: 1px solid var(--line); padding-inline-start: 0; padding-block-start: 2rem; } }
+  @media (width < 42rem) { .home-engraving { grid-template-columns: minmax(0, 1fr); } .home-engraving .portrait-thor { justify-self: center; } }
+  @media print { .home-backstage, .home-engraving, .habitat { display: none; } .home-feature { display: block; padding: 0; border: 0; } }
+}

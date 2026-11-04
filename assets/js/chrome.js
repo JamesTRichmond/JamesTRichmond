@@ -20,12 +20,14 @@ export function initFlavors() {
     if (meta) meta.content = current === "white" ? "light" : "dark";
   };
   sync();
+  fieldset.hidden = false;
 
   fieldset.addEventListener("change", (e) => {
     const flavor = e.target.value;
     const apply = () => {
       root.dataset.flavor = flavor;
-      localStorage.setItem("flavor", flavor);
+      try { localStorage.setItem("flavor", flavor); }
+      catch { /* Theme changes still work when storage is unavailable. */ }
       sync();
     };
     // Morph rather than snap, where the browser can.
