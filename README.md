@@ -11,13 +11,14 @@ agentic systems & closed-loop orchestration :: privacy & client-side security ::
 <table>
 <tr>
 <td valign="top">
-<a href="https://onto-35j.pages.dev"><img src="assets/onto/onto-feed.png" width="300" alt="onto on a phone: the Things To Do feed listing events near Middlebury, Vermont, with time, venue, and source for each" /></a>
+<a href="https://onto-35j.pages.dev"><img src="assets/onto/onto-feed.png" width="300" alt="onto on a phone: the Things To Do feed listing events near Middlebury, Vermont, with time, venue, and source for each" /></a><br />
+<sub>Tap the screenshot to open onto (onto-35j.pages.dev).</sub>
 </td>
 <td valign="top" align="center">
-<a href="assets/onto/filters.png"><img src="assets/onto/filters.png" width="72" alt="onto filters: interests, sort, GPS, map pin or city, distance, and dates" /></a><br />
-<a href="assets/onto/change-city.png"><img src="assets/onto/change-city.png" width="72" alt="onto change-city list grouped by state" /></a><br />
-<a href="assets/onto/brooklyn-feed.png"><img src="assets/onto/brooklyn-feed.png" width="72" alt="onto feed searching Brooklyn within 25 miles, showing a roller skating night at Pier 2" /></a><br />
-<a href="assets/onto/places-to-go.png"><img src="assets/onto/places-to-go.png" width="72" alt="onto Places To Go: trails around Brooklyn, including Prospect Park and Green-Wood Cemetery" /></a><br />
+<img src="assets/onto/filters.png" width="72" alt="onto filters: interests, sort, GPS, map pin or city, distance, and dates" /><br />
+<img src="assets/onto/change-city.png" width="72" alt="onto change-city list grouped by state" /><br />
+<img src="assets/onto/brooklyn-feed.png" width="72" alt="onto feed searching Brooklyn within 25 miles, showing a roller skating night at Pier 2" /><br />
+<img src="assets/onto/places-to-go.png" width="72" alt="onto Places To Go: trails around Brooklyn, including Prospect Park and Green-Wood Cemetery" /><br />
 </td>
 </tr>
 </table>
