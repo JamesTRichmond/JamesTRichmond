@@ -12,7 +12,7 @@ agentic systems & closed-loop orchestration :: privacy & client-side security ::
 <tr>
 <td valign="top">
 <a href="https://onto-35j.pages.dev"><img src="assets/onto/onto-feed.png" width="300" alt="onto on a phone: the Things To Do feed listing events near Middlebury, Vermont, with time, venue, and source for each" /></a><br />
-<sub>Tap the screenshot to open onto (onto-35j.pages.dev).</sub>
+<sub>Click or tap this screenshot to open onto (onto-35j.pages.dev).</sub>
 </td>
 <td valign="top" align="center">
 <img src="assets/onto/filters.png" width="72" alt="onto filters: interests, sort, GPS, map pin or city, distance, and dates" /><br />
