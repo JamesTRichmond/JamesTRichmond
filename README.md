@@ -6,6 +6,19 @@ agentic systems & closed-loop orchestration :: privacy & client-side security ::
 
 <br clear="right" />
 
+## now shipping: onto
+
+<a href="https://onto-35j.pages.dev"><img src="assets/onto/onto-feed.png" width="360" alt="onto on a phone: the Discover feed listing events nearby, with distance, time, and source for each" /></a>
+
+[onto](https://onto-35j.pages.dev) is a free web app that shows what's happening near you right now: concerts, trail runs, library talks, gallery openings, pulled from venues' own calendars.
+
+- No account. No ads.
+- Your exact location stays on your phone.
+- Add it to your home screen from the browser; it runs like an app.
+- Built under AgentiCubed LLC.
+
+**[Open onto](https://onto-35j.pages.dev)**
+
 ## systems: closed loops, security & adversarial reasoning
 
 I build agentic architectures, client-side security tools, and observable evaluation engines that turn unpredictable model behavior into deterministic software.
@@ -22,31 +35,18 @@ I build agentic architectures, client-side security tools, and observable evalua
 - Zero server accounts, zero remote telemetry, and isolated local storage; leaves login, checkout, and sensitive dialogs untouched.
 - 71 unit tests, 33 browser tests, and cross-platform byte-deterministic packaging.
 
-### [Verbal Kombat](https://github.com/JamesTRichmond/Verbal_Kombat)
+### Verbal Kombat
 *A 2D fighting game that acts as a real-time visualization and reinforcement learning harness for multi-agent debate.*
 - Two AI minds battle over complex premises: valid logic and sound arguments land as strikes and combos, while logical fallacies miss, get blocked, or backfire into damage.
 - Health bars represent the structural integrity of an argument; every round produces an annotated transcript scrubber mapping hitboxes directly to lines of reasoning.
 - Modular TypeScript monorepo architecture: `@vk/core`, `@vk/debate`, `@vk/judge` (fallacy taxonomy & soundness verdicts), and `@vk/combat` (verdicts → physics).
 
-### [SCE Probe Runtime](https://github.com/JamesTRichmond/sce-probe-runtime)
+### [SCE Probe Runtime](https://github.com/JamesTRichmond/small-cheap-experiments)
 *Pre/post runtime telemetry and behavioral scoring around irreversible tools.*
 - Silent held-out micro-probes that score model certainty against actual behavior (`claim↔act` matching) before state-mutating tool calls execute.
 - Seals execution triplets into append-only hash chains for SOC-style audit and replay.
 
 ---
-
-<!--START_SECTION:robot-->
-<a href="https://jamestrichmond.github.io/habitat/"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/robot/idle.gif" width="760" alt="A small robot standing around in his workshop. Click him and he becomes controllable." /></a>
-<!--END_SECTION:robot-->
-
-He does something different every day. **[Click him](https://jamestrichmond.github.io/habitat/)** and he becomes yours to drive — arrow keys to walk, space to jump, and you can pick him up and throw him.
-
-## habitat
-
-A robot who lives on a web page — jointed SVG rig, spring physics, and a small state
-machine that decides what he does with his day. No dependencies, no build step.
-
-[Play with him](https://jamestrichmond.github.io/habitat/) · [Source](https://github.com/JamesTRichmond/habitat) · [In the wild](https://jamestrichmond.com/#habitat)
 
 ## Open Field
 
