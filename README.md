@@ -43,12 +43,12 @@ full-stack developer :: typescript, react / react native, node, postgres, python
 | project | one line | status |
 |---|---|---|
 | [HLS Aurora](https://github.com/JamesTRichmond/hls-aurora) | walkable space station with two complete layers, the crew's fiction and the observer's truth. TanStack Start, Postgres via Kysely, better-auth | prototype |
-| [AgentiCubed / A3](https://github.com/AgentiCubed/A3) | closed-loop agent orchestration: DAG tasks, separate executor and evaluator, fail-closed contracts | paused |
+| [AgentiCubed / A3](https://github.com/AgentiCubed/A3) | closed-loop agent orchestration: DAG tasks, separate executor and evaluator, fail-closed contracts | active |
 | [BannerBanner](https://github.com/AgentiCubed/bannerbanner) | privacy-first Chrome MV3 extension that hides consent dialogs only on sites you authorize | built, pre-store |
 | [Preincarnation](https://github.com/JamesTRichmond/preincarnation) | Vermont reincarnation RPG. death is a chapter | active |
 | [BoomerEZ](https://agenticubed.github.io/BoomerEZ/) | free single-file programs for people who were never taught the computer words | live |
 | Verbal Kombat | fighting game where sound arguments land as strikes and fallacies backfire; a harness for multi-agent debate | private |
-| Wild Mates | claymation field guide to animal courtship, with pixel-diff visual CI | private |
+| Wild Mates | claymation field guide to animal reproductive strategies, with pixel-diff visual CI | private |
 | Mouthpiece | an on-screen mouth that lip-syncs a caller's words so you can read their lips | concept |
 
 ## stack
@@ -57,9 +57,9 @@ TypeScript · JavaScript · Python · SQL &nbsp;|&nbsp; React 19 · React Native
 
 ## background
 
-- U.S. Air Force, nuclear weapons technician. precision under procedure, two-person rule
-- 8+ years teaching in Florida and Vermont. explaining hard things plainly
-- territory sales for R&D tooling. customers first, numbers honest
+- U.S. Air Force veteran, nuclear weapons technician
+- 8+ years teaching in Florida and Vermont
+- territory sales
 - M.S., IT & Cybersecurity; graduate certificates in AI, Data Science and Digital Forensics
 
 [jamestrichmond.com](https://jamestrichmond.com) · [LinkedIn](https://www.linkedin.com/in/jamestrichmond)
