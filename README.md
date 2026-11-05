@@ -2,17 +2,27 @@
 
 # James Richmond
 
-agentic systems & closed-loop orchestration :: privacy & client-side security :: fmr af 2w2 (top secret) :: ms it, cybersec, data sci, & df/ir :: fmr ap teacher :: territory sales for r&d
+full-stack developer :: typescript, react / react native, node, postgres, python :: i ship real products and the infrastructure under them
 
 <br clear="right" />
+
+## featured work
+
+| | project | what it is | stack |
+|---|---|---|---|
+| 1 | **[onto](https://github.com/JamesTRichmond/onto-events)** · [live](https://onto.events) | what's happening near you right now, pulled from venues' own calendars. no account, no ads, your location stays on your phone | React Native / Expo (web), Expo Router, Supabase + RLS, Leaflet, Jest |
+| 2 | **[Middlebury Campus RPG](https://github.com/JamesTRichmond/middlebury-campus-rpg)** | unofficial orientation RPG: arrive by train, build a character (wheelchair route included), attend a class whose teacher can only say what's in the lesson data | React 19, Vite, Zod content graph, Vitest, Playwright, Figma-first |
+| 3 | **[Small Cheap Experiments](https://github.com/JamesTRichmond/small-cheap-experiments)** | runtime probes that check whether an AI agent's claim matches its action before an irreversible tool call, sealed in a hash-chained audit trail | Python, JSON Schema, pytest |
+| 4 | **[Cloud of Electrons](https://github.com/JamesTRichmond/cloud-of-electrons)** · [live](https://jamestrichmond.com) | my site: a WebGL particle cloud where my poems condense out of the swirl | WebGL, JavaScript, Python build tools |
+| 5 | **[Otter Creek Homelab](https://github.com/JamesTRichmond/otter-creek-homelab)** | self-hosted lab for local models and sandboxed coding agents, documented by role | Proxmox, UniFi, Ollama / MLX, Python |
 
 ## now shipping: onto
 
 <table>
 <tr>
 <td valign="top">
-<a href="https://onto-35j.pages.dev"><img src="assets/onto/onto-feed.png" width="300" alt="onto on a phone: the Things To Do feed listing events near Middlebury, Vermont, with time, venue, and source for each" /></a><br />
-<sub>Click or tap this screenshot to open onto (onto-35j.pages.dev).</sub>
+<a href="https://onto.events"><img src="assets/onto/onto-feed.png" width="300" alt="onto on a phone: the Things To Do feed listing events near Middlebury, Vermont, with time, venue, and source for each" /></a><br />
+<sub>Tap the screenshot to open onto.</sub>
 </td>
 <td valign="top" align="center">
 <img src="assets/onto/filters.png" width="72" alt="onto filters: interests, sort, GPS, map pin or city, distance, and dates" /><br />
@@ -23,41 +33,36 @@ agentic systems & closed-loop orchestration :: privacy & client-side security ::
 </tr>
 </table>
 
-[onto](https://onto-35j.pages.dev) is a free web app that shows what's happening near you right now: concerts, trail runs, library talks, gallery openings, pulled from venues' own calendars.
+- Installable web app (PWA): offline-capable, no account, no ads.
+- Raw location never leaves the phone; a test fails if a request ever carries it.
+- Calendar ingestion pipeline across 20+ metros; database rules tested like code.
+- Built under AgentiCubed LLC. **[Open onto](https://onto.events)** · [source](https://github.com/JamesTRichmond/onto-events)
 
-- No account. No ads.
-- Your exact location stays on your phone.
-- Add it to your home screen from the browser; it runs like an app.
-- Built under AgentiCubed LLC.
+## honorable mentions
 
-**[Open onto](https://onto-35j.pages.dev)**
+| project | one line | status |
+|---|---|---|
+| [HLS Aurora](https://github.com/JamesTRichmond/hls-aurora) | walkable two-layer narrative game: the crew's kind fiction and the observer's truth on one floor. TanStack Start, React 19, canvas renderer, versioned saves | prototype |
+| [AgentiCubed / A3](https://github.com/AgentiCubed/A3) | closed-loop agent orchestration: DAG tasks, separate executor and evaluator, fail-closed contracts | active |
+| [BannerBanner](https://github.com/AgentiCubed/bannerbanner) | privacy-first Chrome MV3 extension that hides consent dialogs only on sites you authorize | built, pre-store |
+| [Preincarnation](https://github.com/JamesTRichmond/preincarnation) | Vermont reincarnation RPG. death is a chapter | active |
+| [BoomerEZ](https://agenticubed.github.io/BoomerEZ/) | free single-file programs for people who were never taught the computer words | live |
+| Verbal Kombat | fighting game where sound arguments land as strikes and fallacies backfire; a harness for multi-agent debate | private |
+| Wild Mates | claymation field guide to animal reproductive strategies, with pixel-diff visual CI | private |
+| Mouthpiece | an on-screen mouth that lip-syncs a caller's words so you can read their lips | concept |
 
-## systems: closed loops, security & adversarial reasoning
+## stack
 
-I build agentic architectures, client-side security tools, and observable evaluation engines that turn unpredictable model behavior into deterministic software.
+TypeScript · JavaScript · Python · SQL &nbsp;|&nbsp; React 19 · React Native / Expo · Vite · TanStack Start · Tailwind · Radix &nbsp;|&nbsp; Node · Supabase / Postgres (RLS) · Kysely · Deno edge functions &nbsp;|&nbsp; Jest · Vitest · Playwright · pytest &nbsp;|&nbsp; Cloudflare Pages · Vercel · GitHub Actions &nbsp;|&nbsp; Figma &nbsp;|&nbsp; Proxmox · Ollama / MLX
 
-### [AgentiCubed](https://github.com/AgentiCubed/agenticubed)
-*Closed-loop orchestration platform connecting intake, DAG task execution, evaluation, and remediation.*
-- Converts high-level objectives into human-approved task graphs, resolves predecessor dependencies, and dispatches to Celery/Redis workers.
-- Strict separation between executor and evaluator agents; outputs must satisfy structured Pydantic contracts or the system fails closed, captures error diffs, and dynamically reprompts for automated remediation.
-- 268 passing tests (Pytest/Vitest), default-deny tool permissions, and immutable execution logs. Built with Python, FastAPI, Next.js, and PostgreSQL.
+## background
 
-### [BannerBanner](https://github.com/AgentiCubed/bannerbanner)
-*Privacy-first Chrome Manifest V3 extension built on strict consent boundaries and security restraint.*
-- Hides consent dialogs only on user-authorized origins via explicit CMP adapters (OneTrust, Cookiebot, CookieYes, Usercentrics)—strictly rejecting reckless "click-anything" fallbacks.
-- Zero server accounts, zero remote telemetry, and isolated local storage; leaves login, checkout, and sensitive dialogs untouched.
-- 71 unit tests, 33 browser tests, and cross-platform byte-deterministic packaging.
+- U.S. Air Force veteran, nuclear weapons technician
+- 8+ years teaching in Florida and Vermont
+- territory sales
+- M.S., IT & Cybersecurity; graduate certificates in AI, Data Science and Digital Forensics
 
-### Verbal Kombat
-*A 2D fighting game that acts as a real-time visualization and reinforcement learning harness for multi-agent debate.*
-- Two AI minds battle over complex premises: valid logic and sound arguments land as strikes and combos, while logical fallacies miss, get blocked, or backfire into damage.
-- Health bars represent the structural integrity of an argument; every round produces an annotated transcript scrubber mapping hitboxes directly to lines of reasoning.
-- Modular TypeScript monorepo architecture: `@vk/core`, `@vk/debate`, `@vk/judge` (fallacy taxonomy & soundness verdicts), and `@vk/combat` (verdicts → physics).
-
-### [SCE Probe Runtime](https://github.com/JamesTRichmond/small-cheap-experiments)
-*Pre/post runtime telemetry and behavioral scoring around irreversible tools.*
-- Silent held-out micro-probes that score model certainty against actual behavior (`claim↔act` matching) before state-mutating tool calls execute.
-- Seals execution triplets into append-only hash chains for SOC-style audit and replay.
+[jamestrichmond.com](https://jamestrichmond.com) · [LinkedIn](https://www.linkedin.com/in/jamestrichmond)
 
 ---
 
