@@ -42,7 +42,7 @@ full-stack developer :: typescript, react / react native, node, postgres, python
 
 | project | one line | status |
 |---|---|---|
-| [HLS Aurora](https://github.com/JamesTRichmond/hls-aurora) | walkable space station with two complete layers, the crew's fiction and the observer's truth. TanStack Start, Postgres via Kysely, better-auth | prototype |
+| [HLS Aurora](https://github.com/JamesTRichmond/hls-aurora) | walkable two-layer narrative game: the crew's kind fiction and the observer's truth on one floor. TanStack Start, React 19, canvas renderer, versioned saves | prototype |
 | [AgentiCubed / A3](https://github.com/AgentiCubed/A3) | closed-loop agent orchestration: DAG tasks, separate executor and evaluator, fail-closed contracts | active |
 | [BannerBanner](https://github.com/AgentiCubed/bannerbanner) | privacy-first Chrome MV3 extension that hides consent dialogs only on sites you authorize | built, pre-store |
 | [Preincarnation](https://github.com/JamesTRichmond/preincarnation) | Vermont reincarnation RPG. death is a chapter | active |
