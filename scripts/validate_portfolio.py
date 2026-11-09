@@ -50,6 +50,8 @@ class Document(HTMLParser):
         self.description = ""
         self.title = ""
         self.title_count = 0
+        self.in_head = False
+        self.svg_depth = 0
         self.in_title = False
         self.main_count = 0
         self.base = False
@@ -59,6 +61,10 @@ class Document(HTMLParser):
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         line = self.getpos()[0]
+        if tag == "head":
+            self.in_head = True
+        if tag == "svg":
+            self.svg_depth += 1
         if tag == "html":
             self.lang = attrs.get("lang", "") or ""
         if tag == "base":
@@ -69,8 +75,9 @@ class Document(HTMLParser):
             if attrs.get("name") == "description":
                 self.description = attrs.get("content", "") or ""
         if tag == "title":
-            self.title_count += 1
-            self.in_title = True
+            self.in_title = self.in_head and self.svg_depth == 0
+            if self.in_title:
+                self.title_count += 1
         if tag == "main":
             self.main_count += 1
         if tag in ("h1", "h2", "h3", "h4", "h5", "h6"):
@@ -91,10 +98,15 @@ class Document(HTMLParser):
 
     def handle_startendtag(self, tag, attrs):
         self.handle_starttag(tag, attrs)
+        self.handle_endtag(tag)
 
     def handle_endtag(self, tag):
         if tag == "title":
             self.in_title = False
+        if tag == "svg" and self.svg_depth:
+            self.svg_depth -= 1
+        if tag == "head":
+            self.in_head = False
 
     def handle_data(self, data):
         if self.in_title:
