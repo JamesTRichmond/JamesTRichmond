@@ -142,6 +142,7 @@ async function initPortrait() {
 
     // Render at device resolution: a circle of hatching at 1x on a retina
     // screen turns into moiré.
+    canvas.hidden = false;
     const dpr = Math.min(2, devicePixelRatio || 1);
     const css = canvas.getBoundingClientRect().width || 320;
     canvas.width = canvas.height = Math.round(css * dpr);
@@ -152,7 +153,6 @@ async function initPortrait() {
       loop: 8, cycles: 2,
       hour: HOURS[document.documentElement.dataset.flavor] ?? 0,
     });
-    canvas.hidden = false;
 
     /* The chocolate sets the hour. It is the same control the visitor already
        has, it already means light or dark, and tying the weather to it means
