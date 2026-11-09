@@ -61,7 +61,7 @@ async function initFeed() {
   let events = null;
   try {
     const cached = JSON.parse(localStorage.getItem("feed") || "null");
-    if (cached && Date.now() - cached.at < FEED_TTL) events = cached.events;
+    if (cached && Date.now() - cached.at < FEED_TTL && Array.isArray(cached.events)) events = cached.events;
   } catch { /* corrupt cache is not worth caring about */ }
 
   if (!events) {
@@ -69,7 +69,8 @@ async function initFeed() {
       const res = await fetch(FEED_URL, { headers: { Accept: "application/vnd.github+json" } });
       if (!res.ok) throw new Error(res.status);
       events = await res.json();
-      localStorage.setItem("feed", JSON.stringify({ at: Date.now(), events: events.slice(0, 12) }));
+      try { localStorage.setItem("feed", JSON.stringify({ at: Date.now(), events: events.slice(0, 12) })); }
+      catch { /* A cache write is optional after a successful response. */ }
     } catch {
       list.innerHTML =
         `<li class="feed-empty">GitHub's API is rate-limiting this page. ` +
@@ -117,9 +118,7 @@ async function initFeed() {
 
 /* The animated portrait. Loaded on its own, after the page is up: it is about
    900 KB of plate and masks, and nothing else on the page should wait on it.
-   If WebGL2 is missing or the assets fail, the figure removes itself and the
-   hero falls back to a single column — :has() in the stylesheet handles that
-   without a second layout rule. */
+   If WebGL2 is missing, retain the original still engraving. */
 /* Dark chocolate is midnight, white is dawn, milk is somewhere in the small
    hours. See assets/thor/thor.js — the hour is one uniform, not a second grade. */
 const HOURS = { dark: 0, milk: 0.35, white: 1 };
@@ -143,6 +142,7 @@ async function initPortrait() {
 
     // Render at device resolution: a circle of hatching at 1x on a retina
     // screen turns into moiré.
+    canvas.hidden = false;
     const dpr = Math.min(2, devicePixelRatio || 1);
     const css = canvas.getBoundingClientRect().width || 320;
     canvas.width = canvas.height = Math.round(css * dpr);
@@ -174,7 +174,15 @@ async function initPortrait() {
     thor.start();
   } catch (err) {
     console.warn("portrait did not load:", err);
-    canvas.closest("figure")?.remove();
+    const still = document.createElement("img");
+    still.src = new URL("../thor/plate.webp", import.meta.url).href;
+    still.alt = "The original nineteenth-century Thor engraving";
+    still.width = 320;
+    still.height = 385;
+    still.loading = "lazy";
+    const caption = canvas.closest("figure")?.querySelector("figcaption");
+    if (caption) caption.textContent = "The original engraving. An animated colour version appears in supported browsers.";
+    canvas.replaceWith(still);
   }
 }
 
@@ -183,8 +191,19 @@ function boot() {
   initFeed();
   initPortrait();
 
-  const shapes = mountHypershapes(document.querySelector("[data-hypershapes]"));
+  const shapesHost = document.querySelector("[data-hypershapes]");
+  const shapes = shapesHost ? mountHypershapes(shapesHost) : { prime() {}, update() {} };
   shapes.prime();
+
+  // The signature canvas is independent of the habitat and optional to explore.
+  const constellation = document.querySelector("[data-fall-in]");
+  if (constellation) {
+    import("./fall-in.js").then(({ mountFallIn }) => mountFallIn(constellation)).catch(() => {
+      const status = constellation.querySelector("[data-fall-status]");
+      if (status) status.textContent = "The constellation is unavailable. The rest of the portfolio is ready to explore.";
+      for (const button of constellation.querySelectorAll("button")) button.disabled = true;
+    });
+  }
 
   const stage = document.querySelector("[data-stage]");
   if (!stage) return;
@@ -197,6 +216,10 @@ function boot() {
       }
     },
   });
+  const habitatWrapper = stage.closest(".stage-wrap");
+  if (habitatWrapper) habitatWrapper.hidden = false;
+  const habitatFallback = document.querySelector("[data-habitat-fallback]");
+  if (habitatFallback) habitatFallback.hidden = true;
 
   for (const btn of acts) {
     btn.addEventListener("click", () => pet.command(btn.dataset.act));

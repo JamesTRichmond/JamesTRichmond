@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-flavor="milk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>About — James Richmond</title>
+  <meta name="description" content="James Richmond, a developer in Middlebury, Vermont. A path from the Air Force to teaching to software, with a focus on useful systems and clear explanations.">
+  <meta property="og:title" content="About — James Richmond">
+  <meta property="og:description" content="Service, teaching, and software. The path behind the work.">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://jamestrichmond.com/about/">
+  <link rel="canonical" href="https://jamestrichmond.com/about/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23472e1c'/%3E%3Cpath d='M25 70V30h13l12 24 12-24h13v40H62V52L50 74 38 52v18Z' fill='%23f2cf4a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,600;10..48,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <link rel="stylesheet" href="../assets/css/portfolio.css">
+  <script>
+    {
+      let flavor = "milk";
+      try {
+        const saved = localStorage.getItem("flavor");
+        if (["dark", "milk", "white"].includes(saved)) flavor = saved;
+      } catch { /* A blocked preference store does not block the page. */ }
+      document.documentElement.dataset.flavor = flavor;
+      document.querySelector('meta[name="color-scheme"]').content = flavor === "white" ? "light" : "dark";
+    }
+  </script>
+</head>
+<body class="portfolio-page">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar pf-topbar">
+    <a class="mark" href="../">
+      <span class="mark-glyph" aria-hidden="true"></span>
+      <span class="mark-text">James Richmond</span>
+    </a>
+    <nav class="topnav pf-nav" aria-label="Primary">
+      <a href="../#work">Work</a>
+      <a href="./" aria-current="page">About</a>
+      <a href="../resume/">Résumé</a>
+      <a href="../workshop/">Workshop</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+    <fieldset class="flavors" data-flavors hidden>
+      <legend class="sr-only">Chocolate flavor</legend>
+      <label class="flavor" title="Dark chocolate"><input type="radio" name="flavor" value="dark"><span class="swatch swatch-dark" aria-hidden="true"></span><span class="sr-only">Dark chocolate</span></label>
+      <label class="flavor" title="Milk chocolate"><input type="radio" name="flavor" value="milk" checked><span class="swatch swatch-milk" aria-hidden="true"></span><span class="sr-only">Milk chocolate</span></label>
+      <label class="flavor" title="White chocolate"><input type="radio" name="flavor" value="white"><span class="swatch swatch-white" aria-hidden="true"></span><span class="sr-only">White chocolate</span></label>
+    </fieldset>
+  </header>
+
+  <main id="main" tabindex="-1" class="pf-shell pf-document">
+    <header class="pf-document-header">
+      <p class="pf-kicker">About · Middlebury, Vermont</p>
+      <h1 class="pf-title">A few lives before this one.</h1>
+      <p class="pf-lede">I'm James Richmond, a developer in Middlebury, Vermont. I came to software through the Air Force and the classroom. Both still show up in how I work.</p>
+      <div class="pf-actions">
+        <a class="pf-button pf-button-primary" href="../resume/">Read my résumé <span aria-hidden="true">↗</span></a>
+        <a class="pf-button" href="mailto:jamestrichmond@gmail.com">Get in touch</a>
+      </div>
+    </header>
+
+    <section class="pf-section pf-split" aria-labelledby="path-title">
+      <div>
+        <p class="pf-kicker">The path</p>
+        <h2 id="path-title">The work changed.<br>The habits stayed.</h2>
+      </div>
+      <ol class="pf-timeline">
+        <li>
+          <div>
+            <h3>Air Force</h3>
+            <p>I served as a nuclear weapons technician. That work required careful procedures, clear responsibilities, and attention to what could go wrong. Those are useful habits to bring to software.</p>
+            <a href="../usaf/">The longer service story <span aria-hidden="true">&nbsp;↗</span></a>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>The classroom</h3>
+            <p>I taught AP U.S. History and social sciences in Florida, then taught in Vermont. Much of the job was helping people work out what a piece of evidence would support, then explain it clearly. I still think about that when I read a log or discuss a technical decision.</p>
+            <a href="../teacher/">Try a classroom exercise <span aria-hidden="true">&nbsp;↗</span></a>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Software</h3>
+            <p>Now I build applications, explore AI systems, and work on security. ONTO starts with a practical question: how can someone find something nearby worth going to? This site leaves room for the other kind of question, the one that starts with “what if?”</p>
+            <a href="../work/onto/">Explore the ONTO case study <span aria-hidden="true">&nbsp;↗</span></a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="pf-section pf-split" aria-labelledby="approach-title">
+      <div>
+        <p class="pf-kicker">How I work</p>
+        <h2 id="approach-title">Make it useful.<br>Make it explainable.</h2>
+      </div>
+      <div class="pf-prose">
+        <p>I like work where the interface and the underlying system have to agree. A useful screen needs understandable choices. The code behind it needs to handle the less convenient cases too.</p>
+        <p>Teaching taught me to pay attention to where an explanation stops working. My studies in information technology, cybersecurity, and digital forensics gave me another way to ask what happened, what the evidence supports, and what still needs checking.</p>
+        <p>That's also why this site has things you can use. The <a href="../#habitat">robot</a> responds to you. The <a href="../security/">security exercise</a> lets you try the sanitizer. The <a href="../workshop/">workshop</a> records ideas while they're still taking shape.</p>
+      </div>
+    </section>
+
+    <section class="pf-section pf-split" aria-labelledby="education-title">
+      <div>
+        <p class="pf-kicker">Education</p>
+        <h2 id="education-title">Two ways to ask<br>better questions.</h2>
+      </div>
+      <div class="pf-prose">
+        <h3>Champlain College</h3>
+        <p>Master's degree in Information Technology, with studies in cybersecurity and digital forensics.</p>
+        <h3>Florida State University</h3>
+        <p>Degree in Social Science Education.</p>
+      </div>
+    </section>
+
+    <section class="pf-section pf-contact" aria-labelledby="contact-title">
+      <div>
+        <p class="pf-kicker">Say hello</p>
+        <h2 id="contact-title">Have a problem worth working on?</h2>
+        <p>I'd like to hear about it. Email is the simplest place to start.</p>
+      </div>
+      <div class="pf-actions">
+        <a class="pf-button pf-button-primary" href="mailto:jamestrichmond@gmail.com">Email James <span aria-hidden="true">↗</span></a>
+        <a class="pf-button" href="https://www.linkedin.com/in/jamestrichmond">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pf-shell pf-footer">
+    <p>James Richmond · Middlebury, Vermont</p>
+    <nav aria-label="Footer">
+      <a href="../#work">Selected work</a>
+      <a href="https://github.com/JamesTRichmond" rel="me">GitHub</a>
+      <a href="mailto:jamestrichmond@gmail.com">Email</a>
+    </nav>
+  </footer>
+  <script type="module" src="../assets/js/portfolio.js"></script>
+</body>
+</html>

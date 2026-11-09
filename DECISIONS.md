@@ -10,6 +10,29 @@ record.
 
 ---
 
+## 2026-11-04 — Portfolio routes and optional Jamestellation
+
+The homepage now leads with selected work and links directly to `/work/onto/`,
+`/about/`, `/resume/`, and contact. Existing interactive rooms and the public
+workshop remain part of the site. GitHub statistics and activity sit behind an
+optional disclosure so they do not displace project evidence.
+
+Fall In is a bounded, opt-in canvas experience, never an entrance gate. Its
+resting face is still; the requested journey has native pause/reset controls and
+reduced-motion still alternatives. The original full source was not available in
+this repository, so this is a new implementation of the established concept.
+
+Portfolio pages share an additional scoped stylesheet while keeping the existing
+three chocolate themes, static HTML/ES modules, zero dependencies, and no build
+step. A printable web résumé provides PDF saving through the browser; it does
+not advertise an unavailable downloadable résumé. Exact dates remain a content
+follow-up. The ONTO case study distinguishes current source from deployment and
+uses public-safe descriptions rather than publishing private source documents.
+
+These changes are proposed through a task-branch PR. Hosting, the domain, and
+production are unchanged. Evidence and remaining acceptance work are recorded in
+`docs/PORTFOLIO_SPRINT_HANDOFF.md`.
+
 ## 2026-09-10 — A workshop page, public and linked
 
 `/workshop/` is a seventh room, in the site nav, open to anyone.
