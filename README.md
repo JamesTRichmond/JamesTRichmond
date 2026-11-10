@@ -1,6 +1,6 @@
-<a href="https://jamestrichmond.com/"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/thor/thor.webp" width="320" align="right" alt="A 19th century engraving of Thor, in colour and moving: smoke billowing off the crag behind him, his beard and drape in the wind, and lightning growing out of his hammer into an arch over his crown" /></a>
-
 # James Richmond
+
+<a href="https://jamestrichmond.com/"><img src="https://raw.githubusercontent.com/JamesTRichmond/JamesTRichmond/main/assets/thor/thor.webp" width="320" align="right" alt="A 19th century engraving of Thor, in colour and moving: smoke billowing off the crag behind him, his beard and drape in the wind, and lightning growing out of his hammer into an arch over his crown" /></a>
 
 full-stack developer. i like building things regular people can actually use, and then building the unglamorous plumbing underneath so they keep working when i'm not watching :: typescript, react / react native, node, postgres, python
 
