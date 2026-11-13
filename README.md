@@ -33,10 +33,9 @@ full-stack developer. i like building things regular people can actually use, an
 </tr>
 </table>
 
-- it installs from your browser like an app and works offline. you never have to make an account or look at an ad.
-- your exact location stays on your phone. there's a test whose whole job is to fail if a request ever tries to carry it out.
-- events get pulled from venue calendars in 20+ metro areas, cleaned up and de-duplicated, and the database rules get tested the same way the code does.
-- built under AgentiCubed LLC. **[Open onto](https://onto.events)** · [source](https://github.com/JamesTRichmond/onto-events)
+- install the app straight from the Apple app store (google play coming very soon).
+- events are pulled from venue calendars in 20+ metro areas, cleaned up and de-duplicated, and the database rules get tested the same way the code does.
+- built under AgentiCubed LLC. **[Open onto]([https://onto.events](https://apps.apple.com/us/app/id6808894038)** · [source](https://github.com/JamesTRichmond/onto-events)
 
 ## honorable mentions
 
