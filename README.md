@@ -11,17 +11,17 @@ full-stack developer. i like building things regular people can actually use, an
 | | project | what it is | stack |
 |---|---|---|---|
 | 1 | **[onto](https://github.com/JamesTRichmond/onto-events)** · [iOS App Store](https://apps.apple.com/us/app/id6808894038) | a free web app that shows you what's going on around you right now, pulled straight from the venues' own calendars. no account, no ads, and your location never leaves your phone | React Native / Expo (web), Expo Router, Supabase + RLS, Leaflet, Jest |
-| 2 | **[Middlebury Campus RPG](https://github.com/JamesTRichmond/middlebury-campus-rpg) [Play the Demo](https://campus-rpg-demo.pages.dev/)** | an unofficial orientation game for Middlebury. you ride the train in, build your character (wheelchair included), find your dorm, and sit in a class where the teacher can only say what's actually in the lesson | React 19, Vite, Zod content graph, Vitest, Playwright, Figma-first |
+| 2 | **[Middlebury Campus RPG](https://github.com/JamesTRichmond/middlebury-campus-rpg) · [Play the Demo](https://campus-rpg-demo.pages.dev/)** | an unofficial orientation game for Middlebury. you ride the train in, build your character (wheelchair included), find your dorm, and sit in a class where the teacher can only say what's actually in the lesson | React 19, Vite, Zod content graph, Vitest, Playwright, Figma-first |
 | 3 | **[Small Cheap Experiments](https://github.com/JamesTRichmond/small-cheap-experiments)** | before an AI agent does something it can't take back, like issuing a refund, this checks whether what it says it's doing matches what it actually does, and keeps a tamper-evident record of the whole thing | Python, JSON Schema, pytest |
 | 4 | **[Cloud of Electrons](https://github.com/JamesTRichmond/cloud-of-electrons)** · [live](https://jamestrichmond.com) | my site. my poems pull themselves together out of a cloud of particles, one at a time, and then drift back apart | WebGL, JavaScript, Python build tools |
 | 5 | **[Otter Creek Homelab](https://github.com/JamesTRichmond/otter-creek-homelab)** | the lab in my house where my local models and coding agents live, written up by what each machine does rather than where it lives | Proxmox, UniFi, Ollama / MLX, Python |
 
-## now shipping: onto
+## Live Now on the iOS App Store
 
 <table>
 <tr>
 <td valign="top">
-<a href="https://onto.events"><img src="assets/onto/onto-feed.png" width="300" alt="onto on a phone: the Things To Do feed listing events near Middlebury, Vermont, with time, venue, and source for each" /></a><br />
+<a href="https://apps.apple.com/us/app/id6808894038"><img src="assets/onto/onto-feed.png" width="300" alt="onto on a phone: the Things To Do feed listing events in cities across the US with time, venue, and source for each" /></a><br />
 <sub>Tap the screenshot to open onto.</sub>
 </td>
 <td valign="top" align="center">
